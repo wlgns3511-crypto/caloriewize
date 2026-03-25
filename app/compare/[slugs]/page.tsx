@@ -12,8 +12,10 @@ function parseSlugs(s: string): [string, string] | null {
 
 function fmt(v: number | null, unit = 'g'): string { return v !== null ? `${v.toFixed(1)}${unit}` : 'N/A'; }
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  return getTopComparisons(3000).map((p) => {
+  return getTopComparisons(2000).map((p) => {
     const [a, b] = [p.slugA, p.slugB].sort();
     return { slugs: `${a}-vs-${b}` };
   });
