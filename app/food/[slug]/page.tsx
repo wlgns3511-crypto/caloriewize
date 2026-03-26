@@ -2,10 +2,18 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods } from "@/lib/db";
 import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
+import { analyzeFood } from "@/lib/nutrition-analysis";
 
 interface Props { params: Promise<{ slug: string }> }
 
 function fmt(v: number | null, unit = 'g'): string { return v !== null ? `${v.toFixed(1)}${unit}` : 'N/A'; }
+
+const dvBarColor: Record<string, string> = {
+  low: "bg-green-400",
+  moderate: "bg-blue-400",
+  high: "bg-orange-400",
+  very_high: "bg-red-400",
+};
 
 export async function generateStaticParams() {
   return getAllFoods().slice(0, 2000).map((f) => ({ slug: f.slug }));
@@ -16,8 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const f = getFoodBySlug(slug);
   if (!f) return {};
   return {
-    title: `${f.name} Calories & Nutrition Facts`,
-    description: `${f.name} has ${f.calories?.toFixed(0) || '?'} calories per 100g. Protein: ${fmt(f.protein)}, Carbs: ${fmt(f.carbs)}, Fat: ${fmt(f.fat)}. Full nutrition breakdown.`,
+    title: `${f.name} — Calories, Nutrition & Diet Info`,
+    description: `Is ${f.name} healthy? ${f.calories?.toFixed(0) || '?'} cal, ${fmt(f.protein)} protein, ${fmt(f.carbs)} carbs, ${fmt(f.fat)} fat per 100g. Diet compatibility, daily value %, and healthier alternatives.`,
     alternates: { canonical: `/food/${slug}` },
   };
 }
@@ -28,10 +36,15 @@ export default async function FoodPage({ params }: Props) {
   if (!f) notFound();
 
   const similar = getSimilarFoods(slug, f.category, 8);
+  const analysis = analyzeFood(f);
+
   const faqs = [
-    { question: `How many calories are in ${f.name}?`, answer: `${f.name} contains ${f.calories?.toFixed(0) || 'unknown'} calories per 100g serving.` },
-    ...(f.protein ? [{ question: `How much protein is in ${f.name}?`, answer: `${f.name} has ${f.protein.toFixed(1)}g of protein per 100g.` }] : []),
-    ...(f.carbs ? [{ question: `How many carbs are in ${f.name}?`, answer: `${f.name} contains ${f.carbs.toFixed(1)}g of carbohydrates per 100g.` }] : []),
+    { question: `How many calories are in ${f.name}?`, answer: `${f.name} contains ${f.calories?.toFixed(0) || 'unknown'} calories per 100g serving. This makes it a ${analysis.calorieCategory} food. ${analysis.highlights.length > 0 ? analysis.highlights[0] + '.' : ''}` },
+    { question: `Is ${f.name} healthy?`, answer: analysis.summary },
+    ...(f.protein ? [{ question: `Is ${f.name} high in protein?`, answer: `${f.name} has ${f.protein.toFixed(1)}g of protein per 100g, making it a ${analysis.proteinCategory} food. ${f.protein >= 15 ? "This is a great choice for muscle building and recovery." : "Consider pairing with other protein-rich foods to meet your daily needs."}` }] : []),
+    { question: `Is ${f.name} good for a keto diet?`, answer: analysis.dietCompatibility.find(d => d.name === "Keto")?.reason || "" },
+    { question: `Is ${f.name} good for weight loss?`, answer: `${f.name} has ${f.calories?.toFixed(0)} calories per 100g. ${(f.calories || 0) < 100 ? "With under 100 calories per 100g, it can be a good option for calorie-controlled diets." : (f.calories || 0) < 200 ? "At moderate calories, it can fit into a weight loss plan in controlled portions." : "It is calorie-dense, so portion control is important if you are watching your weight."}${(f.fiber || 0) >= 3 ? ` The fiber content (${f.fiber?.toFixed(1)}g) helps with satiety.` : ""}` },
+    ...(analysis.concerns.length > 0 ? [{ question: `Are there any health concerns with ${f.name}?`, answer: `Some things to watch: ${analysis.concerns.join(". ")}. As with any food, moderation is key.` }] : []),
   ];
 
   const breadcrumbs = [
@@ -51,6 +64,13 @@ export default async function FoodPage({ params }: Props) {
       <h1 className="text-3xl font-bold mb-2">{f.name}</h1>
       <p className="text-slate-500 mb-6">Nutrition facts per 100g serving</p>
 
+      {/* Health Summary */}
+      <div className="bg-emerald-50 border-l-4 border-emerald-400 p-4 rounded-r-lg mb-6">
+        <h2 className="font-semibold text-emerald-800 mb-1">Health Summary</h2>
+        <p className="text-slate-700 text-sm">{analysis.summary}</p>
+      </div>
+
+      {/* Macro Card */}
       <div className="bg-orange-50 rounded-lg p-6 mb-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
@@ -73,6 +93,7 @@ export default async function FoodPage({ params }: Props) {
         </div>
       </div>
 
+      {/* Macro Split */}
       {macroTotal > 0 && (
         <div className="mb-6">
           <h2 className="text-lg font-bold mb-2">Macro Split</h2>
@@ -82,13 +103,75 @@ export default async function FoodPage({ params }: Props) {
             {f.fat && f.fat > 0 && <div className="bg-yellow-400" style={{ width: `${(f.fat / macroTotal) * 100}%` }} title={`Fat ${fmt(f.fat)}`} />}
           </div>
           <div className="flex justify-between text-xs text-slate-500 mt-1">
-            <span className="text-blue-600">Protein {macroTotal > 0 ? ((f.protein || 0) / macroTotal * 100).toFixed(0) : 0}%</span>
-            <span className="text-green-600">Carbs {macroTotal > 0 ? ((f.carbs || 0) / macroTotal * 100).toFixed(0) : 0}%</span>
-            <span className="text-yellow-600">Fat {macroTotal > 0 ? ((f.fat || 0) / macroTotal * 100).toFixed(0) : 0}%</span>
+            <span className="text-blue-600">Protein {((f.protein || 0) / macroTotal * 100).toFixed(0)}%</span>
+            <span className="text-green-600">Carbs {((f.carbs || 0) / macroTotal * 100).toFixed(0)}%</span>
+            <span className="text-yellow-600">Fat {((f.fat || 0) / macroTotal * 100).toFixed(0)}%</span>
           </div>
         </div>
       )}
 
+      {/* Highlights & Concerns */}
+      {(analysis.highlights.length > 0 || analysis.concerns.length > 0) && (
+        <div className="grid md:grid-cols-2 gap-4 mb-8">
+          {analysis.highlights.length > 0 && (
+            <div className="bg-green-50 rounded-lg p-4">
+              <h3 className="font-semibold text-green-700 mb-2">Nutritional Highlights</h3>
+              <ul className="space-y-1">
+                {analysis.highlights.map((h, i) => (
+                  <li key={i} className="text-sm text-slate-700 flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span> {h}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {analysis.concerns.length > 0 && (
+            <div className="bg-amber-50 rounded-lg p-4">
+              <h3 className="font-semibold text-amber-700 mb-2">Watch Out For</h3>
+              <ul className="space-y-1">
+                {analysis.concerns.map((c, i) => (
+                  <li key={i} className="text-sm text-slate-700 flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">!</span> {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Diet Compatibility */}
+      <section className="mb-8">
+        <h2 className="text-xl font-bold mb-3">Diet Compatibility</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          {analysis.dietCompatibility.map((d) => (
+            <div key={d.name} className={`p-3 rounded-lg border text-center ${d.compatible ? "border-green-200 bg-green-50" : "border-slate-200 bg-slate-50"}`}>
+              <div className="text-2xl mb-1">{d.compatible ? "✅" : "⚠️"}</div>
+              <div className="font-medium text-sm">{d.name}</div>
+              <div className="text-xs text-slate-500 mt-1">{d.compatible ? "Compatible" : "Not ideal"}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Daily Value % Breakdown */}
+      <section className="mb-8">
+        <h2 className="text-xl font-bold mb-3">% Daily Value (per 100g)</h2>
+        <p className="text-xs text-slate-400 mb-3">Based on a 2,000 calorie diet</p>
+        <div className="space-y-2">
+          {analysis.dvBreakdown.filter(d => d.value > 0).map((d) => (
+            <div key={d.nutrient} className="flex items-center gap-3">
+              <span className="text-sm w-28 text-slate-600">{d.nutrient}</span>
+              <div className="flex-1 bg-slate-100 rounded-full h-4 overflow-hidden">
+                <div className={`h-full rounded-full ${dvBarColor[d.level]}`} style={{ width: `${Math.min(d.percent, 100)}%` }} />
+              </div>
+              <span className="text-sm font-medium w-12 text-right">{d.percent}%</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Full Nutrition Facts */}
       <section className="mb-8">
         <h2 className="text-xl font-bold mb-3">Full Nutrition Facts</h2>
         <div className="border border-slate-200 rounded-lg overflow-hidden">
@@ -115,9 +198,10 @@ export default async function FoodPage({ params }: Props) {
         </div>
       </section>
 
+      {/* Similar Foods */}
       {similar.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-xl font-bold mb-3">Similar Foods</h2>
+          <h2 className="text-xl font-bold mb-3">Similar Foods to Compare</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {similar.map((s) => {
               const [a, b] = [slug, s.slug].sort();
@@ -135,8 +219,9 @@ export default async function FoodPage({ params }: Props) {
         </section>
       )}
 
+      {/* FAQ */}
       <section className="mt-8">
-        <h2 className="text-xl font-bold mb-4">FAQ</h2>
+        <h2 className="text-xl font-bold mb-4">Frequently Asked Questions</h2>
         {faqs.map((faq, i) => (
           <details key={i} className="border border-slate-200 rounded-lg mb-2" open={i === 0}>
             <summary className="p-4 cursor-pointer font-medium">{faq.question}</summary>
