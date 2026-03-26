@@ -107,3 +107,7 @@ export function getTopComparisons(limit = 5000): { slugA: string; slugB: string 
 export function countFoods(): number {
   return (getDb().prepare('SELECT COUNT(*) as c FROM foods').get() as { c: number }).c;
 }
+
+export function getPopularFoods(limit = 10): Food[] {
+  return getDb().prepare('SELECT * FROM foods WHERE calories IS NOT NULL ORDER BY fdc_id LIMIT ?').all(limit) as Food[];
+}

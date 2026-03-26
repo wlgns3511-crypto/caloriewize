@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getFoodBySlug, getAllFoods, getSimilarFoods } from "@/lib/db";
+import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods } from "@/lib/db";
 import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
 
 interface Props { params: Promise<{ slug: string }> }
