@@ -111,3 +111,7 @@ export function countFoods(): number {
 export function getPopularFoods(limit = 10): Food[] {
   return getDb().prepare('SELECT * FROM foods WHERE calories IS NOT NULL ORDER BY fdc_id LIMIT ?').all(limit) as Food[];
 }
+
+export function getPopularCities(limit = 10): City[] {
+  return getDb().prepare('SELECT * FROM cities WHERE cost_index IS NOT NULL ORDER BY cost_index DESC LIMIT ?').all(limit) as City[];
+}
