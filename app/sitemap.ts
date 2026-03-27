@@ -5,7 +5,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://caloriewize.com";
 export default function sitemap(): MetadataRoute.Sitemap {
   const foods = getAllFoods();
   const categories = getAllCategories();
-  const comparisons = getTopComparisons(5000);
+  const comparisons = getTopComparisons(40000);
 
   return [
     { url: SITE_URL, changeFrequency: "monthly", priority: 1.0 },

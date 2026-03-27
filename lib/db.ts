@@ -64,6 +64,19 @@ export function getSimilarFoods(slug: string, category: string | null, limit = 8
 }
 
 export function getTopComparisons(limit = 5000): { slugA: string; slugB: string }[] {
+  const db = getDb();
+  // Use comparisons table if it exists (populated by scripts/expand-comparisons.py)
+  const tableExists = db.prepare(
+    "SELECT name FROM sqlite_master WHERE type='table' AND name='comparisons'"
+  ).get();
+
+  if (tableExists) {
+    return db.prepare(
+      'SELECT slugA, slugB FROM comparisons LIMIT ?'
+    ).all(limit) as { slugA: string; slugB: string }[];
+  }
+
+  // Fallback: generate in-memory from categories + top foods
   const pairSet = new Set<string>();
   const pairs: { slugA: string; slugB: string }[] = [];
 
@@ -75,13 +88,12 @@ export function getTopComparisons(limit = 5000): { slugA: string; slugB: string 
     pairs.push({ slugA: x, slugB: y });
   }
 
-  // 1. Same-category comparisons (most relevant for users)
-  const categories = getDb().prepare(
+  const categories = db.prepare(
     'SELECT DISTINCT category FROM foods WHERE category IS NOT NULL AND calories IS NOT NULL'
   ).all() as { category: string }[];
 
   for (const { category } of categories) {
-    const foods = getDb().prepare(
+    const foods = db.prepare(
       'SELECT slug FROM foods WHERE category = ? AND calories IS NOT NULL ORDER BY name LIMIT 30'
     ).all(category) as { slug: string }[];
     for (let i = 0; i < foods.length && pairs.length < limit; i++) {
@@ -91,8 +103,7 @@ export function getTopComparisons(limit = 5000): { slugA: string; slugB: string 
     }
   }
 
-  // 2. Cross-category: top 100 popular foods paired with each other
-  const top100 = getDb().prepare(
+  const top100 = db.prepare(
     'SELECT slug FROM foods WHERE calories IS NOT NULL ORDER BY fdc_id LIMIT 100'
   ).all() as { slug: string }[];
   for (let i = 0; i < top100.length && pairs.length < limit; i++) {
@@ -102,6 +113,15 @@ export function getTopComparisons(limit = 5000): { slugA: string; slugB: string 
   }
 
   return pairs.slice(0, limit);
+}
+
+export function countComparisons(): number {
+  const db = getDb();
+  const tableExists = db.prepare(
+    "SELECT name FROM sqlite_master WHERE type='table' AND name='comparisons'"
+  ).get();
+  if (!tableExists) return 0;
+  return (db.prepare('SELECT COUNT(*) as c FROM comparisons').get() as { c: number }).c;
 }
 
 export function countFoods(): number {
