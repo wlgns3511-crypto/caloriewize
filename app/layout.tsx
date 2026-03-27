@@ -29,6 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <nav className="flex gap-4 text-sm">
               <a href="/food" className="hover:text-orange-600">Foods</a>
               <a href="/compare" className="hover:text-orange-600">Compare</a>
+              <a href="/calculator" className="hover:text-orange-600">Calculator</a>
             </nav>
           </div>
         </header>

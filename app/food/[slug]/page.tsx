@@ -6,6 +6,7 @@ import { analyzeFood } from "@/lib/nutrition-analysis";
 import { DataFeedback } from "@/components/DataFeedback";
 import { EmbedButton } from "@/components/EmbedButton";
 import { FreshnessTag } from "@/components/FreshnessTag";
+import { TDEECalculator } from "@/components/TDEECalculator";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -221,6 +222,15 @@ export default async function FoodPage({ params }: Props) {
           </div>
         </section>
       )}
+
+      {/* TDEE Calculator */}
+      <section className="mb-8">
+        <h2 className="text-xl font-bold mb-3">How Does {f.name} Fit Your Daily Calories?</h2>
+        <p className="text-sm text-slate-500 mb-4">Use the calculator below to find your daily calorie needs and see how {f.name} fits into your diet plan.</p>
+        <div className="max-w-xl">
+          <TDEECalculator />
+        </div>
+      </section>
 
       {/* FAQ */}
       <section className="mt-8">
