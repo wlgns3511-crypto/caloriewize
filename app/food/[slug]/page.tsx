@@ -230,6 +230,14 @@ export default async function FoodPage({ params }: Props) {
         ))}
       </section>
 
+      <section className="mt-8 p-6 bg-green-50 rounded-xl border border-green-100">
+        <h3 className="text-lg font-semibold text-green-900 mb-3">Reach Your Health Goals</h3>
+        <p className="text-green-800 text-sm leading-relaxed">
+          Try a personalized meal delivery plan or consult with a registered dietitian to build a nutrition strategy that works for you.
+          Track your daily intake with smart food scales and nutrition tracking apps.
+        </p>
+      </section>
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(breadcrumbs)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(nutritionSchema(f.name, f)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />
