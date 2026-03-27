@@ -5,6 +5,7 @@ import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
 import { analyzeFood } from "@/lib/nutrition-analysis";
 import { DataFeedback } from "@/components/DataFeedback";
 import { EmbedButton } from "@/components/EmbedButton";
+import { FreshnessTag } from "@/components/FreshnessTag";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -232,7 +233,9 @@ export default async function FoodPage({ params }: Props) {
         ))}
       </section>
 
-      <EmbedButton url="https://caloriewize.com" title="Data from CalorieWize" site="CalorieWize" siteUrl="https://caloriewize.com" />
+      <FreshnessTag source="USDA FoodData Central" />
+
+          <EmbedButton url="https://caloriewize.com" title="Data from CalorieWize" site="CalorieWize" siteUrl="https://caloriewize.com" />
 
           <DataFeedback />
 
