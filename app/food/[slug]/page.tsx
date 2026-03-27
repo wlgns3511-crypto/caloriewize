@@ -4,6 +4,7 @@ import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods } from "@/
 import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
 import { analyzeFood } from "@/lib/nutrition-analysis";
 import { DataFeedback } from "@/components/DataFeedback";
+import { EmbedButton } from "@/components/EmbedButton";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -231,7 +232,9 @@ export default async function FoodPage({ params }: Props) {
         ))}
       </section>
 
-      <DataFeedback />
+      <EmbedButton url="https://caloriewize.com" title="Data from CalorieWize" site="CalorieWize" siteUrl="https://caloriewize.com" />
+
+          <DataFeedback />
 
           <section className="mt-8 p-6 bg-green-50 rounded-xl border border-green-100">
         <h3 className="text-lg font-semibold text-green-900 mb-3">Reach Your Health Goals</h3>
