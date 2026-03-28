@@ -247,6 +247,15 @@ export default async function FoodPage({ params }: Props) {
 
           <EmbedButton url="https://caloriewize.com" title="Data from CalorieWize" site="CalorieWize" siteUrl="https://caloriewize.com" />
 
+      {/* Related Data Resources */}
+      <section className="mt-8 p-4 bg-slate-50 rounded-lg">
+        <h3 className="text-sm font-semibold text-slate-500 mb-2">Related Data Resources</h3>
+        <div className="flex flex-wrap gap-3 text-sm">
+          <a href="https://ingredipeek.com" className="text-orange-600 hover:underline">IngrediPeek - Food allergen checker &rarr;</a>
+          <a href="https://calcpeek.com" className="text-orange-600 hover:underline">CalcPeek - TDEE calculator &rarr;</a>
+        </div>
+      </section>
+
           <DataFeedback />
 
           <section className="mt-8 p-6 bg-green-50 rounded-xl border border-green-100">
