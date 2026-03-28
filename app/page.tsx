@@ -31,9 +31,26 @@ export default function Home() {
         </section>
       )}
 
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-3 text-center">Food Lists</h2>
+        <div className="flex flex-wrap justify-center gap-2">
+          <a href="/list/low-calorie"
+            className="px-3 py-1 rounded-full border border-green-200 text-sm hover:bg-green-50 hover:border-green-400 text-green-700">
+            Low Calorie Foods
+          </a>
+          <a href="/list/high-protein"
+            className="px-3 py-1 rounded-full border border-blue-200 text-sm hover:bg-blue-50 hover:border-blue-400 text-blue-700">
+            High Protein Foods
+          </a>
+        </div>
+      </section>
+
       <div className="grid md:grid-cols-2 gap-8 mb-12">
         <section>
-          <h2 className="text-xl font-bold mb-4 text-green-700">Lowest Calorie Foods</h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold text-green-700">Lowest Calorie Foods</h2>
+            <a href="/list/low-calorie" className="text-sm text-green-600 hover:underline">View all &rarr;</a>
+          </div>
           <div className="border border-slate-200 rounded-lg overflow-hidden">
             {lowCal.map((f) => (
               <a key={f.slug} href={`/food/${f.slug}`}
@@ -45,7 +62,10 @@ export default function Home() {
           </div>
         </section>
         <section>
-          <h2 className="text-xl font-bold mb-4 text-blue-700">Highest Protein Foods</h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold text-blue-700">Highest Protein Foods</h2>
+            <a href="/list/high-protein" className="text-sm text-blue-600 hover:underline">View all &rarr;</a>
+          </div>
           <div className="border border-slate-200 rounded-lg overflow-hidden">
             {highPro.map((f) => (
               <a key={f.slug} href={`/food/${f.slug}`}
