@@ -7,6 +7,7 @@ import { DataFeedback } from "@/components/DataFeedback";
 import { EmbedButton } from "@/components/EmbedButton";
 import { FreshnessTag } from "@/components/FreshnessTag";
 import { TDEECalculator } from "@/components/TDEECalculator";
+import { CiteButton } from "@/components/CiteButton";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -244,6 +245,10 @@ export default async function FoodPage({ params }: Props) {
       </section>
 
       <FreshnessTag source="USDA FoodData Central" />
+
+      <div className="flex items-center gap-4 mt-4">
+        <CiteButton title={`${f.name} Nutrition Facts`} url={`https://caloriewize.com/food/${slug}`} source="CalorieWize (USDA Data)" />
+      </div>
 
           <EmbedButton url="https://caloriewize.com" title="Data from CalorieWize" site="CalorieWize" siteUrl="https://caloriewize.com" />
 
