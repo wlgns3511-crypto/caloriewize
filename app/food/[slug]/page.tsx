@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods } from "@/lib/db";
 import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
 import { analyzeFood } from "@/lib/nutrition-analysis";
+import { AdSlot } from "@/components/AdSlot";
 import { DataFeedback } from "@/components/DataFeedback";
 import { EmbedButton } from "@/components/EmbedButton";
 import { FreshnessTag } from "@/components/FreshnessTag";
@@ -145,6 +146,8 @@ export default async function FoodPage({ params }: Props) {
         </div>
       )}
 
+      <AdSlot id="food-after-highlights" />
+
       {/* Diet Compatibility */}
       <section className="mb-8">
         <h2 className="text-xl font-bold mb-3">Diet Compatibility</h2>
@@ -202,6 +205,8 @@ export default async function FoodPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      <AdSlot id="food-before-similar" />
 
       {/* Similar Foods */}
       {similar.length > 0 && (

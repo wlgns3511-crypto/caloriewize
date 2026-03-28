@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getFoodBySlug, getTopComparisons, type Food } from "@/lib/db";
+import { AdSlot } from "@/components/AdSlot";
 import { faqSchema } from "@/lib/schema";
 
 interface Props { params: Promise<{ slugs: string }> }
@@ -179,6 +180,8 @@ export default async function ComparePage({ params }: Props) {
           <MacroBar label="Fiber" valA={a.fiber} valB={b.fiber} unit="g" nameA={a.name} nameB={b.name} />
         </div>
       </section>
+
+      <AdSlot id="compare-mid" />
 
       {/* Full nutrition table */}
       <section className="mb-8">
