@@ -1,0 +1,31 @@
+{
+  "common": {
+    "home": "Home",
+    "foods": "Foods",
+    "compare": "Compare",
+    "calculator": "Calculator",
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "contact": "Contact",
+    "allRightsReserved": "All rights reserved.",
+    "langSwitch": "Español",
+    "langSwitchPrefix": "/es"
+  },
+  "food": {
+    "nutritionFacts": "Nutrition Facts",
+    "perServing": "per 100g serving",
+    "calories": "Calories",
+    "protein": "Protein",
+    "fat": "Fat",
+    "carbs": "Carbohydrates",
+    "fiber": "Fiber",
+    "sugar": "Sugar",
+    "sodium": "Sodium",
+    "cholesterol": "Cholesterol",
+    "saturatedFat": "Saturated Fat",
+    "fullNutrition": "Full Nutrition Facts",
+    "similarFoods": "Similar Foods",
+    "faq": "Frequently Asked Questions"
+  }
+}
