@@ -132,3 +132,10 @@ export function getPopularFoods(limit = 10): Food[] {
   return getDb().prepare('SELECT * FROM foods WHERE calories IS NOT NULL ORDER BY fdc_id LIMIT ?').all(limit) as Food[];
 }
 
+export function getFoodsBySimilarCalories(food: Food, limit = 6): Food[] {
+  if (food.calories == null) return [];
+  return getDb().prepare(
+    'SELECT * FROM foods WHERE slug != ? AND calories IS NOT NULL AND category != ? ORDER BY ABS(calories - ?) LIMIT ?'
+  ).all(food.slug, food.category ?? '', food.calories, limit) as Food[];
+}
+

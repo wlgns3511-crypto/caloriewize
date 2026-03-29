@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getFoodBySlug, getTopComparisons, type Food } from "@/lib/db";
+import { getFoodBySlug, getTopComparisons, getSimilarFoods, getFoodsBySimilarCalories, type Food } from "@/lib/db";
 import { AdSlot } from "@/components/AdSlot";
 import { faqSchema } from "@/lib/schema";
 
@@ -283,6 +283,66 @@ export default async function ComparePage({ params }: Props) {
         <a href="/compare" className="text-orange-600 hover:underline">More comparisons &rarr;</a>
         <a href="/calculator" className="text-orange-600 hover:underline">Calorie calculator &rarr;</a>
       </div>
+
+      {/* Smart related comparisons */}
+      {(() => {
+        const sameCatA = a.category ? getSimilarFoods(a.slug, a.category, 4) : [];
+        const sameCatB = b.category ? getSimilarFoods(b.slug, b.category, 4) : [];
+        const similarCal = getFoodsBySimilarCalories(a, 4).filter(f => f.slug !== b.slug);
+        return (
+          <section className="mb-8">
+            <h2 className="text-lg font-bold mb-3">Related Comparisons</h2>
+            {sameCatA.length > 0 && (
+              <>
+                <h3 className="text-xs font-semibold text-slate-400 uppercase mb-2">Compare {a.name} with similar foods</h3>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {sameCatA.map((f) => {
+                    const [x, y] = [a.slug, f.slug].sort();
+                    return (
+                      <a key={f.slug} href={`/compare/${x}-vs-${y}`}
+                        className="text-sm px-3 py-1.5 bg-slate-100 hover:bg-orange-50 text-orange-700 rounded-full">
+                        vs {f.name} ({f.calories?.toFixed(0)} cal)
+                      </a>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+            {sameCatB.length > 0 && (
+              <>
+                <h3 className="text-xs font-semibold text-slate-400 uppercase mb-2">Compare {b.name} with similar foods</h3>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {sameCatB.map((f) => {
+                    const [x, y] = [b.slug, f.slug].sort();
+                    return (
+                      <a key={f.slug} href={`/compare/${x}-vs-${y}`}
+                        className="text-sm px-3 py-1.5 bg-slate-100 hover:bg-orange-50 text-orange-700 rounded-full">
+                        vs {f.name} ({f.calories?.toFixed(0)} cal)
+                      </a>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+            {similarCal.length > 0 && (
+              <>
+                <h3 className="text-xs font-semibold text-slate-400 uppercase mb-2">Similar calorie foods</h3>
+                <div className="flex flex-wrap gap-2">
+                  {similarCal.map((f) => {
+                    const [x, y] = [a.slug, f.slug].sort();
+                    return (
+                      <a key={f.slug} href={`/compare/${x}-vs-${y}`}
+                        className="text-sm px-3 py-1.5 bg-slate-100 hover:bg-blue-50 text-blue-700 rounded-full">
+                        {a.name} vs {f.name}
+                      </a>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </section>
+        );
+      })()}
 
       {/* High-CPC footer */}
       <section className="bg-slate-50 border border-slate-200 rounded-lg p-6 mt-8">

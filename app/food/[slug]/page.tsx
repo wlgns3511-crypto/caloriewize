@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods } from "@/lib/db";
+import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods, getFoodsBySimilarCalories } from "@/lib/db";
 import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
 import { analyzeFood } from "@/lib/nutrition-analysis";
 import { AdSlot } from "@/components/AdSlot";
@@ -228,6 +228,30 @@ export default async function FoodPage({ params }: Props) {
           </div>
         </section>
       )}
+
+      {/* Cross-category comparisons — smart internal links */}
+      {(() => {
+        const crossCat = getFoodsBySimilarCalories(f, 6);
+        if (crossCat.length === 0) return null;
+        return (
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-3">Compare Across Categories</h2>
+            <p className="text-sm text-slate-500 mb-3">Foods with similar calories from different categories</p>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {crossCat.map((c) => {
+                const [x, y] = [slug, c.slug].sort();
+                return (
+                  <a key={c.slug} href={`/compare/${x}-vs-${y}`}
+                    className="flex justify-between items-center p-3 border border-slate-100 rounded-lg hover:bg-orange-50">
+                    <span className="text-sm text-orange-600">{f.name} vs {c.name}</span>
+                    <span className="text-xs text-slate-400">{c.calories?.toFixed(0)} cal</span>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* TDEE Calculator */}
       <section className="mb-8">
