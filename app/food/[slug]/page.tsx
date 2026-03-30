@@ -10,6 +10,10 @@ import { FreshnessTag } from "@/components/FreshnessTag";
 import { TDEECalculator } from "@/components/TDEECalculator";
 import { CiteButton } from "@/components/CiteButton";
 import { AuthorBox } from "@/components/AuthorBox";
+import { EditorNote } from "@/components/EditorNote";
+import { DidYouKnow } from "@/components/DidYouKnow";
+import { DataSourceBadge } from "@/components/DataSourceBadge";
+import { CrossSiteLinks } from "@/components/CrossSiteLinks";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -70,6 +74,8 @@ export default async function FoodPage({ params }: Props) {
 
       <h1 className="text-3xl font-bold mb-2">{f.name}</h1>
       <p className="text-slate-500 mb-6">Nutrition facts per 100g serving</p>
+
+      <EditorNote note={`All nutrition values for ${f.name} are sourced from the USDA FoodData Central database and represent standard 100g serving sizes. Individual products may vary slightly based on brand and preparation method.`} />
 
       {/* Health Summary */}
       <div className="bg-emerald-50 border-l-4 border-emerald-400 p-4 rounded-r-lg mb-6">
@@ -207,6 +213,8 @@ export default async function FoodPage({ params }: Props) {
         </div>
       </section>
 
+      <DidYouKnow fact={`${f.name} provides ${f.calories?.toFixed(0) || '?'} kcal per 100g. ${(f.protein || 0) >= 15 ? `With ${f.protein?.toFixed(1)}g of protein, it is considered a high-protein food that supports muscle maintenance and repair.` : (f.fiber || 0) >= 5 ? `With ${f.fiber?.toFixed(1)}g of fiber per serving, it can support digestive health and help you feel full longer.` : `Balancing ${f.name} with a variety of other nutrient-dense foods is the best way to meet your daily nutritional needs.`}`} />
+
       <AdSlot id="food-before-similar" />
 
       {/* Similar Foods */}
@@ -331,8 +339,19 @@ export default async function FoodPage({ params }: Props) {
         </p>
       </section>
 
+      <DataSourceBadge sources={[
+        { name: "USDA FoodData Central", url: "https://fdc.nal.usda.gov" },
+        { name: "FDA", url: "https://www.fda.gov" },
+      ]} />
+
+      <CrossSiteLinks current="FoodData" />
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(breadcrumbs)) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(nutritionSchema(f.name, f)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        ...nutritionSchema(f.name, f),
+        dateModified: "2026-03-31",
+        author: { "@type": "Organization", name: "DataPeek" },
+      }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />
     </div>
   );
