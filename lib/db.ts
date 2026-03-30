@@ -124,12 +124,65 @@ export function countComparisons(): number {
   return (db.prepare('SELECT COUNT(*) as c FROM comparisons').get() as { c: number }).c;
 }
 
+export function searchFoods(query: string, limit = 30): Food[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+  return getDb().prepare(`
+    SELECT * FROM foods WHERE LOWER(name) LIKE ? OR LOWER(slug) LIKE ?
+    ORDER BY fdc_id LIMIT ?
+  `).all('%' + q + '%', '%' + q + '%', limit) as Food[];
+}
+
 export function countFoods(): number {
   return (getDb().prepare('SELECT COUNT(*) as c FROM foods').get() as { c: number }).c;
 }
 
+export function getRandomFoods(limit = 20): Food[] {
+  return getDb().prepare('SELECT * FROM foods WHERE calories IS NOT NULL ORDER BY RANDOM() LIMIT ?').all(limit) as Food[];
+}
+
 export function getPopularFoods(limit = 10): Food[] {
   return getDb().prepare('SELECT * FROM foods WHERE calories IS NOT NULL ORDER BY fdc_id LIMIT ?').all(limit) as Food[];
+}
+
+/** Get current ISO week number (1-52) */
+export function getCurrentWeek(): number {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+  const diff = now.getTime() - start.getTime();
+  const oneWeek = 7 * 24 * 60 * 60 * 1000;
+  return Math.ceil((diff / oneWeek + start.getDay() + 1) / 7);
+}
+
+export function getRotatingComparisons(limit = 5000): { slugA: string; slugB: string }[] {
+  const db = getDb();
+  const tableExists = db.prepare(
+    "SELECT name FROM sqlite_master WHERE type='table' AND name='comparisons'"
+  ).get();
+
+  if (tableExists) {
+    const week = getCurrentWeek();
+    const offset = ((week - 1) % 50) * limit;
+    return db.prepare(
+      'SELECT slugA, slugB FROM comparisons LIMIT ? OFFSET ?'
+    ).all(limit, offset) as { slugA: string; slugB: string }[];
+  }
+
+  // Fallback: generate from offset slice of foods
+  const week = getCurrentWeek();
+  const foodOffset = ((week - 1) % 50) * 30;
+  const foods = db.prepare(
+    'SELECT slug FROM foods WHERE calories IS NOT NULL ORDER BY name LIMIT 30 OFFSET ?'
+  ).all(foodOffset) as { slug: string }[];
+
+  const pairs: { slugA: string; slugB: string }[] = [];
+  for (let i = 0; i < foods.length && pairs.length < limit; i++) {
+    for (let j = i + 1; j < foods.length && pairs.length < limit; j++) {
+      const [a, b] = [foods[i].slug, foods[j].slug].sort();
+      pairs.push({ slugA: a, slugB: b });
+    }
+  }
+  return pairs;
 }
 
 export function getFoodsBySimilarCalories(food: Food, limit = 6): Food[] {

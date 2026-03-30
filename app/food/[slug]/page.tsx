@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods, getFoodsBySimilarCalories } from "@/lib/db";
+import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods, getFoodsBySimilarCalories, getRandomFoods } from "@/lib/db";
 import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
 import { analyzeFood } from "@/lib/nutrition-analysis";
 import { AdSlot } from "@/components/AdSlot";
@@ -9,6 +9,7 @@ import { EmbedButton } from "@/components/EmbedButton";
 import { FreshnessTag } from "@/components/FreshnessTag";
 import { TDEECalculator } from "@/components/TDEECalculator";
 import { CiteButton } from "@/components/CiteButton";
+import { AuthorBox } from "@/components/AuthorBox";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -273,6 +274,8 @@ export default async function FoodPage({ params }: Props) {
         ))}
       </section>
 
+      <AuthorBox />
+
       <FreshnessTag source="USDA FoodData Central" />
 
       <div className="flex items-center gap-4 mt-4">
@@ -280,6 +283,34 @@ export default async function FoodPage({ params }: Props) {
       </div>
 
           <EmbedButton url="https://caloriewize.com" title="Data from CalorieWize" site="CalorieWize" siteUrl="https://caloriewize.com" />
+
+      {/* Discover More Comparisons — random pairs */}
+      {(() => {
+        const randomFoods = getRandomFoods(12);
+        const pairs = randomFoods
+          .filter((r) => r.slug !== slug)
+          .slice(0, 10)
+          .map((r) => {
+            const [x, y] = [slug, r.slug].sort();
+            return { slug: `${x}-vs-${y}`, nameA: x === slug ? f.name : r.name, nameB: x === slug ? r.name : f.name, cal: r.calories };
+          });
+        if (pairs.length === 0) return null;
+        return (
+          <section className="mt-8 mb-8">
+            <h2 className="text-xl font-bold mb-3">Discover More Comparisons</h2>
+            <p className="text-sm text-slate-500 mb-3">See how {f.name} stacks up against other foods</p>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {pairs.map((p) => (
+                <a key={p.slug} href={`/compare/${p.slug}`}
+                  className="flex justify-between items-center p-3 border border-slate-100 rounded-lg hover:bg-orange-50 transition-colors">
+                  <span className="text-sm text-orange-600">{p.nameA} vs {p.nameB}</span>
+                  <span className="text-xs text-slate-400">{p.cal?.toFixed(0)} cal</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Related Data Resources */}
       <section className="mt-8 p-4 bg-slate-50 rounded-lg">

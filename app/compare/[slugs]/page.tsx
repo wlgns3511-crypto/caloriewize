@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getFoodBySlug, getTopComparisons, getSimilarFoods, getFoodsBySimilarCalories, type Food } from "@/lib/db";
+import { getFoodBySlug, getTopComparisons, getSimilarFoods, getFoodsBySimilarCalories, getRandomFoods, type Food } from "@/lib/db";
 import { AdSlot } from "@/components/AdSlot";
 import { faqSchema } from "@/lib/schema";
 
@@ -340,6 +340,38 @@ export default async function ComparePage({ params }: Props) {
                 </div>
               </>
             )}
+          </section>
+        );
+      })()}
+
+      {/* Explore More Comparisons — random pairs */}
+      {(() => {
+        const randomFoods = getRandomFoods(30);
+        const pairSet = new Set<string>();
+        const pairs: { slug: string; nameA: string; nameB: string }[] = [];
+        for (let i = 0; i < randomFoods.length && pairs.length < 15; i++) {
+          for (let j = i + 1; j < randomFoods.length && pairs.length < 15; j++) {
+            const fA = randomFoods[i], fB = randomFoods[j];
+            if (fA.slug === a.slug || fA.slug === b.slug || fB.slug === a.slug || fB.slug === b.slug) continue;
+            const [x, y] = [fA.slug, fB.slug].sort();
+            const key = `${x}-vs-${y}`;
+            if (pairSet.has(key)) continue;
+            pairSet.add(key);
+            pairs.push({ slug: key, nameA: x === fA.slug ? fA.name : fB.name, nameB: x === fA.slug ? fB.name : fA.name });
+          }
+        }
+        if (pairs.length === 0) return null;
+        return (
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-3">Explore More Comparisons</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {pairs.map((p) => (
+                <a key={p.slug} href={`/compare/${p.slug}`}
+                  className="text-sm px-3 py-2 border border-slate-100 rounded-lg hover:bg-orange-50 text-orange-600 transition-colors">
+                  {p.nameA} vs {p.nameB}
+                </a>
+              ))}
+            </div>
           </section>
         );
       })()}
