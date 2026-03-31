@@ -349,7 +349,7 @@ export default async function FoodPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(breadcrumbs)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         ...nutritionSchema(f.name, f),
-        dateModified: "2026-03-31",
+        dateModified: new Date().toISOString().split('T')[0],
         author: { "@type": "Organization", name: "DataPeek" },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />

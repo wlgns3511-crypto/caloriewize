@@ -27,10 +27,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!parsed) return {};
   const a = getFoodBySlug(parsed[0]), b = getFoodBySlug(parsed[1]);
   if (!a || !b) return {};
+  const title = `${a.name} vs ${b.name} - Nutrition Comparison | CalorieWize`;
+  const description = `Compare ${a.name} (${a.calories?.toFixed(0)} cal) vs ${b.name} (${b.calories?.toFixed(0)} cal). Side-by-side nutrition, macros, diet suitability.`;
   return {
-    title: `${a.name} vs ${b.name} - Nutrition Comparison | CalorieWize`,
-    description: `Compare ${a.name} (${a.calories?.toFixed(0)} cal) vs ${b.name} (${b.calories?.toFixed(0)} cal). Side-by-side nutrition, macros, diet suitability.`,
+    title,
+    description,
     alternates: { canonical: `/compare/${slugs}` },
+    openGraph: { title, description, url: `/compare/${slugs}` },
   };
 }
 

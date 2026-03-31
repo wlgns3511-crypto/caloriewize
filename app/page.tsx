@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { getLowCalorieFoods, getHighProteinFoods, getAllCategories, countFoods } from "@/lib/db";
+
+export const metadata: Metadata = {
+  title: "CalorieWize — Calories & Nutrition Facts for 2,500+ Foods",
+  description: "Free nutrition database. Find calories, protein, carbs, fat, and 13 other nutrients for 2,500+ foods. Compare foods side by side. USDA FoodData Central.",
+  alternates: { canonical: "/" },
+  openGraph: { title: "CalorieWize — Calories & Nutrition Facts", description: "Free nutrition database for 2,500+ foods. Compare, track macros, and make healthier choices.", url: "/" },
+};
 
 function fmt(v: number | null): string { return v !== null ? v.toFixed(0) : '-'; }
 
