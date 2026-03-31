@@ -84,7 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <a href="https://calcpeek.com" className="hover:text-orange-600">Calculators</a>
               </div>
             </div>
-            <p className="mt-1">\&copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</p>
+            <p className="mt-1">&copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</p>
           </div>
         </footer>
       </body>
