@@ -31,14 +31,19 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               "name": "CalorieWize",
               "url": "https://caloriewize.com",
               "description": "Find calories and nutrition facts for thousands of foods. Compare foods side by side. Data from USDA FoodData Central.",
-              "inLanguage": "en-US"
+              "inLanguage": "en-US",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://caloriewize.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
             },
             {
               "@type": "Organization",
               "name": "CalorieWize",
               "url": "https://caloriewize.com",
               "description": "Find calories and nutrition facts for thousands of foods. Compare foods side by side. Data from USDA FoodData Central.",
-              "sameAs": []
+              "sameAs": ["https://vocabwize.com", "https://vocablibre.com", "https://wortwize.com", "https://kalimawize.com", "https://dicionariowize.com", "https://kotobapeek.com", "https://salarybycity.com", "https://netpaypeek.com", "https://wagepeek.com", "https://costbycity.com", "https://fairrentwize.com", "https://propertytaxpeek.com", "https://degreewize.com", "https://nameblooms.com", "https://myschoolpeek.com", "https://medcheckwize.com", "https://medcostpeek.com", "https://eldercarepeek.com", "https://ingredipeek.com", "https://powerbillpeek.com", "https://sunpowerpeek.com", "https://shipcalcwize.com", "https://tariffpeek.com", "https://visapeek.com", "https://zippeek.com", "https://calcpeek.com", "https://datapeekfacts.com", "https://guidebycity.com"]
             }
           ]
         }) }} />
