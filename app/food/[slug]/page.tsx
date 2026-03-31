@@ -215,6 +215,12 @@ export default async function FoodPage({ params }: Props) {
 
       <DidYouKnow fact={`${f.name} provides ${f.calories?.toFixed(0) || '?'} kcal per 100g. ${(f.protein || 0) >= 15 ? `With ${f.protein?.toFixed(1)}g of protein, it is considered a high-protein food that supports muscle maintenance and repair.` : (f.fiber || 0) >= 5 ? `With ${f.fiber?.toFixed(1)}g of fiber per serving, it can support digestive health and help you feel full longer.` : `Balancing ${f.name} with a variety of other nutrient-dense foods is the best way to meet your daily nutritional needs.`}`} />
 
+      <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 my-6 text-sm">
+        <p className="text-slate-600">
+          <strong>Related:</strong> Check if this food is safe for your diet at <a href="https://ingredipeek.com" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">IngrediPeek</a> — allergen and ingredient checker for 20,000+ products.
+        </p>
+      </div>
+
       <AdSlot id="food-before-similar" />
 
       {/* Similar Foods */}
@@ -313,6 +319,47 @@ export default async function FoodPage({ params }: Props) {
                   className="flex justify-between items-center p-3 border border-slate-100 rounded-lg hover:bg-orange-50 transition-colors">
                   <span className="text-sm text-orange-600">{p.nameA} vs {p.nameB}</span>
                   <span className="text-xs text-slate-400">{p.cal?.toFixed(0)} cal</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* Popular Foods to Compare */}
+      {(() => {
+        const popular = getPopularFoods(8).filter(p => p.slug !== slug);
+        if (!popular.length) return null;
+        return (
+          <section className="mt-8 mb-8">
+            <h2 className="text-xl font-bold mb-3">Compare with Popular Foods</h2>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {popular.map(p => {
+                const [a, b] = [slug, p.slug].sort();
+                return (
+                  <a key={p.slug} href={`/compare/${a}-vs-${b}/`}
+                    className="flex justify-between items-center p-3 border border-slate-100 rounded-lg hover:bg-orange-50 transition-colors">
+                    <span className="text-sm text-orange-600">{f.name} vs {p.name}</span>
+                    <span className="text-xs text-slate-400">{p.calories?.toFixed(0)} cal</span>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* Foods in Same Category */}
+      {(() => {
+        const sameCategory = getSimilarFoods(slug, f.category, 12).slice(8);
+        if (!sameCategory.length) return null;
+        return (
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-3">More {f.category ? f.category.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Similar'} Foods</h2>
+            <div className="flex flex-wrap gap-2">
+              {sameCategory.map(s => (
+                <a key={s.slug} href={`/food/${s.slug}/`} className="px-3 py-1.5 bg-orange-50 text-orange-700 rounded-full text-sm hover:bg-orange-100 transition-colors">
+                  {s.name}
                 </a>
               ))}
             </div>
