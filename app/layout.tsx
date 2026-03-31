@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 const SITE_NAME = "CalorieWize";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://caloriewize.com";
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: { default: `${SITE_NAME} - Calories & Nutrition Facts`, template: `%s | ${SITE_NAME}` },
   description: "Find calories and nutrition facts for thousands of foods. Compare foods side by side. Data from USDA FoodData Central.",
   metadataBase: new URL(SITE_URL),
-  robots: { index: true, follow: true },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US" },
 };
 
@@ -18,6 +18,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTE9B0SQSS" />
         <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FTE9B0SQSS');` }} />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5724806562146685" crossOrigin="anonymous" />
@@ -64,6 +66,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <a href="/privacy" className="hover:text-orange-600">Privacy</a>
               {" | "}
               <a href="/terms" className="hover:text-orange-600">Terms</a>
+              {" | "}
+              <a href="/disclaimer" className="hover:text-orange-600">Disclaimer</a>
               {" | "}
               <a href="/contact" className="hover:text-orange-600">Contact</a>
             </p>

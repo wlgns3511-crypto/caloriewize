@@ -7,7 +7,7 @@ interface Props { params: Promise<{ slug: string }> }
 function fmt(v: number | null, unit = 'g'): string { return v !== null ? `${v.toFixed(1)}${unit}` : 'N/A'; }
 
 export const dynamicParams = true;
-export const revalidate = 86400;
+export const revalidate = false;
 
 export function generateStaticParams() {
   return getAllFoods().slice(0, 300).map((f) => ({ slug: f.slug }));

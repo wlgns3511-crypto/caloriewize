@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getLowCalorieFoods, getHighProteinFoods } from "@/lib/db";
+import { itemListSchema, datasetSchema } from "@/lib/schema";
 
 const LISTS: Record<string, { title: string; desc: string; getter: (n: number) => ReturnType<typeof getLowCalorieFoods> }> = {
   'low-calorie': { title: 'Low Calorie Foods', desc: 'Foods with the fewest calories per 100g serving.', getter: getLowCalorieFoods },
@@ -26,8 +27,12 @@ export default async function ListPage({ params }: Props) {
   if (!list) notFound();
   const foods = list.getter(50);
 
+  const listItems = foods.map(f => ({ name: f.name, url: `/food/${f.slug}` }));
+
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema(list.title, `/list/${type}`, listItems)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema(list.title, list.desc, `/list/${type}`)) }} />
       <h1 className="text-3xl font-bold mb-2">{list.title}</h1>
       <p className="text-slate-600 mb-6">{list.desc}</p>
       <div className="border rounded-lg overflow-hidden">
