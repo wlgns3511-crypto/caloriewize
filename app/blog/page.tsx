@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Expert guides on calorie counting, nutrition science, and food data to help you make smarter eating decisions.",
   alternates: { canonical: "/blog/" },
+  openGraph: { url: "/blog/" },
 };
 
 function formatDate(dateStr: string) {

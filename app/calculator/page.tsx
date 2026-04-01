@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Calculate your Total Daily Energy Expenditure (TDEE) and Basal Metabolic Rate (BMR). Get personalized calorie targets for weight loss, maintenance, and weight gain with macro breakdowns.",
   alternates: { canonical: "/calculator" },
+  openGraph: { url: "/calculator/" },
 };
 
 export default function CalculatorPage() {

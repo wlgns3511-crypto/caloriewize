@@ -4,6 +4,7 @@ import { TDEECalculator } from "@/components/TDEECalculator";
 export const metadata: Metadata = {
   title: "TDEE Calculator - Embeddable Widget",
   robots: "noindex, nofollow",
+  openGraph: { url: "/embed/tdee/" },
 };
 
 export default function EmbedTDEEPage() {
