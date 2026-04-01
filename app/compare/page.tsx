@@ -1,6 +1,11 @@
 import { getAllFoods } from "@/lib/db";
 import type { Metadata } from "next";
-export const metadata: Metadata = { title: "Compare Foods", description: "Compare nutrition facts between foods side by side." };
+export const metadata: Metadata = {
+  title: "Compare Foods",
+  description: "Compare nutrition facts between foods side by side — calories, macros, vitamins, and minerals.",
+  alternates: { canonical: "https://caloriewize.com/compare/" },
+  openGraph: { title: "Compare Foods", description: "Compare nutrition facts between foods side by side — calories, macros, vitamins, and minerals.", url: "https://caloriewize.com/compare/" },
+};
 export default function ComparePage() {
   const foods = getAllFoods().slice(0, 30);
   return (
