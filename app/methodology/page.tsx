@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Our Methodology",
   description: "Learn how FoodDataPeek collects, processes, and verifies nutritional information for common foods.",
+  alternates: { canonical: "/methodology/" },
 };
 
 export default function MethodologyPage() {

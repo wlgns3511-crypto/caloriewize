@@ -1,6 +1,6 @@
 import { getAllFoods } from "@/lib/db";
 import type { Metadata } from "next";
-export const metadata: Metadata = { title: "All Foods", description: "Browse calorie and nutrition data for all foods." };
+export const metadata: Metadata = { title: "All Foods", description: "Browse calorie and nutrition data for all foods.", alternates: { canonical: "/food/" } };
 export default function FoodsPage() {
   const foods = getAllFoods();
   return (
