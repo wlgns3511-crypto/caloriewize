@@ -13,7 +13,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cats = getAllCategories();
   const cat = cats.find(c => c.slug === slug);
   if (!cat) return {};
-  return { title: `${cat.name} - Calories & Nutrition`, description: `Browse calorie and nutrition data for ${cat.name.toLowerCase()}.` };
+  return {
+    title: `${cat.name} - Calories & Nutrition`,
+    description: `Browse calorie and nutrition data for ${cat.name.toLowerCase()}.`,
+    alternates: { canonical: `/category/${slug}` },
+    openGraph: { url: `/category/${slug}` },
+  };
 }
 
 export default async function CategoryPage({ params }: Props) {

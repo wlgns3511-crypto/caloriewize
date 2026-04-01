@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `/es/food/${slug}`,
       languages: { en: `/food/${slug}`, es: `/es/food/${slug}`, "x-default": `/food/${slug}` },
     },
+    openGraph: { url: `/es/food/${slug}` },
   };
 }
 

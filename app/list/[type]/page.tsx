@@ -18,7 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { type } = await params;
   const list = LISTS[type];
   if (!list) return {};
-  return { title: list.title, description: list.desc };
+  return {
+    title: list.title,
+    description: list.desc,
+    alternates: { canonical: `/list/${type}` },
+    openGraph: { url: `/list/${type}` },
+  };
 }
 
 export default async function ListPage({ params }: Props) {

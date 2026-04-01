@@ -38,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${f.name} — Calories, Nutrition & Diet Info`,
     description: `Is ${f.name} healthy? ${f.calories?.toFixed(0) || '?'} cal, ${fmt(f.protein)} protein, ${fmt(f.carbs)} carbs, ${fmt(f.fat)} fat per 100g. Diet compatibility, daily value %, and healthier alternatives.`,
     alternates: { canonical: `/food/${slug}` },
+    openGraph: { url: `/food/${slug}` },
   };
 }
 
