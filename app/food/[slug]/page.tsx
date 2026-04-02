@@ -29,7 +29,7 @@ const dvBarColor: Record<string, string> = {
 };
 
 export async function generateStaticParams() {
-  return getAllFoods().slice(0, 2000).map((f) => ({ slug: f.slug }));
+  return getAllFoods().slice(0, 3000).map((f) => ({ slug: f.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
