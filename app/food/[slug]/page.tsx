@@ -14,6 +14,7 @@ import { EditorNote } from "@/components/EditorNote";
 import { DidYouKnow } from "@/components/DidYouKnow";
 import { DataSourceBadge } from "@/components/DataSourceBadge";
 import { CrossSiteLinks } from "@/components/CrossSiteLinks";
+import { MacroBar } from "@/components/MacroBar";
 import { CalorieGuessGame } from "@/components/CalorieGuessGame";
 
 interface Props { params: Promise<{ slug: string }> }
@@ -127,6 +128,8 @@ export default async function FoodPage({ params }: Props) {
           </div>
         </div>
       )}
+
+      <MacroBar carbs={f.carbs} protein={f.protein} fat={f.fat} />
 
       {/* Highlights & Concerns */}
       {(analysis.highlights.length > 0 || analysis.concerns.length > 0) && (
