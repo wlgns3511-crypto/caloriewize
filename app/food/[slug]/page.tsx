@@ -14,6 +14,7 @@ import { EditorNote } from "@/components/EditorNote";
 import { DidYouKnow } from "@/components/DidYouKnow";
 import { DataSourceBadge } from "@/components/DataSourceBadge";
 import { CrossSiteLinks } from "@/components/CrossSiteLinks";
+import { CalorieGuessGame } from "@/components/CalorieGuessGame";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -48,6 +49,9 @@ export default async function FoodPage({ params }: Props) {
   if (!f) notFound();
 
   const similar = getSimilarFoods(slug, f.category, 8);
+  const quizFoods = getRandomFoods(20)
+    .filter(rf => rf.slug !== slug && rf.calories !== null)
+    .map(rf => ({ name: rf.name, slug: rf.slug, calories: rf.calories!, category: rf.category || '' }));
   const analysis = analyzeFood(f);
 
   const faqs = [
@@ -155,6 +159,8 @@ export default async function FoodPage({ params }: Props) {
       )}
 
       <AdSlot id="food-after-highlights" />
+
+      {quizFoods.length >= 5 && <CalorieGuessGame foods={quizFoods} />}
 
       {/* Diet Compatibility */}
       <section className="mb-8">
