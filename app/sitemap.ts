@@ -3,7 +3,7 @@ import { getAllFoods, getAllCategories, getTopComparisons, getRotatingComparison
 import { getAllPosts } from "@/lib/blog";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://caloriewize.com";
 
-export const revalidate = 86400;
+export const revalidate = false;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();

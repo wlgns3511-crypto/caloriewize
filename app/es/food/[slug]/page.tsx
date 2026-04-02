@@ -6,7 +6,7 @@ interface Props { params: Promise<{ slug: string }> }
 
 function fmt(v: number | null, unit = 'g'): string { return v !== null ? `${v.toFixed(1)}${unit}` : 'N/A'; }
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 export const revalidate = false;
 
 export function generateStaticParams() {

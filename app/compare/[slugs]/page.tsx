@@ -11,7 +11,7 @@ function parseSlugs(s: string): [string, string] | null {
   return m ? [m[1], m[2]] : null;
 }
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 export const revalidate = false;
 
 export async function generateStaticParams() {
