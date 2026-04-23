@@ -5,27 +5,13 @@ export const metadata: Metadata = {
   title: "TDEE Calculator — How Many Calories Do You Need?",
   description:
     "Calculate your Total Daily Energy Expenditure (TDEE) and Basal Metabolic Rate (BMR). Get personalized calorie targets for weight loss, maintenance, and weight gain with macro breakdowns.",
-  alternates: { canonical: "/calculator" },
+  alternates: { canonical: "/calculator/" },
   openGraph: { url: "/calculator/" },
 };
 
 export default function CalculatorPage() {
   return (
     <div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "TDEE & Calorie Calculator",
-            "applicationCategory": "UtilityApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-            "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "150" }
-          })
-        }}
-      />
       <section className="mb-8 text-center">
         <h1 className="text-3xl font-bold mb-2">TDEE &amp; Calorie Calculator</h1>
         <p className="text-slate-500 max-w-2xl mx-auto">

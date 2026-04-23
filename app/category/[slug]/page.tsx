@@ -4,6 +4,8 @@ import { getAllCategories, getFoodsByCategory } from "@/lib/db";
 
 interface Props { params: Promise<{ slug: string }> }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return getAllCategories().map((c) => ({ slug: c.slug }));
 }
@@ -16,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${cat.name} - Calories & Nutrition`,
     description: `Browse calorie and nutrition data for ${cat.name.toLowerCase()}.`,
-    alternates: { canonical: `/category/${slug}` },
-    openGraph: { url: `/category/${slug}` },
+    alternates: { canonical: `/category/${slug}/` },
+    openGraph: { url: `/category/${slug}/` },
   };
 }
 

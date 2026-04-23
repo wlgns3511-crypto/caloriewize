@@ -1,3 +1,5 @@
+import { PUBLISHER, EDITORIAL_TEAM } from './authorship';
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://caloriewize.com';
 
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
@@ -10,11 +12,14 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
 }
 
 export function faqSchema(faqs: { question: string; answer: string }[]) {
+  if (!faqs || faqs.length === 0) return null;
   return {
-    '@context': 'https://schema.org', '@type': 'FAQPage',
-    mainEntity: faqs.map(faq => ({
-      '@type': 'Question', name: faq.question,
-      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
     })),
   };
 }
@@ -45,6 +50,7 @@ export function datasetSchema(name: string, description: string, url: string) {
     creator: { '@type': 'Organization', name: 'CalorieWize', url: SITE_URL },
     license: 'https://creativecommons.org/publicdomain/zero/1.0/',
     temporalCoverage: `2023/${new Date().getFullYear()}`,
+    distribution: { '@type': 'DataDownload', encodingFormat: 'text/html', contentUrl: `${SITE_URL}${url}` },
   };
 }
 
@@ -62,5 +68,23 @@ export function nutritionSchema(name: string, food: {
     fiberContent: food.fiber ? `${food.fiber}g` : undefined,
     sodiumContent: food.sodium ? `${food.sodium}mg` : undefined,
     servingSize: '100g',
+  };
+}
+
+export function articleSchema(post: { title: string; description: string; slug: string; urlPath?: string; publishedAt: string; updatedAt?: string; category?: string }) {
+  const articlePath = post.urlPath ?? (post.slug.includes('/') ? `/${post.slug.replace(/^\/+|\/+$/g, '')}/` : `/blog/${post.slug}/`);
+  const url = `${SITE_URL}${articlePath}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.description,
+    url,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt ?? post.publishedAt,
+    author: { '@type': 'Organization', name: 'CalorieWize', url: SITE_URL },
+    publisher: { '@type': 'Organization', name: 'CalorieWize', url: SITE_URL },
+    mainEntityOfPage: url,
+    ...(post.category && { articleSection: post.category }),
   };
 }

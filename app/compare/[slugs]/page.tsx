@@ -1,8 +1,9 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { getFoodBySlug, getTopComparisons, getSimilarFoods, getFoodsBySimilarCalories, getRandomFoods, type Food } from "@/lib/db";
+import { getFoodBySlug, getSimilarFoods, getFoodsBySimilarCalories, type Food } from "@/lib/db";
 import { AdSlot } from "@/components/AdSlot";
 import { faqSchema } from "@/lib/schema";
+import { STATIC_COMPARISON_SLUGS, STATIC_COMPARISON_SET, toCanonicalComparisonSlug } from "@/lib/compare-whitelist";
 
 interface Props { params: Promise<{ slugs: string }> }
 
@@ -12,12 +13,13 @@ function parseSlugs(s: string): [string, string] | null {
 }
 
 export const dynamicParams = false;
-export const revalidate = false;
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
-  return getTopComparisons(1000).map((p) => {
-    const [a, b] = [p.slugA, p.slugB].sort();
-    return { slugs: `${a}-vs-${b}` };
+  return STATIC_COMPARISON_SLUGS.flatMap((slugs) => {
+    const parsed = parseSlugs(slugs);
+    if (!parsed) return [];
+    return [{ slugs }, { slugs: `${parsed[1]}-vs-${parsed[0]}` }];
   });
 }
 
@@ -27,13 +29,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!parsed) return {};
   const a = getFoodBySlug(parsed[0]), b = getFoodBySlug(parsed[1]);
   if (!a || !b) return {};
+  const canonicalSlugs = toCanonicalComparisonSlug(a.slug, b.slug);
+  if (!STATIC_COMPARISON_SET.has(canonicalSlugs)) return {};
   const title = `${a.name} vs ${b.name} - Nutrition Comparison | CalorieWize`;
   const description = `Compare ${a.name} (${a.calories?.toFixed(0)} cal) vs ${b.name} (${b.calories?.toFixed(0)} cal). Side-by-side nutrition, macros, diet suitability.`;
   return {
     title,
     description,
-    alternates: { canonical: `/compare/${slugs}` },
-    openGraph: { title, description, url: `/compare/${slugs}` },
+    alternates: { canonical: `/compare/${canonicalSlugs}/` },
+    openGraph: { title, description, url: `/compare/${canonicalSlugs}/` },
   };
 }
 
@@ -100,6 +104,11 @@ export default async function ComparePage({ params }: Props) {
   if (!parsed) notFound();
   const a = getFoodBySlug(parsed[0]), b = getFoodBySlug(parsed[1]);
   if (!a || !b) notFound();
+  const canonicalSlugs = toCanonicalComparisonSlug(a.slug, b.slug);
+  if (!STATIC_COMPARISON_SET.has(canonicalSlugs)) notFound();
+  if (canonicalSlugs !== slugs) {
+    redirect(`/compare/${canonicalSlugs}/`);
+  }
 
   const calA = a.calories ?? 0, calB = b.calories ?? 0;
   const protA = a.protein ?? 0, protB = b.protein ?? 0;
@@ -287,22 +296,26 @@ export default async function ComparePage({ params }: Props) {
         <a href="/calculator" className="text-orange-600 hover:underline">Calorie calculator &rarr;</a>
       </div>
 
-      {/* Smart related comparisons */}
+      {/* Smart related comparisons — whitelisted pairs only */}
       {(() => {
-        const sameCatA = a.category ? getSimilarFoods(a.slug, a.category, 4) : [];
-        const sameCatB = b.category ? getSimilarFoods(b.slug, b.category, 4) : [];
-        const similarCal = getFoodsBySimilarCalories(a, 4).filter(f => f.slug !== b.slug);
+        const sameCatA = a.category ? getSimilarFoods(a.slug, a.category, 8) : [];
+        const sameCatB = b.category ? getSimilarFoods(b.slug, b.category, 8) : [];
+        const similarCal = getFoodsBySimilarCalories(a, 8).filter(f => f.slug !== b.slug);
+        const validA = sameCatA.filter(f => STATIC_COMPARISON_SET.has(toCanonicalComparisonSlug(a.slug, f.slug))).slice(0, 4);
+        const validB = sameCatB.filter(f => STATIC_COMPARISON_SET.has(toCanonicalComparisonSlug(b.slug, f.slug))).slice(0, 4);
+        const validCal = similarCal.filter(f => STATIC_COMPARISON_SET.has(toCanonicalComparisonSlug(a.slug, f.slug))).slice(0, 4);
+        if (validA.length === 0 && validB.length === 0 && validCal.length === 0) return null;
         return (
           <section className="mb-8">
             <h2 className="text-lg font-bold mb-3">Related Comparisons</h2>
-            {sameCatA.length > 0 && (
+            {validA.length > 0 && (
               <>
                 <h3 className="text-xs font-semibold text-slate-400 uppercase mb-2">Compare {a.name} with similar foods</h3>
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {sameCatA.map((f) => {
-                    const [x, y] = [a.slug, f.slug].sort();
+                  {validA.map((f) => {
+                    const slug = toCanonicalComparisonSlug(a.slug, f.slug);
                     return (
-                      <a key={f.slug} href={`/compare/${x}-vs-${y}`}
+                      <a key={f.slug} href={`/compare/${slug}/`}
                         className="text-sm px-3 py-1.5 bg-slate-100 hover:bg-orange-50 text-orange-700 rounded-full">
                         vs {f.name} ({f.calories?.toFixed(0)} cal)
                       </a>
@@ -311,14 +324,14 @@ export default async function ComparePage({ params }: Props) {
                 </div>
               </>
             )}
-            {sameCatB.length > 0 && (
+            {validB.length > 0 && (
               <>
                 <h3 className="text-xs font-semibold text-slate-400 uppercase mb-2">Compare {b.name} with similar foods</h3>
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {sameCatB.map((f) => {
-                    const [x, y] = [b.slug, f.slug].sort();
+                  {validB.map((f) => {
+                    const slug = toCanonicalComparisonSlug(b.slug, f.slug);
                     return (
-                      <a key={f.slug} href={`/compare/${x}-vs-${y}`}
+                      <a key={f.slug} href={`/compare/${slug}/`}
                         className="text-sm px-3 py-1.5 bg-slate-100 hover:bg-orange-50 text-orange-700 rounded-full">
                         vs {f.name} ({f.calories?.toFixed(0)} cal)
                       </a>
@@ -327,14 +340,14 @@ export default async function ComparePage({ params }: Props) {
                 </div>
               </>
             )}
-            {similarCal.length > 0 && (
+            {validCal.length > 0 && (
               <>
                 <h3 className="text-xs font-semibold text-slate-400 uppercase mb-2">Similar calorie foods</h3>
                 <div className="flex flex-wrap gap-2">
-                  {similarCal.map((f) => {
-                    const [x, y] = [a.slug, f.slug].sort();
+                  {validCal.map((f) => {
+                    const slug = toCanonicalComparisonSlug(a.slug, f.slug);
                     return (
-                      <a key={f.slug} href={`/compare/${x}-vs-${y}`}
+                      <a key={f.slug} href={`/compare/${slug}/`}
                         className="text-sm px-3 py-1.5 bg-slate-100 hover:bg-blue-50 text-blue-700 rounded-full">
                         {a.name} vs {f.name}
                       </a>
@@ -343,38 +356,6 @@ export default async function ComparePage({ params }: Props) {
                 </div>
               </>
             )}
-          </section>
-        );
-      })()}
-
-      {/* Explore More Comparisons — random pairs */}
-      {(() => {
-        const randomFoods = getRandomFoods(30);
-        const pairSet = new Set<string>();
-        const pairs: { slug: string; nameA: string; nameB: string }[] = [];
-        for (let i = 0; i < randomFoods.length && pairs.length < 15; i++) {
-          for (let j = i + 1; j < randomFoods.length && pairs.length < 15; j++) {
-            const fA = randomFoods[i], fB = randomFoods[j];
-            if (fA.slug === a.slug || fA.slug === b.slug || fB.slug === a.slug || fB.slug === b.slug) continue;
-            const [x, y] = [fA.slug, fB.slug].sort();
-            const key = `${x}-vs-${y}`;
-            if (pairSet.has(key)) continue;
-            pairSet.add(key);
-            pairs.push({ slug: key, nameA: x === fA.slug ? fA.name : fB.name, nameB: x === fA.slug ? fB.name : fA.name });
-          }
-        }
-        if (pairs.length === 0) return null;
-        return (
-          <section className="mb-8">
-            <h2 className="text-xl font-bold mb-3">Explore More Comparisons</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-              {pairs.map((p) => (
-                <a key={p.slug} href={`/compare/${p.slug}`}
-                  className="text-sm px-3 py-2 border border-slate-100 rounded-lg hover:bg-orange-50 text-orange-600 transition-colors">
-                  {p.nameA} vs {p.nameB}
-                </a>
-              ))}
-            </div>
           </section>
         );
       })()}
@@ -407,7 +388,7 @@ export default async function ComparePage({ params }: Props) {
         </div>
       </section>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />
+      {faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />}
     </div>
   );
 }

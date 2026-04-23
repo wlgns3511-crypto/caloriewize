@@ -124,6 +124,15 @@ export function countComparisons(): number {
   return (db.prepare('SELECT COUNT(*) as c FROM comparisons').get() as { c: number }).c;
 }
 
+export function getComparisonSlugsPage(offset: number, limit: number): { slugA: string; slugB: string }[] {
+  const db = getDb();
+  const tableExists = db.prepare(
+    "SELECT name FROM sqlite_master WHERE type='table' AND name='comparisons'"
+  ).get();
+  if (!tableExists) return [];
+  return db.prepare('SELECT slugA, slugB FROM comparisons ORDER BY id LIMIT ? OFFSET ?').all(limit, offset) as { slugA: string; slugB: string }[];
+}
+
 export function searchFoods(query: string, limit = 30): Food[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];

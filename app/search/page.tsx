@@ -4,7 +4,8 @@ import { searchFoods, getLowCalorieFoods, getHighProteinFoods } from "@/lib/db";
 export const metadata: Metadata = {
   title: "Search Foods — Calories, Nutrition & Diet Info",
   description: "Search nutrition data for thousands of foods. Find calories, protein, carbs, fat, and diet compatibility.",
-  alternates: { canonical: "/search" },
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/search/" },
   openGraph: { url: "/search/" },
 };
 

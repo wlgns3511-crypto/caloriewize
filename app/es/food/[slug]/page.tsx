@@ -6,11 +6,11 @@ interface Props { params: Promise<{ slug: string }> }
 
 function fmt(v: number | null, unit = 'g'): string { return v !== null ? `${v.toFixed(1)}${unit}` : 'N/A'; }
 
-export const dynamicParams = false;
-export const revalidate = false;
+export const dynamicParams = true;
+export const revalidate = 86400;
 
 export function generateStaticParams() {
-  return getAllFoods().slice(0, 300).map((f) => ({ slug: f.slug }));
+  return getAllFoods().map((f) => ({ slug: f.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${f.name} — Calorías, Proteína y Datos Nutricionales`,
     description: `${f.name}: ${f.calories?.toFixed(0) || '?'} cal, ${fmt(f.protein)} proteína, ${fmt(f.carbs)} carbohidratos, ${fmt(f.fat)} grasa por 100g.`,
     alternates: {
-      canonical: `/es/food/${slug}`,
+      canonical: `/es/food/${slug}/`,
       languages: { en: `/food/${slug}`, es: `/es/food/${slug}`, "x-default": `/food/${slug}` },
     },
-    openGraph: { url: `/es/food/${slug}` },
+    openGraph: { url: `/es/food/${slug}/` },
   };
 }
 

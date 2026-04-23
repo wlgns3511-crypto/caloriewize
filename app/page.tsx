@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { getLowCalorieFoods, getHighProteinFoods, getAllCategories, countFoods } from "@/lib/db";
+import { getLowCalorieFoods, getHighProteinFoods, getAllCategories, countFoods, getPopularFoods } from "@/lib/db";
+import { PopularEntities } from "@/components/upgrades/PopularEntities";
 
 export const metadata: Metadata = {
   title: "CalorieWize — Calories & Nutrition Facts for 2,500+ Foods",
@@ -15,6 +16,7 @@ export default function Home() {
   const highPro = getHighProteinFoods(15);
   const categories = getAllCategories();
   const total = countFoods();
+  const popularFoods = getPopularFoods(12);
 
   return (
     <div>
@@ -24,6 +26,17 @@ export default function Home() {
           Find nutrition info for {total}+ foods. Calories, protein, carbs, fat and more. Data from USDA.
         </p>
       </section>
+
+      <PopularEntities
+        heading="Most Searched Foods"
+        items={popularFoods.map(f => ({
+          name: f.name,
+          href: `/food/${f.slug}`,
+          stat: f.calories != null ? `${fmt(f.calories)} cal` : undefined,
+        }))}
+        viewAllHref="/rankings"
+        viewAllLabel="View all foods →"
+      />
 
       {categories.length > 0 && (
         <section className="mb-8">

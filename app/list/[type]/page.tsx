@@ -10,6 +10,8 @@ const LISTS: Record<string, { title: string; desc: string; getter: (n: number) =
 
 interface Props { params: Promise<{ type: string }> }
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return Object.keys(LISTS).map((type) => ({ type }));
 }
@@ -21,8 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: list.title,
     description: list.desc,
-    alternates: { canonical: `/list/${type}` },
-    openGraph: { url: `/list/${type}` },
+    alternates: { canonical: `/list/${type}/` },
+    openGraph: { url: `/list/${type}/` },
   };
 }
 
@@ -32,7 +34,7 @@ export default async function ListPage({ params }: Props) {
   if (!list) notFound();
   const foods = list.getter(50);
 
-  const listItems = foods.map(f => ({ name: f.name, url: `/food/${f.slug}` }));
+  const listItems = foods.map(f => ({ name: f.name, url: `/food/${f.slug}/` }));
 
   return (
     <div>

@@ -1060,6 +1060,1564 @@ const posts: BlogPost[] = [
 <p>Advanced comparison involves evaluating complete meals rather than individual ingredients. A homemade chicken stir-fry might total 450 calories with 35g protein, while a restaurant pad thai might total 950 calories with 28g protein — the homemade version delivers more protein for fewer than half the calories. These whole-meal comparisons are where the biggest insights emerge, because restaurant meals and processed foods often combine multiple calorie-dense ingredients in ways that individual food lookups do not capture.</p>
 `,
   },
+  {
+    slug: "highest-protein-foods-per-calorie",
+    title: "Highest Protein Foods Per Calorie: Complete Ranking",
+    description:
+      "Not all protein sources are equal. Some pack 30g protein for 150 calories; others deliver the same protein with 500+ calories. Here is the definitive ranking.",
+    publishedAt: "2025-01-10",
+    category: "Protein",
+    readingTime: 8,
+    content: `
+<h2>Why Protein-Per-Calorie Matters</h2>
+<p>If your goal is building muscle, losing fat, or simply staying full, protein per calorie is the most important metric for choosing foods. A food with high protein but also high calories (like peanut butter) serves a different purpose than a food with high protein and low calories (like chicken breast). Understanding this ratio helps you hit protein targets without blowing your calorie budget.</p>
+
+<h2>Top 20 Foods by Protein-Per-Calorie Ratio</h2>
+<table>
+  <thead><tr><th>Food</th><th>Calories (per 100g)</th><th>Protein (per 100g)</th><th>% Calories from Protein</th></tr></thead>
+  <tbody>
+    <tr><td>Chicken breast (skinless)</td><td>165</td><td>31g</td><td>75%</td></tr>
+    <tr><td>Turkey breast</td><td>135</td><td>30g</td><td>89%</td></tr>
+    <tr><td>Egg whites</td><td>52</td><td>11g</td><td>85%</td></tr>
+    <tr><td>Shrimp</td><td>99</td><td>24g</td><td>97%</td></tr>
+    <tr><td>Cod</td><td>82</td><td>18g</td><td>88%</td></tr>
+    <tr><td>Tuna (canned in water)</td><td>116</td><td>26g</td><td>90%</td></tr>
+    <tr><td>Tilapia</td><td>96</td><td>20g</td><td>83%</td></tr>
+    <tr><td>Bison</td><td>143</td><td>28g</td><td>78%</td></tr>
+    <tr><td>Pork tenderloin</td><td>143</td><td>26g</td><td>73%</td></tr>
+    <tr><td>Greek yogurt (nonfat)</td><td>59</td><td>10g</td><td>68%</td></tr>
+    <tr><td>Cottage cheese (low-fat)</td><td>72</td><td>12g</td><td>67%</td></tr>
+    <tr><td>Venison</td><td>158</td><td>30g</td><td>76%</td></tr>
+    <tr><td>Tofu (firm)</td><td>144</td><td>17g</td><td>47%</td></tr>
+    <tr><td>Edamame</td><td>121</td><td>11g</td><td>36%</td></tr>
+    <tr><td>Lentils (cooked)</td><td>116</td><td>9g</td><td>31%</td></tr>
+    <tr><td>Whole eggs</td><td>155</td><td>13g</td><td>34%</td></tr>
+    <tr><td>Beef (93% lean)</td><td>152</td><td>24g</td><td>63%</td></tr>
+    <tr><td>Salmon</td><td>208</td><td>20g</td><td>38%</td></tr>
+    <tr><td>Chickpeas (cooked)</td><td>164</td><td>9g</td><td>22%</td></tr>
+    <tr><td>Peanut butter</td><td>588</td><td>25g</td><td>17%</td></tr>
+  </tbody>
+</table>
+
+<h2>The Top Tier: 70%+ Calories From Protein</h2>
+<p>Chicken breast, turkey breast, white fish, and shrimp dominate the protein-per-calorie rankings. These foods let you consume 120–150g of daily protein while staying under 1,500 calories from protein sources alone — leaving ample room for carbs, fats, vegetables, and treats.</p>
+
+<h2>The Middle Tier: Good But Watch Portions</h2>
+<p>Greek yogurt, cottage cheese, eggs, and lean beef deliver solid protein but with more accompanying calories. These are excellent foods, but if you are in a calorie deficit, portioning matters. Two eggs give you 12g protein and 155 calories — respectable but less efficient than 100g of chicken breast (31g protein, 165 calories).</p>
+
+<h2>Common Protein Myths Busted</h2>
+<ul>
+  <li><strong>Peanut butter is not a protein food</strong> — it is a fat food that happens to contain some protein. At 17% of calories from protein, it is the least efficient protein source on this list.</li>
+  <li><strong>Salmon is not the best protein</strong> — it is an excellent omega-3 source, but at 38% protein by calories, it is a moderate protein food. Choose it for healthy fats, not maximum protein.</li>
+  <li><strong>Protein bars vary wildly</strong> — some deliver 20g protein for 200 calories (good), others deliver 15g protein for 350 calories (just a candy bar with protein powder).</li>
+</ul>
+
+<h2>How Much Protein Do You Actually Need?</h2>
+<p>Research supports 0.7–1.0g of protein per pound of body weight for active individuals. For a 160-pound person, that is 112–160g per day. Sedentary individuals need less (0.4–0.5g/lb). Exceeding 1.0g/lb has not shown additional muscle-building benefits in most studies.</p>
+`,
+  },
+  {
+    slug: "zero-calorie-foods-list",
+    title: "Foods With Zero (or Nearly Zero) Calories",
+    description:
+      "Some foods are so low in calories that your body uses more energy digesting them. Here is the complete list of near-zero calorie foods and how to use them.",
+    publishedAt: "2024-12-02",
+    category: "Weight Loss",
+    readingTime: 6,
+    content: `
+<h2>Do Negative-Calorie Foods Exist?</h2>
+<p>The idea that certain foods take more calories to digest than they contain — the "negative calorie" claim — is largely a myth. Digestion (the thermic effect of food) uses about 5–10% of the calories you consume from most foods, and up to 20–30% for pure protein. However, many foods are so low in calories that they are effectively "free" for practical dieting purposes.</p>
+
+<h2>Near-Zero Calorie Foods (Under 20 Calories Per Cup)</h2>
+<table>
+  <thead><tr><th>Food</th><th>Calories Per Cup</th><th>Key Nutrients</th></tr></thead>
+  <tbody>
+    <tr><td>Celery</td><td>14</td><td>Vitamin K, potassium</td></tr>
+    <tr><td>Cucumbers</td><td>16</td><td>Vitamin K, hydration</td></tr>
+    <tr><td>Lettuce (iceberg)</td><td>10</td><td>Water, trace vitamins</td></tr>
+    <tr><td>Spinach (raw)</td><td>7</td><td>Iron, vitamin A, vitamin K</td></tr>
+    <tr><td>Watercress</td><td>4</td><td>Vitamin C, vitamin K</td></tr>
+    <tr><td>Radishes</td><td>19</td><td>Vitamin C, fiber</td></tr>
+    <tr><td>Zucchini (raw)</td><td>19</td><td>Vitamin C, manganese</td></tr>
+    <tr><td>Mushrooms</td><td>15</td><td>B vitamins, selenium</td></tr>
+    <tr><td>Bell peppers</td><td>18</td><td>Vitamin C (more than oranges)</td></tr>
+    <tr><td>Arugula</td><td>5</td><td>Vitamin K, folate</td></tr>
+  </tbody>
+</table>
+
+<h2>Low-Calorie Fruits (Under 50 Calories Per Cup)</h2>
+<table>
+  <thead><tr><th>Fruit</th><th>Calories Per Cup</th><th>Notable Benefit</th></tr></thead>
+  <tbody>
+    <tr><td>Strawberries</td><td>49</td><td>Vitamin C, antioxidants</td></tr>
+    <tr><td>Watermelon</td><td>46</td><td>Hydration, lycopene</td></tr>
+    <tr><td>Cantaloupe</td><td>54</td><td>Vitamin A, vitamin C</td></tr>
+    <tr><td>Grapefruit (half)</td><td>52</td><td>Vitamin C, fiber</td></tr>
+    <tr><td>Peaches</td><td>60</td><td>Vitamin C, potassium</td></tr>
+  </tbody>
+</table>
+
+<h2>Zero-Calorie Beverages</h2>
+<ul>
+  <li><strong>Water</strong> — truly 0 calories, adequate hydration can reduce hunger and improve energy</li>
+  <li><strong>Black coffee</strong> — 2–5 calories per cup, caffeine mildly boosts metabolism</li>
+  <li><strong>Unsweetened tea</strong> — 2 calories per cup, green tea provides antioxidants</li>
+  <li><strong>Sparkling water</strong> — 0 calories, the carbonation adds satiety</li>
+</ul>
+
+<h2>How to Use Low-Calorie Foods for Weight Loss</h2>
+<p>The practical application of near-zero calorie foods is volume eating — filling your plate with low-calorie-density foods so you feel full without consuming many calories. A large salad with 2 cups of mixed greens, cucumber, bell pepper, and mushrooms totals roughly 45 calories. Add 4oz of grilled chicken (130 cal) and a tablespoon of vinaigrette (45 cal), and you have a 220-calorie meal that fills an entire plate.</p>
+
+<h2>The Volume Eating Strategy</h2>
+<ul>
+  <li>Start every meal with a large portion of vegetables or salad</li>
+  <li>Use spiralized zucchini or cauliflower rice to replace half your pasta or rice</li>
+  <li>Snack on celery, cucumber, or bell pepper strips instead of chips or crackers</li>
+  <li>Add mushrooms, spinach, and peppers to omelets to increase size without adding significant calories</li>
+</ul>
+`,
+  },
+  {
+    slug: "how-many-calories-to-lose-weight",
+    title: "How Many Calories to Eat to Lose Weight (2025)",
+    description:
+      "Weight loss comes down to calories in vs. calories out. Here is how to calculate your exact calorie target based on your body, activity level, and goals.",
+    publishedAt: "2025-02-20",
+    category: "Weight Loss",
+    readingTime: 8,
+    content: `
+<h2>The Calorie Deficit Equation</h2>
+<p>Weight loss requires consuming fewer calories than your body burns. This is not a theory or one approach among many — it is a thermodynamic fact confirmed by every metabolic ward study ever conducted. The question is not whether calorie deficits work, but how to create one that is sustainable and does not cost you muscle.</p>
+
+<h2>Step 1: Calculate Your Maintenance Calories</h2>
+<p>Your Total Daily Energy Expenditure (TDEE) is the number of calories you burn per day. Use the Mifflin-St Jeor equation:</p>
+<ul>
+  <li><strong>Men</strong>: (10 x weight in kg) + (6.25 x height in cm) - (5 x age) + 5</li>
+  <li><strong>Women</strong>: (10 x weight in kg) + (6.25 x height in cm) - (5 x age) - 161</li>
+</ul>
+<p>Multiply by your activity factor:</p>
+<table>
+  <thead><tr><th>Activity Level</th><th>Multiplier</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>Sedentary</td><td>1.2</td><td>Desk job, no exercise</td></tr>
+    <tr><td>Lightly active</td><td>1.375</td><td>Light exercise 1-3 days/week</td></tr>
+    <tr><td>Moderately active</td><td>1.55</td><td>Moderate exercise 3-5 days/week</td></tr>
+    <tr><td>Very active</td><td>1.725</td><td>Hard exercise 6-7 days/week</td></tr>
+  </tbody>
+</table>
+
+<h2>Step 2: Choose Your Deficit Size</h2>
+<table>
+  <thead><tr><th>Deficit</th><th>Weekly Loss</th><th>Best For</th><th>Sustainability</th></tr></thead>
+  <tbody>
+    <tr><td>250 cal/day</td><td>0.5 lb/week</td><td>Already lean, minimal weight to lose</td><td>Very high</td></tr>
+    <tr><td>500 cal/day</td><td>1 lb/week</td><td>Most people, most situations</td><td>High</td></tr>
+    <tr><td>750 cal/day</td><td>1.5 lb/week</td><td>Significantly overweight</td><td>Moderate</td></tr>
+    <tr><td>1000 cal/day</td><td>2 lb/week</td><td>Obese, under medical supervision</td><td>Low</td></tr>
+  </tbody>
+</table>
+
+<h2>Real-World Examples</h2>
+<p>Here are calculated targets for three common profiles:</p>
+<ul>
+  <li><strong>30-year-old woman, 165 cm, 75 kg, lightly active</strong>: TDEE = ~1,870 cal. For 1 lb/week loss: eat 1,370 cal/day.</li>
+  <li><strong>35-year-old man, 180 cm, 90 kg, moderately active</strong>: TDEE = ~2,650 cal. For 1 lb/week loss: eat 2,150 cal/day.</li>
+  <li><strong>45-year-old woman, 160 cm, 85 kg, sedentary</strong>: TDEE = ~1,650 cal. For 0.5 lb/week loss: eat 1,400 cal/day.</li>
+</ul>
+
+<h2>Why You Should Not Go Below 1,200/1,500</h2>
+<p>Eating below 1,200 calories/day (women) or 1,500 calories/day (men) without medical supervision risks:</p>
+<ul>
+  <li>Micronutrient deficiencies (vitamins, minerals)</li>
+  <li>Significant muscle loss alongside fat loss</li>
+  <li>Metabolic adaptation — your body reduces TDEE to compensate</li>
+  <li>Hormonal disruption (thyroid, cortisol, sex hormones)</li>
+  <li>Binge eating episodes from excessive restriction</li>
+</ul>
+
+<h2>Protein Protects Muscle During a Deficit</h2>
+<p>The single most important dietary factor during weight loss is protein intake. Research shows that consuming 0.7–1.0g of protein per pound of body weight during a calorie deficit preserves lean muscle mass, keeps you fuller, and increases the thermic effect of your food (you burn more calories digesting protein than carbs or fat). In a 1,500-calorie diet, aim for at least 100–120g of protein daily.</p>
+`,
+  },
+  {
+    slug: "meal-prep-ideas-under-500-calories",
+    title: "Meal Prep Ideas Under 500 Calories Each",
+    description:
+      "Healthy meal prep does not have to be boring. These 12 recipes are under 500 calories, high in protein, and actually taste good on day 4.",
+    publishedAt: "2025-01-20",
+    category: "Meal Planning",
+    readingTime: 8,
+    content: `
+<h2>Why Meal Prep Works for Weight Management</h2>
+<p>Research shows that people who prepare meals at home eat an average of 200–300 fewer calories per meal compared to eating out. Meal prep takes this one step further by removing daily decision-making — when healthy food is already in your fridge, you are dramatically less likely to order takeout or grab fast food.</p>
+
+<h2>12 Meal Prep Recipes Under 500 Calories</h2>
+
+<h3>1. Chicken Burrito Bowls (420 cal)</h3>
+<p>Seasoned chicken breast (6oz, 195 cal) + brown rice (1/2 cup, 110 cal) + black beans (1/4 cup, 60 cal) + salsa (30 cal) + corn (25 cal). Protein: 42g. Keeps 4 days refrigerated.</p>
+
+<h3>2. Turkey Meatball Marinara (380 cal)</h3>
+<p>Ground turkey meatballs (5oz, 200 cal) + marinara sauce (70 cal) + whole wheat pasta (1/2 cup, 100 cal) + side of steamed broccoli (10 cal). Protein: 38g.</p>
+
+<h3>3. Salmon and Roasted Vegetables (450 cal)</h3>
+<p>Baked salmon fillet (5oz, 290 cal) + roasted sweet potato (100 cal) + asparagus (30 cal) + lemon dill sauce (30 cal). Protein: 34g. Omega-3 bonus.</p>
+
+<h3>4. Chicken Stir-Fry (395 cal)</h3>
+<p>Chicken breast strips (5oz, 165 cal) + mixed stir-fry vegetables (60 cal) + brown rice (1/2 cup, 110 cal) + low-sodium soy sauce and ginger (20 cal) + sesame oil (40 cal). Protein: 36g.</p>
+
+<h3>5. Greek Chicken Bowls (440 cal)</h3>
+<p>Grilled chicken (5oz, 165 cal) + quinoa (1/2 cup, 110 cal) + cucumber-tomato salad (30 cal) + hummus (2 tbsp, 70 cal) + feta (1oz, 75 cal). Protein: 40g.</p>
+
+<h3>6. Beef and Broccoli (410 cal)</h3>
+<p>Lean sirloin strips (5oz, 220 cal) + broccoli florets (40 cal) + brown rice (1/2 cup, 110 cal) + garlic-ginger sauce (40 cal). Protein: 38g.</p>
+
+<h2>Meal Prep Best Practices</h2>
+<ul>
+  <li><strong>Prep on Sunday</strong> — cook 4–5 days of meals in 2–3 hours</li>
+  <li><strong>Invest in quality containers</strong> — glass containers with snap lids prevent leaking and microwave well</li>
+  <li><strong>Vary your proteins</strong> — chicken 2 days, fish 1 day, beef 1 day prevents flavor fatigue</li>
+  <li><strong>Freeze half</strong> — if prepping 5 meals, refrigerate 3 and freeze 2 to maintain freshness</li>
+  <li><strong>Keep sauces separate</strong> — store dressings and sauces in small containers to add at mealtime, preventing soggy food</li>
+</ul>
+
+<h2>The Cost Savings</h2>
+<p>The average restaurant lunch costs $12–$18. A prepped lunch costs $3–$5 in ingredients. At 5 lunches per week, meal prep saves $35–$65/week — or $1,800–$3,400/year. The calorie savings (200–300 fewer per meal) and the financial savings make meal prep one of the highest-impact habits you can adopt.</p>
+
+<h2>Foods That Reheat Well vs. Poorly</h2>
+<ul>
+  <li><strong>Reheat well</strong>: rice, quinoa, roasted vegetables, meatballs, soups, stews, chicken thighs</li>
+  <li><strong>Reheat okay</strong>: chicken breast (can dry out), pasta, ground beef</li>
+  <li><strong>Do not reheat well</strong>: fried foods, fresh salads with dressing, scrambled eggs, fish (gets rubbery)</li>
+</ul>
+`,
+  },
+  {
+    slug: "healthiest-fast-food-options",
+    title: "Healthiest Fast Food Options by Restaurant",
+    description:
+      "Sometimes fast food is your only option. Here are the best choices at every major chain — highest protein, lowest calories, and least processed.",
+    publishedAt: "2024-11-08",
+    category: "Dining Out",
+    readingTime: 8,
+    content: `
+<h2>Fast Food Is Not Automatically Unhealthy</h2>
+<p>The healthiest option at a fast food restaurant is not always the salad (which often has more calories than a burger once you add dressing and toppings). By knowing the nutrition data ahead of time, you can find meals under 500 calories with 30+ grams of protein at almost every major chain.</p>
+
+<h2>Best Options by Restaurant</h2>
+
+<h3>McDonald's</h3>
+<table>
+  <thead><tr><th>Item</th><th>Calories</th><th>Protein</th><th>Why It Works</th></tr></thead>
+  <tbody>
+    <tr><td>McChicken (no mayo)</td><td>300</td><td>15g</td><td>Simple, low cal</td></tr>
+    <tr><td>Egg McMuffin</td><td>300</td><td>17g</td><td>Balanced breakfast option</td></tr>
+    <tr><td>6-piece Chicken McNuggets + side salad</td><td>340</td><td>18g</td><td>Protein + vegetables</td></tr>
+    <tr><td>Double Hamburger (no cheese)</td><td>340</td><td>25g</td><td>High protein for the calories</td></tr>
+  </tbody>
+</table>
+
+<h3>Chick-fil-A</h3>
+<table>
+  <thead><tr><th>Item</th><th>Calories</th><th>Protein</th><th>Why It Works</th></tr></thead>
+  <tbody>
+    <tr><td>Grilled Nuggets (12-count)</td><td>200</td><td>38g</td><td>Best protein-to-cal ratio in fast food</td></tr>
+    <tr><td>Grilled Chicken Sandwich</td><td>390</td><td>29g</td><td>Solid balanced option</td></tr>
+    <tr><td>Egg White Grill</td><td>290</td><td>26g</td><td>Low-cal breakfast</td></tr>
+  </tbody>
+</table>
+
+<h3>Chipotle</h3>
+<table>
+  <thead><tr><th>Item</th><th>Calories</th><th>Protein</th><th>Why It Works</th></tr></thead>
+  <tbody>
+    <tr><td>Chicken bowl (no rice, no cheese, no sour cream)</td><td>395</td><td>42g</td><td>Customizable and high protein</td></tr>
+    <tr><td>Steak salad (no dressing, no cheese)</td><td>370</td><td>35g</td><td>Low-carb friendly</td></tr>
+  </tbody>
+</table>
+
+<h3>Subway</h3>
+<table>
+  <thead><tr><th>Item</th><th>Calories</th><th>Protein</th><th>Why It Works</th></tr></thead>
+  <tbody>
+    <tr><td>6" Turkey Breast</td><td>250</td><td>18g</td><td>Lowest-calorie sub option</td></tr>
+    <tr><td>6" Rotisserie Chicken</td><td>290</td><td>23g</td><td>Best protein ratio</td></tr>
+  </tbody>
+</table>
+
+<h2>Universal Fast Food Rules</h2>
+<ul>
+  <li><strong>Skip the fries</strong> — a medium order adds 340–400 calories and 16–19g of fat with minimal protein</li>
+  <li><strong>Drink water</strong> — a medium soda adds 200–250 empty calories</li>
+  <li><strong>Grilled beats fried</strong> — grilling eliminates the 150–200 extra calories from breading and frying oil</li>
+  <li><strong>Sauce on the side</strong> — dressings, mayo, and special sauces often add 100–250 hidden calories</li>
+  <li><strong>Check the app</strong> — every major chain has nutrition data available in their app; check before ordering</li>
+</ul>
+
+<h2>The Worst Choices at Each Chain</h2>
+<p>For perspective, the worst items at these same restaurants often exceed 1,200 calories for a single meal. A Chipotle burrito with all toppings: 1,200+ calories. A McDonald's Big Mac meal with large fries and a Coke: 1,350 calories. A Chick-fil-A deluxe sandwich meal: 1,200 calories. Knowing both the best and worst options helps you navigate any fast food situation.</p>
+`,
+  },
+  {
+    slug: "sugar-content-in-drinks-comparison",
+    title: "Sugar in Common Drinks: A Visual Comparison",
+    description:
+      "That 'healthy' smoothie might have more sugar than a Coca-Cola. See the real sugar content in 30+ popular drinks ranked from worst to best.",
+    publishedAt: "2025-02-05",
+    category: "Sugar & Carbs",
+    readingTime: 7,
+    content: `
+<h2>Liquid Sugar Is the Biggest Diet Saboteur</h2>
+<p>Sugar-sweetened beverages are the single largest source of added sugar in the American diet, contributing about 24% of all added sugar intake. Unlike solid food, liquid calories do not trigger satiety signals — your brain does not register them as "eating," so you consume full meals on top of hundreds of liquid calories.</p>
+
+<h2>Sugar Content in Popular Drinks (Per Standard Serving)</h2>
+<table>
+  <thead><tr><th>Drink</th><th>Serving Size</th><th>Sugar (g)</th><th>Teaspoons</th></tr></thead>
+  <tbody>
+    <tr><td>Large Jamba Juice smoothie</td><td>28 oz</td><td>83g</td><td>21 tsp</td></tr>
+    <tr><td>Starbucks Venti Caramel Frappuccino</td><td>24 oz</td><td>66g</td><td>16.5 tsp</td></tr>
+    <tr><td>Mountain Dew</td><td>20 oz</td><td>77g</td><td>19 tsp</td></tr>
+    <tr><td>Coca-Cola</td><td>20 oz</td><td>65g</td><td>16 tsp</td></tr>
+    <tr><td>Snapple Peach Tea</td><td>16 oz</td><td>39g</td><td>10 tsp</td></tr>
+    <tr><td>Orange juice</td><td>12 oz</td><td>33g</td><td>8 tsp</td></tr>
+    <tr><td>Gatorade</td><td>20 oz</td><td>36g</td><td>9 tsp</td></tr>
+    <tr><td>Chocolate milk</td><td>8 oz</td><td>24g</td><td>6 tsp</td></tr>
+    <tr><td>Red Bull</td><td>8.4 oz</td><td>27g</td><td>7 tsp</td></tr>
+    <tr><td>Coconut water</td><td>11 oz</td><td>12g</td><td>3 tsp</td></tr>
+    <tr><td>Unsweetened almond milk</td><td>8 oz</td><td>0g</td><td>0 tsp</td></tr>
+    <tr><td>Black coffee</td><td>12 oz</td><td>0g</td><td>0 tsp</td></tr>
+    <tr><td>Green tea (unsweetened)</td><td>12 oz</td><td>0g</td><td>0 tsp</td></tr>
+    <tr><td>Water</td><td>any</td><td>0g</td><td>0 tsp</td></tr>
+  </tbody>
+</table>
+
+<h2>The Smoothie and Juice Trap</h2>
+<p>Many people consider smoothies and juice as "healthy" options. A large Jamba Juice smoothie contains 83g of sugar — more than two cans of Coca-Cola. Even 100% fruit juice contains as much sugar as soda, just from natural fruit sugars instead of added sugar. From a metabolic perspective, your body processes both similarly: rapid blood sugar spike followed by crash and increased hunger.</p>
+
+<h2>The AHA Sugar Limit</h2>
+<p>The American Heart Association recommends a maximum of 36g (9 teaspoons) of added sugar per day for men and 25g (6 teaspoons) for women. A single 20-oz Coca-Cola exceeds both limits in one serving. A Starbucks Frappuccino nearly triples the women's daily limit.</p>
+
+<h2>Healthier Drink Swaps</h2>
+<ul>
+  <li><strong>Soda to sparkling water</strong> — add a squeeze of lemon or lime for flavor (0 calories vs. 250)</li>
+  <li><strong>Frappuccino to iced coffee</strong> — add a splash of milk and a pump of syrup (50 cal vs. 510)</li>
+  <li><strong>Juice to whole fruit</strong> — an orange has 45 cal and 3g fiber vs. 12oz OJ with 165 cal and 0g fiber</li>
+  <li><strong>Sports drink to water + electrolyte tablet</strong> — same hydration benefit, 0 sugar</li>
+  <li><strong>Sweet tea to unsweetened tea + stevia</strong> — near-zero calories vs. 180</li>
+</ul>
+
+<h2>The Weekly Impact</h2>
+<p>Replacing one daily 20-oz soda (250 cal) with water saves 1,750 calories per week — equivalent to 0.5 lb of fat loss per week or 26 lbs per year, with zero other dietary changes. This single swap is the highest-impact nutritional change most Americans can make.</p>
+`,
+  },
+  {
+    slug: "fiber-rich-foods-for-digestion",
+    title: "Fiber-Rich Foods for Better Digestion: Complete List",
+    description:
+      "Most Americans eat only 15g of fiber daily — half the recommended amount. These high-fiber foods improve digestion, satiety, and long-term health.",
+    publishedAt: "2025-03-01",
+    category: "Nutrition Basics",
+    readingTime: 7,
+    content: `
+<h2>Why Fiber Matters More Than You Think</h2>
+<p>Fiber is the most consistently under-consumed nutrient in the American diet. The recommended intake is 25g/day for women and 38g/day for men, but the average American consumes only 15g/day. Adequate fiber intake is linked to lower risk of heart disease, type 2 diabetes, certain cancers, and better digestive health. It also increases satiety — helping you eat less without feeling hungrier.</p>
+
+<h2>Highest-Fiber Foods Per Serving</h2>
+<table>
+  <thead><tr><th>Food</th><th>Serving</th><th>Fiber (g)</th><th>Calories</th></tr></thead>
+  <tbody>
+    <tr><td>Chia seeds</td><td>2 tbsp</td><td>10g</td><td>138</td></tr>
+    <tr><td>Lentils (cooked)</td><td>1 cup</td><td>15.6g</td><td>230</td></tr>
+    <tr><td>Black beans (cooked)</td><td>1 cup</td><td>15g</td><td>227</td></tr>
+    <tr><td>Split peas (cooked)</td><td>1 cup</td><td>16.3g</td><td>231</td></tr>
+    <tr><td>Artichoke (medium)</td><td>1 whole</td><td>10.3g</td><td>64</td></tr>
+    <tr><td>Raspberries</td><td>1 cup</td><td>8g</td><td>64</td></tr>
+    <tr><td>Avocado</td><td>1 whole</td><td>13.5g</td><td>322</td></tr>
+    <tr><td>Pear (with skin)</td><td>1 medium</td><td>5.5g</td><td>102</td></tr>
+    <tr><td>Broccoli (cooked)</td><td>1 cup</td><td>5.1g</td><td>55</td></tr>
+    <tr><td>Oats (dry)</td><td>1/2 cup</td><td>4g</td><td>150</td></tr>
+    <tr><td>Sweet potato (with skin)</td><td>1 medium</td><td>3.8g</td><td>103</td></tr>
+    <tr><td>Almonds</td><td>1 oz (23 nuts)</td><td>3.5g</td><td>164</td></tr>
+    <tr><td>Brussels sprouts</td><td>1 cup</td><td>4.1g</td><td>56</td></tr>
+    <tr><td>Flaxseed (ground)</td><td>2 tbsp</td><td>3.8g</td><td>74</td></tr>
+  </tbody>
+</table>
+
+<h2>Soluble vs. Insoluble Fiber</h2>
+<ul>
+  <li><strong>Soluble fiber</strong> (oats, beans, apples, chia seeds) — dissolves in water, forms a gel, slows digestion, lowers cholesterol, and stabilizes blood sugar</li>
+  <li><strong>Insoluble fiber</strong> (whole wheat, vegetables, nuts) — does not dissolve, adds bulk to stool, prevents constipation, and promotes regularity</li>
+</ul>
+<p>Both types are important. A diverse diet with legumes, whole grains, fruits, and vegetables naturally provides both.</p>
+
+<h2>How to Increase Fiber Without Discomfort</h2>
+<p>Adding fiber too quickly causes bloating, gas, and cramps. Increase gradually:</p>
+<ul>
+  <li><strong>Week 1</strong>: add 5g/day (e.g., switch to whole grain bread + one piece of fruit)</li>
+  <li><strong>Week 2</strong>: add another 5g/day (e.g., add beans to one meal)</li>
+  <li><strong>Week 3</strong>: add 5g more (e.g., add chia seeds to breakfast)</li>
+  <li><strong>Drink more water</strong> — fiber absorbs water; without enough fluids, it can cause constipation rather than relieve it</li>
+</ul>
+
+<h2>Fiber Supplements: Worth It?</h2>
+<p>Psyllium husk (Metamucil) and methylcellulose (Citrucel) can help bridge the fiber gap, but whole foods are superior because they come packaged with vitamins, minerals, and phytonutrients that supplements lack. Use supplements as a backup, not a replacement for fiber-rich whole foods.</p>
+`,
+  },
+  {
+    slug: "anti-inflammatory-foods-list",
+    title: "Anti-Inflammatory Foods: The Complete List",
+    description:
+      "Chronic inflammation drives heart disease, diabetes, and cancer. These foods actively fight inflammation — backed by clinical research, not hype.",
+    publishedAt: "2024-12-20",
+    category: "Health",
+    readingTime: 7,
+    content: `
+<h2>Inflammation: The Silent Health Threat</h2>
+<p>Acute inflammation (a twisted ankle swelling) is your body's healing response. Chronic low-grade inflammation is different — it simmers for years, damaging blood vessels, joints, and organs. Research links chronic inflammation to heart disease, type 2 diabetes, Alzheimer's, certain cancers, and autoimmune conditions. Diet is one of the most powerful tools for reducing it.</p>
+
+<h2>Top Anti-Inflammatory Foods (Evidence-Based)</h2>
+<table>
+  <thead><tr><th>Food</th><th>Active Compounds</th><th>Research Evidence</th></tr></thead>
+  <tbody>
+    <tr><td>Fatty fish (salmon, sardines, mackerel)</td><td>EPA and DHA omega-3s</td><td>Strong — reduces CRP and IL-6 markers</td></tr>
+    <tr><td>Extra virgin olive oil</td><td>Oleocanthal</td><td>Strong — comparable to low-dose ibuprofen</td></tr>
+    <tr><td>Berries (blueberries, strawberries)</td><td>Anthocyanins</td><td>Strong — reduce NF-kB inflammatory pathway</td></tr>
+    <tr><td>Turmeric / curcumin</td><td>Curcumin</td><td>Moderate-Strong — inhibits COX-2 and NF-kB</td></tr>
+    <tr><td>Leafy greens (spinach, kale)</td><td>Vitamin K, folate, polyphenols</td><td>Strong — population studies show clear benefit</td></tr>
+    <tr><td>Walnuts</td><td>ALA omega-3s, polyphenols</td><td>Moderate — reduce inflammatory markers</td></tr>
+    <tr><td>Tomatoes</td><td>Lycopene</td><td>Moderate — reduces CRP, especially when cooked</td></tr>
+    <tr><td>Green tea</td><td>EGCG catechins</td><td>Moderate — anti-inflammatory and antioxidant</td></tr>
+    <tr><td>Ginger</td><td>Gingerols</td><td>Moderate — reduces muscle soreness and joint pain</td></tr>
+    <tr><td>Dark chocolate (70%+)</td><td>Flavanols</td><td>Moderate — improves vascular inflammation</td></tr>
+  </tbody>
+</table>
+
+<h2>Foods That Increase Inflammation</h2>
+<p>Equally important is knowing what to avoid or minimize:</p>
+<ul>
+  <li><strong>Ultra-processed foods</strong> — chips, cookies, frozen meals with long ingredient lists</li>
+  <li><strong>Refined carbohydrates</strong> — white bread, pastries, sugary cereals</li>
+  <li><strong>Sugar-sweetened beverages</strong> — soda, sweet tea, fruit juice</li>
+  <li><strong>Excessive red and processed meat</strong> — bacon, hot dogs, sausage</li>
+  <li><strong>Trans fats</strong> — partially hydrogenated oils (check ingredient labels)</li>
+  <li><strong>Excessive alcohol</strong> — more than moderate consumption increases inflammation</li>
+</ul>
+
+<h2>The Mediterranean Diet Connection</h2>
+<p>The Mediterranean diet — rich in fish, olive oil, vegetables, fruits, nuts, and whole grains — is the most studied anti-inflammatory eating pattern. The landmark PREDIMED trial showed a 30% reduction in cardiovascular events among people following a Mediterranean diet supplemented with extra virgin olive oil or nuts. You do not need to follow it perfectly; even incorporating 3–4 key elements (more fish, olive oil as primary fat, daily vegetables, less processed food) produces measurable reductions in inflammatory markers.</p>
+
+<h2>Practical Anti-Inflammatory Meal Template</h2>
+<ul>
+  <li><strong>Breakfast</strong>: oatmeal with blueberries, walnuts, and a drizzle of honey</li>
+  <li><strong>Lunch</strong>: spinach salad with salmon, olive oil vinaigrette, cherry tomatoes</li>
+  <li><strong>Dinner</strong>: grilled chicken with turmeric-roasted vegetables and brown rice</li>
+  <li><strong>Snacks</strong>: berries, dark chocolate, green tea</li>
+</ul>
+`,
+  },
+  {
+    slug: "foods-that-boost-metabolism",
+    title: "Foods That Actually Boost Metabolism (Science)",
+    description:
+      "Most 'metabolism-boosting' food claims are marketing nonsense. But a few foods genuinely increase calorie burn. Here is what the research says.",
+    publishedAt: "2025-02-12",
+    category: "Weight Loss",
+    readingTime: 7,
+    content: `
+<h2>The Metabolism Hype vs. Reality</h2>
+<p>Countless articles claim specific foods "boost metabolism" by 10–20%. The reality is far more modest. No single food transforms your metabolic rate. However, certain foods and dietary patterns can increase your Total Daily Energy Expenditure (TDEE) by 50–200 calories/day through the thermic effect of food, caffeine stimulation, or capsaicin activation. Small? Yes. But over a year, 100 extra calories burned per day equals about 10 pounds of fat loss potential.</p>
+
+<h2>Foods With Proven Metabolic Effects</h2>
+<table>
+  <thead><tr><th>Food</th><th>Mechanism</th><th>Estimated Extra Burn</th><th>Evidence Quality</th></tr></thead>
+  <tbody>
+    <tr><td>High-protein foods</td><td>Thermic effect (20-30% of protein calories)</td><td>100-150 cal/day</td><td>Strong</td></tr>
+    <tr><td>Coffee (caffeine)</td><td>CNS stimulation, fat oxidation</td><td>50-80 cal/day</td><td>Strong</td></tr>
+    <tr><td>Green tea</td><td>EGCG + caffeine synergy</td><td>30-50 cal/day</td><td>Moderate</td></tr>
+    <tr><td>Chili peppers</td><td>Capsaicin thermogenesis</td><td>20-50 cal/day</td><td>Moderate</td></tr>
+    <tr><td>Cold water</td><td>Warming water to body temp</td><td>8-17 cal per 500ml</td><td>Weak-Moderate</td></tr>
+    <tr><td>Ginger</td><td>Thermogenic compounds</td><td>10-40 cal/day</td><td>Weak-Moderate</td></tr>
+  </tbody>
+</table>
+
+<h2>Protein Is the Real Metabolism Booster</h2>
+<p>The thermic effect of food (TEF) — the energy your body uses to digest, absorb, and process nutrients — is by far the most impactful dietary factor in metabolic rate. Protein has a TEF of 20–30% (you burn 20–30 calories for every 100 protein calories consumed), compared to 5–10% for carbs and 0–3% for fat.</p>
+<p>Practical impact: if you eat 150g of protein per day (600 calories), your body burns 120–180 of those calories during digestion. If you ate the same calories from fat, your body would burn only 0–18 calories. This 100–160 calorie daily difference is the largest proven dietary effect on metabolic rate.</p>
+
+<h2>Caffeine: The Most Effective Metabolic Stimulant in Food</h2>
+<p>Caffeine is one of the few substances proven to directly increase metabolic rate in controlled studies. A cup of coffee increases resting metabolic rate by 3–11% for several hours. The effect is dose-dependent (more caffeine = more burn) but plateaus around 300–400mg (3–4 cups of coffee). Tolerance develops with chronic use, reducing the effect over time.</p>
+
+<h2>What Does NOT Boost Metabolism (Despite Claims)</h2>
+<ul>
+  <li><strong>Apple cider vinegar</strong> — no credible evidence for metabolic effects in humans</li>
+  <li><strong>Celery</strong> — the "negative calorie" claim is false; celery has minimal thermic effect</li>
+  <li><strong>Coconut oil</strong> — MCTs show a tiny metabolic effect in studies, but coconut oil is still calorie-dense fat</li>
+  <li><strong>"Metabolism-boosting" supplements</strong> — most contain caffeine with a marketing markup; none outperform coffee</li>
+  <li><strong>Eating small frequent meals</strong> — meal frequency has no effect on metabolic rate when total calories are equal</li>
+</ul>
+
+<h2>The Real Metabolism Hack: Build Muscle</h2>
+<p>Each pound of muscle burns approximately 6 calories per day at rest, compared to 2 calories per pound of fat. Adding 10 pounds of muscle increases your resting metabolic rate by 40 calories/day. Combined with the thermic effect of a high-protein diet and regular exercise, this is the most sustainable way to genuinely increase your metabolic rate.</p>
+`,
+  },
+  {
+    slug: "vitamin-d-rich-foods",
+    title: "Vitamin D Rich Foods You Should Eat Daily",
+    description:
+      "42% of Americans are vitamin D deficient. These foods are the best dietary sources — though you probably still need a supplement.",
+    publishedAt: "2025-01-28",
+    category: "Vitamins & Minerals",
+    readingTime: 6,
+    content: `
+<h2>The Vitamin D Deficiency Epidemic</h2>
+<p>An estimated 42% of US adults are vitamin D deficient, with rates even higher among Black Americans (82%) and Hispanic Americans (69%). Vitamin D is essential for bone health, immune function, mood regulation, and muscle function. Deficiency is linked to increased risk of osteoporosis, depression, autoimmune disease, and respiratory infections.</p>
+
+<h2>Best Food Sources of Vitamin D</h2>
+<table>
+  <thead><tr><th>Food</th><th>Serving</th><th>Vitamin D (IU)</th><th>% Daily Value</th></tr></thead>
+  <tbody>
+    <tr><td>Cod liver oil</td><td>1 tbsp</td><td>1,360</td><td>170%</td></tr>
+    <tr><td>Trout (rainbow, cooked)</td><td>3 oz</td><td>645</td><td>81%</td></tr>
+    <tr><td>Salmon (sockeye, cooked)</td><td>3 oz</td><td>570</td><td>71%</td></tr>
+    <tr><td>Sardines (canned)</td><td>3 oz</td><td>164</td><td>21%</td></tr>
+    <tr><td>Fortified milk</td><td>1 cup</td><td>120</td><td>15%</td></tr>
+    <tr><td>Fortified orange juice</td><td>1 cup</td><td>100</td><td>13%</td></tr>
+    <tr><td>Egg yolk</td><td>1 large</td><td>44</td><td>6%</td></tr>
+    <tr><td>Fortified cereal</td><td>1 serving</td><td>40-80</td><td>5-10%</td></tr>
+    <tr><td>Mushrooms (UV-exposed)</td><td>1 cup</td><td>366</td><td>46%</td></tr>
+    <tr><td>Tuna (canned, light)</td><td>3 oz</td><td>40</td><td>5%</td></tr>
+  </tbody>
+</table>
+
+<h2>Why Diet Alone Usually Falls Short</h2>
+<p>The recommended daily intake of vitamin D is 600–800 IU (many experts argue for 1,000–2,000 IU). Looking at the food sources, you would need to eat salmon daily to meet even the basic 600 IU recommendation through food alone. Most people do not consume enough vitamin D-rich foods consistently, which is why deficiency is so widespread.</p>
+
+<h2>The Three Sources of Vitamin D</h2>
+<ul>
+  <li><strong>Sunlight</strong> — 15–30 minutes of midday sun exposure on bare skin produces 10,000–25,000 IU. But this varies by latitude, season, skin tone, and sunscreen use. Most Americans north of Atlanta do not produce adequate vitamin D from sun October through March.</li>
+  <li><strong>Food</strong> — fatty fish and fortified foods are the main dietary sources. Vegetarian options are limited.</li>
+  <li><strong>Supplements</strong> — vitamin D3 supplements (1,000–2,000 IU/day) are the most reliable way to maintain adequate levels. They cost $5–$10 for a year's supply.</li>
+</ul>
+
+<h2>Who Needs to Pay Most Attention</h2>
+<ul>
+  <li><strong>People with darker skin</strong> — melanin reduces UV-driven vitamin D production by up to 90%</li>
+  <li><strong>Indoor workers</strong> — office workers, remote employees, and night-shift workers get minimal sun exposure</li>
+  <li><strong>Northern residents</strong> — above the 37th parallel (roughly north of San Francisco to Richmond, VA), winter sun is too weak for vitamin D synthesis</li>
+  <li><strong>Older adults</strong> — skin produces vitamin D less efficiently with age</li>
+  <li><strong>Vegans</strong> — almost all natural vitamin D sources are animal-based</li>
+</ul>
+
+<h2>A Simple Action Plan</h2>
+<p>Eat fatty fish 2–3 times per week, use fortified milk or plant milk, get 15 minutes of midday sun when possible, and take a 1,000–2,000 IU vitamin D3 supplement daily — especially in winter. Ask your doctor to test your 25(OH)D level at your next checkup; optimal is 30–50 ng/mL.</p>
+`,
+  },
+  {
+    slug: "how-to-read-nutrition-labels",
+    title: "How to Read Nutrition Labels Correctly (2025)",
+    description:
+      "Most people glance at calories and ignore the rest. Here is how to actually read a nutrition label to make informed food choices.",
+    publishedAt: "2024-11-15",
+    category: "Nutrition Basics",
+    readingTime: 7,
+    content: `
+<h2>The Nutrition Facts Panel Decoded</h2>
+<p>The FDA-mandated Nutrition Facts label contains more useful information than most people realize. Beyond the calorie count, it tells you exactly what you are putting in your body. Learning to read it takes 5 minutes and will improve every food decision you make for the rest of your life.</p>
+
+<h2>The 5 Numbers That Actually Matter</h2>
+<h3>1. Serving Size (Check This First)</h3>
+<p>Every number on the label is per serving — not per container. A bag of chips might list 150 calories per serving, but if the bag contains 4 servings, eating the whole bag is 600 calories. Always check serving size first, then multiply by the number of servings you actually consume.</p>
+
+<h3>2. Calories</h3>
+<p>Your total daily intake guide. For weight loss, staying under your calorie target is the primary goal. For maintenance, calories in should roughly equal calories out.</p>
+
+<h3>3. Protein</h3>
+<p>The most satiating macronutrient. Aim for foods with 10g+ protein per serving when possible. Higher protein per calorie is better.</p>
+
+<h3>4. Fiber</h3>
+<p>Most Americans are fiber-deficient. Look for foods with 3g+ fiber per serving. Fiber increases fullness and supports gut health.</p>
+
+<h3>5. Added Sugars</h3>
+<p>The 2020 label update separated "added sugars" from total sugars. Natural sugars in fruit and milk are fine; added sugars should stay under 25g/day (women) or 36g/day (men).</p>
+
+<h2>What to Watch For</h2>
+<table>
+  <thead><tr><th>Label Claim</th><th>What It Actually Means</th><th>Watch Out For</th></tr></thead>
+  <tbody>
+    <tr><td>"Low fat"</td><td>3g or less fat per serving</td><td>Often higher in sugar to compensate for taste</td></tr>
+    <tr><td>"Sugar free"</td><td>Less than 0.5g sugar per serving</td><td>May contain artificial sweeteners or sugar alcohols</td></tr>
+    <tr><td>"Natural"</td><td>No FDA-regulated meaning</td><td>Essentially meaningless marketing term</td></tr>
+    <tr><td>"Organic"</td><td>USDA certified production methods</td><td>Organic cookies are still cookies — not healthier</td></tr>
+    <tr><td>"Whole grain"</td><td>Contains some whole grain</td><td>Check if whole grain is the FIRST ingredient</td></tr>
+    <tr><td>"High protein"</td><td>No regulated definition</td><td>Check actual grams; some "high protein" items have 8g</td></tr>
+  </tbody>
+</table>
+
+<h2>The Ingredient List: Read It</h2>
+<p>Ingredients are listed in order of quantity — the first ingredient is the most abundant. Key rules:</p>
+<ul>
+  <li>If sugar (or its aliases: high-fructose corn syrup, dextrose, maltose, sucrose, cane juice) appears in the first 3 ingredients, the product is primarily sugar</li>
+  <li>If you cannot pronounce most ingredients, the product is heavily processed</li>
+  <li>Shorter ingredient lists generally indicate less processing</li>
+  <li>Look for whole food ingredients you recognize: "chicken breast," "brown rice," "olive oil" are good signs</li>
+</ul>
+
+<h2>Quick Label Reading Strategy (30 Seconds)</h2>
+<ul>
+  <li><strong>Step 1</strong>: Check serving size — is it realistic for what you will eat?</li>
+  <li><strong>Step 2</strong>: Check calories — does this fit your meal/snack budget?</li>
+  <li><strong>Step 3</strong>: Check protein — is it at least 10g?</li>
+  <li><strong>Step 4</strong>: Check added sugars — is it under 5g?</li>
+  <li><strong>Step 5</strong>: Scan the ingredient list — are the first 3 ingredients real foods?</li>
+</ul>
+<p>This 30-second check eliminates most poor food choices and takes no special nutrition knowledge.</p>
+`,
+  },
+  {
+    slug: "keto-friendly-foods-guide",
+    title: "Keto-Friendly Foods: Complete Guide for Beginners",
+    description:
+      "Starting keto? Here is every food you can eat freely, foods to eat in moderation, and foods to avoid — with exact carb counts for each.",
+    publishedAt: "2025-03-10",
+    category: "Diets",
+    readingTime: 8,
+    content: `
+<h2>What Makes a Food Keto-Friendly</h2>
+<p>The ketogenic diet typically limits carbohydrates to 20–50g net carbs per day (total carbs minus fiber). This forces your body to burn fat for fuel instead of glucose, producing ketones as an energy source. A food is "keto-friendly" if it is low in net carbs and fits within this daily limit.</p>
+
+<h2>Eat Freely (Under 1g Net Carbs Per Serving)</h2>
+<ul>
+  <li><strong>Meats</strong>: beef, pork, chicken, turkey, lamb, bison — all unprocessed meats are zero-carb</li>
+  <li><strong>Fish and seafood</strong>: salmon, tuna, shrimp, cod, sardines</li>
+  <li><strong>Eggs</strong>: whole eggs, egg whites (0.6g carb per egg)</li>
+  <li><strong>Butter and ghee</strong>: zero carbs, high in fat</li>
+  <li><strong>Oils</strong>: olive oil, coconut oil, avocado oil</li>
+  <li><strong>Most cheeses</strong>: cheddar, mozzarella, brie, cream cheese (0–1g per oz)</li>
+</ul>
+
+<h2>Eat in Moderation (Track Carbs Carefully)</h2>
+<table>
+  <thead><tr><th>Food</th><th>Serving</th><th>Net Carbs</th></tr></thead>
+  <tbody>
+    <tr><td>Avocado</td><td>1/2 fruit</td><td>2g</td></tr>
+    <tr><td>Broccoli</td><td>1 cup</td><td>3.6g</td></tr>
+    <tr><td>Cauliflower</td><td>1 cup</td><td>3.2g</td></tr>
+    <tr><td>Spinach</td><td>1 cup (cooked)</td><td>0.7g</td></tr>
+    <tr><td>Zucchini</td><td>1 cup</td><td>2.7g</td></tr>
+    <tr><td>Bell peppers</td><td>1/2 medium</td><td>3g</td></tr>
+    <tr><td>Almonds</td><td>1 oz</td><td>2.5g</td></tr>
+    <tr><td>Pecans</td><td>1 oz</td><td>1.2g</td></tr>
+    <tr><td>Berries (strawberries)</td><td>1/2 cup</td><td>4.7g</td></tr>
+    <tr><td>Dark chocolate (85%+)</td><td>1 oz</td><td>5g</td></tr>
+    <tr><td>Greek yogurt (full-fat)</td><td>1/2 cup</td><td>3.5g</td></tr>
+    <tr><td>Tomato</td><td>1 medium</td><td>3.3g</td></tr>
+  </tbody>
+</table>
+
+<h2>Avoid on Keto</h2>
+<ul>
+  <li><strong>Grains</strong>: bread, rice, pasta, oats, cereal (20–45g carbs per serving)</li>
+  <li><strong>Sugar</strong>: candy, soda, juice, honey, agave</li>
+  <li><strong>Starchy vegetables</strong>: potatoes, corn, peas (15–30g carbs per serving)</li>
+  <li><strong>Most fruits</strong>: bananas (27g), apples (21g), grapes (27g per cup)</li>
+  <li><strong>Beans and legumes</strong>: black beans (26g), chickpeas (33g per cup)</li>
+  <li><strong>Low-fat products</strong>: often replace fat with sugar</li>
+</ul>
+
+<h2>A Sample Keto Day (Under 25g Net Carbs)</h2>
+<ul>
+  <li><strong>Breakfast</strong>: 3-egg omelet with cheese and spinach (3g carbs)</li>
+  <li><strong>Lunch</strong>: grilled chicken salad with avocado and olive oil dressing (5g carbs)</li>
+  <li><strong>Dinner</strong>: salmon with roasted broccoli and butter (6g carbs)</li>
+  <li><strong>Snacks</strong>: almonds (2.5g) + string cheese (1g)</li>
+  <li><strong>Total</strong>: ~17.5g net carbs, ~1,600 calories, ~110g protein</li>
+</ul>
+
+<h2>Common Keto Mistakes</h2>
+<ul>
+  <li><strong>Not tracking carbs precisely</strong> — 50g is the absolute upper limit; many people unintentionally exceed it</li>
+  <li><strong>Ignoring vegetables</strong> — keto should not mean all bacon and cheese; non-starchy vegetables are essential</li>
+  <li><strong>Undereating protein</strong> — protein is more important than fat on keto for maintaining muscle</li>
+  <li><strong>Forgetting electrolytes</strong> — low-carb diets increase sodium, potassium, and magnesium excretion; supplementation prevents the "keto flu"</li>
+</ul>
+`,
+  },
+  {
+    slug: "iron-rich-foods-for-anemia",
+    title: "Iron-Rich Foods for Anemia Prevention",
+    description:
+      "Iron deficiency is the most common nutritional deficiency worldwide. These foods provide the most absorbable iron to keep your levels healthy.",
+    publishedAt: "2024-12-10",
+    category: "Vitamins & Minerals",
+    readingTime: 7,
+    content: `
+<h2>Iron Deficiency Is Extremely Common</h2>
+<p>Iron deficiency affects an estimated 10% of women and 5% of men in the US. Globally, it is the most common nutritional deficiency. Symptoms include fatigue, weakness, pale skin, shortness of breath, cold hands and feet, and difficulty concentrating. Many people are mildly deficient without knowing it.</p>
+
+<h2>Heme Iron vs. Non-Heme Iron</h2>
+<p>Dietary iron comes in two forms:</p>
+<ul>
+  <li><strong>Heme iron</strong> (animal sources) — absorbed at 15–35% efficiency. Found in meat, poultry, and seafood.</li>
+  <li><strong>Non-heme iron</strong> (plant sources) — absorbed at 2–20% efficiency. Found in beans, spinach, and fortified foods.</li>
+</ul>
+<p>This absorption difference matters enormously. Spinach contains 6.4mg of iron per cooked cup, but your body absorbs only about 1mg. A 3oz serving of beef contains 2.6mg of iron, and your body absorbs nearly 1mg. The effective iron intake is similar despite the raw numbers being very different.</p>
+
+<h2>Best Iron Sources Ranked</h2>
+<table>
+  <thead><tr><th>Food</th><th>Serving</th><th>Iron (mg)</th><th>Type</th><th>Absorption Rate</th></tr></thead>
+  <tbody>
+    <tr><td>Beef liver</td><td>3 oz</td><td>5.2</td><td>Heme</td><td>High</td></tr>
+    <tr><td>Oysters</td><td>3 oz</td><td>7.8</td><td>Heme</td><td>High</td></tr>
+    <tr><td>Beef (sirloin)</td><td>3 oz</td><td>2.6</td><td>Heme</td><td>High</td></tr>
+    <tr><td>Dark chicken meat</td><td>3 oz</td><td>1.1</td><td>Heme</td><td>High</td></tr>
+    <tr><td>Lentils (cooked)</td><td>1 cup</td><td>6.6</td><td>Non-heme</td><td>Low-Moderate</td></tr>
+    <tr><td>Spinach (cooked)</td><td>1 cup</td><td>6.4</td><td>Non-heme</td><td>Low</td></tr>
+    <tr><td>Kidney beans (cooked)</td><td>1 cup</td><td>5.2</td><td>Non-heme</td><td>Low-Moderate</td></tr>
+    <tr><td>Fortified cereal</td><td>1 serving</td><td>8–18</td><td>Non-heme</td><td>Moderate</td></tr>
+    <tr><td>Tofu (firm)</td><td>1/2 cup</td><td>3.4</td><td>Non-heme</td><td>Low-Moderate</td></tr>
+    <tr><td>Pumpkin seeds</td><td>1 oz</td><td>2.5</td><td>Non-heme</td><td>Low</td></tr>
+  </tbody>
+</table>
+
+<h2>How to Maximize Iron Absorption</h2>
+<ul>
+  <li><strong>Pair with vitamin C</strong> — eating iron-rich foods with vitamin C (citrus, bell peppers, tomatoes) increases non-heme iron absorption by up to 6x</li>
+  <li><strong>Cook in cast iron</strong> — iron leaches from the pan into food, adding 1–5mg per serving (especially with acidic foods like tomato sauce)</li>
+  <li><strong>Avoid calcium with iron-rich meals</strong> — calcium inhibits iron absorption; take calcium supplements at different meals</li>
+  <li><strong>Limit tea and coffee with meals</strong> — tannins in tea and coffee reduce iron absorption by 50–60%</li>
+  <li><strong>Combine heme and non-heme sources</strong> — eating meat alongside plant-based iron sources enhances absorption of both</li>
+</ul>
+
+<h2>Who Needs the Most Iron</h2>
+<ul>
+  <li><strong>Women of reproductive age</strong> — menstruation increases iron needs to 18mg/day vs. 8mg for men</li>
+  <li><strong>Pregnant women</strong> — need 27mg/day to support fetal development</li>
+  <li><strong>Vegetarians and vegans</strong> — recommended intake is 1.8x higher due to lower absorption from plant sources</li>
+  <li><strong>Endurance athletes</strong> — increased iron loss through sweat and foot-strike hemolysis</li>
+  <li><strong>Frequent blood donors</strong> — each donation removes approximately 250mg of iron</li>
+</ul>
+`,
+  },
+  {
+    slug: "foods-to-avoid-for-high-cholesterol",
+    title: "Foods to Avoid (and Eat) for High Cholesterol",
+    description:
+      "High cholesterol affects 86 million Americans. Dietary changes can reduce LDL by 10-20% without medication. Here are the foods that matter most.",
+    publishedAt: "2025-02-28",
+    category: "Health",
+    readingTime: 7,
+    content: `
+<h2>How Diet Affects Cholesterol</h2>
+<p>Dietary cholesterol has a smaller effect on blood cholesterol than previously believed. The bigger factors are saturated fat intake, trans fat intake, and overall dietary pattern. Research shows that replacing saturated fat with unsaturated fat can reduce LDL cholesterol by 10–15%, comparable to the effect of a low-dose statin.</p>
+
+<h2>Foods That Raise LDL Cholesterol</h2>
+<table>
+  <thead><tr><th>Food</th><th>Saturated Fat (per serving)</th><th>Impact on LDL</th></tr></thead>
+  <tbody>
+    <tr><td>Butter (1 tbsp)</td><td>7.2g</td><td>High</td></tr>
+    <tr><td>Coconut oil (1 tbsp)</td><td>11.2g</td><td>High</td></tr>
+    <tr><td>Bacon (3 slices)</td><td>5g</td><td>Moderate-High</td></tr>
+    <tr><td>Whole milk (1 cup)</td><td>4.6g</td><td>Moderate</td></tr>
+    <tr><td>Cheddar cheese (1 oz)</td><td>5.3g</td><td>Moderate-High</td></tr>
+    <tr><td>Hot dog (1)</td><td>5.4g</td><td>Moderate-High</td></tr>
+    <tr><td>Ice cream (1/2 cup)</td><td>4.5g</td><td>Moderate</td></tr>
+    <tr><td>Palm oil (1 tbsp)</td><td>6.7g</td><td>High</td></tr>
+  </tbody>
+</table>
+
+<h2>Foods That Lower LDL Cholesterol</h2>
+<ul>
+  <li><strong>Oats and barley</strong> — contain beta-glucan fiber that binds cholesterol in the gut. 3g/day of beta-glucan reduces LDL by 5–10%.</li>
+  <li><strong>Nuts (almonds, walnuts)</strong> — 1.5 oz/day reduces LDL by 5–7%. The unsaturated fats, fiber, and plant sterols all contribute.</li>
+  <li><strong>Fatty fish (salmon, mackerel)</strong> — omega-3s primarily lower triglycerides but also modestly improve HDL/LDL ratio.</li>
+  <li><strong>Olive oil</strong> — replacing butter with olive oil reduces LDL while maintaining or increasing HDL.</li>
+  <li><strong>Beans and lentils</strong> — the soluble fiber binds cholesterol. 1 cup/day of beans can reduce LDL by 5–10%.</li>
+  <li><strong>Soy foods (tofu, edamame)</strong> — 25g/day of soy protein reduces LDL by 3–5%.</li>
+  <li><strong>Plant stanols/sterols</strong> — found in fortified foods. 2g/day reduces LDL by 8–10%.</li>
+</ul>
+
+<h2>The Portfolio Diet Approach</h2>
+<p>The Portfolio Diet combines multiple cholesterol-lowering foods for a synergistic effect. Research shows it can reduce LDL by 20–30% — approaching statin-level results without medication. The four pillars:</p>
+<ul>
+  <li>Nuts (1.5 oz/day)</li>
+  <li>Soy protein (25g/day)</li>
+  <li>Viscous fiber (10g/day from oats, beans, psyllium)</li>
+  <li>Plant sterols (2g/day from fortified foods)</li>
+</ul>
+
+<h2>Common Cholesterol Myths</h2>
+<ul>
+  <li><strong>Eggs are not the villain</strong> — eggs raise LDL modestly in some people, but for most, dietary cholesterol has less impact than saturated fat. 1–3 eggs/day is fine for most healthy adults.</li>
+  <li><strong>Coconut oil is not heart-healthy</strong> — despite marketing claims, coconut oil raises LDL cholesterol more than any other common cooking fat. Use olive oil instead.</li>
+  <li><strong>"Good cholesterol" foods do not cancel "bad cholesterol" foods</strong> — eating salmon with butter-loaded mashed potatoes does not neutralize the saturated fat.</li>
+</ul>
+`,
+  },
+  {
+    slug: "best-foods-for-gut-health",
+    title: "Best Foods for Gut Health and Probiotics",
+    description:
+      "Your gut microbiome affects digestion, immunity, and even mood. These probiotic and prebiotic foods support a diverse, healthy gut ecosystem.",
+    publishedAt: "2025-01-15",
+    category: "Health",
+    readingTime: 7,
+    content: `
+<h2>Why Gut Health Matters Beyond Digestion</h2>
+<p>The gut microbiome — the trillions of bacteria living in your intestines — influences far more than digestion. Research links gut health to immune function (70% of immune cells reside in the gut), mental health (the gut produces 95% of the body's serotonin), inflammation levels, weight management, and even skin health. A diverse, well-fed microbiome is a foundation of overall health.</p>
+
+<h2>Probiotic Foods (Contain Live Beneficial Bacteria)</h2>
+<table>
+  <thead><tr><th>Food</th><th>Key Strains</th><th>How to Use</th></tr></thead>
+  <tbody>
+    <tr><td>Yogurt (with live cultures)</td><td>Lactobacillus, Streptococcus</td><td>Breakfast, snack; choose plain unsweetened</td></tr>
+    <tr><td>Kefir</td><td>12+ strains including yeasts</td><td>Smoothies, drinking straight</td></tr>
+    <tr><td>Sauerkraut (unpasteurized)</td><td>Lactobacillus</td><td>Topping for meats, sandwiches</td></tr>
+    <tr><td>Kimchi</td><td>Lactobacillus, Leuconostoc</td><td>Side dish, rice bowls</td></tr>
+    <tr><td>Kombucha</td><td>Various bacteria + yeasts</td><td>Beverage (watch sugar content)</td></tr>
+    <tr><td>Miso</td><td>Aspergillus, Lactobacillus</td><td>Soup, marinades, dressings</td></tr>
+    <tr><td>Tempeh</td><td>Rhizopus oligosporus</td><td>Stir-fry, sandwiches, salads</td></tr>
+  </tbody>
+</table>
+
+<h2>Prebiotic Foods (Feed Your Existing Good Bacteria)</h2>
+<p>Probiotics introduce new bacteria; prebiotics feed the beneficial bacteria already in your gut. Prebiotic foods contain types of fiber that humans cannot digest but gut bacteria thrive on:</p>
+<ul>
+  <li><strong>Garlic</strong> — contains inulin and FOS (fructooligosaccharides)</li>
+  <li><strong>Onions</strong> — rich in FOS, feeding Bifidobacteria</li>
+  <li><strong>Leeks</strong> — high in inulin fiber</li>
+  <li><strong>Asparagus</strong> — contains inulin and supports Lactobacillus</li>
+  <li><strong>Bananas (slightly green)</strong> — resistant starch feeds beneficial bacteria</li>
+  <li><strong>Oats</strong> — beta-glucan fiber supports diverse gut bacteria</li>
+  <li><strong>Jerusalem artichoke</strong> — one of the richest sources of inulin</li>
+  <li><strong>Chicory root</strong> — commonly used as a prebiotic supplement ingredient</li>
+</ul>
+
+<h2>The Diversity Principle</h2>
+<p>Research shows that gut microbiome diversity is more important than any single probiotic strain. The most effective strategy is not taking a probiotic supplement — it is eating a wide variety of plant foods. A study in the American Gut Project found that people who ate 30+ different plant foods per week had significantly more diverse microbiomes than those who ate fewer than 10. Variety of fiber sources matters more than quantity.</p>
+
+<h2>Foods That Harm Gut Health</h2>
+<ul>
+  <li><strong>Ultra-processed foods</strong> — additives and emulsifiers can damage the gut lining</li>
+  <li><strong>Artificial sweeteners</strong> — studies show some sweeteners (saccharin, sucralose) alter gut bacteria composition</li>
+  <li><strong>Excessive alcohol</strong> — damages intestinal lining and disrupts bacterial balance</li>
+  <li><strong>Excessive sugar</strong> — promotes growth of harmful bacteria and yeast</li>
+  <li><strong>Unnecessary antibiotics</strong> — wipe out beneficial bacteria along with harmful ones (take only when prescribed)</li>
+</ul>
+
+<h2>Building a Gut-Healthy Routine</h2>
+<ul>
+  <li>Include one fermented food daily (yogurt, kimchi, sauerkraut, kefir)</li>
+  <li>Eat 5+ servings of vegetables and fruits daily (different types for diversity)</li>
+  <li>Include legumes (beans, lentils) 3–4 times per week</li>
+  <li>Choose whole grains over refined grains</li>
+  <li>Limit ultra-processed food to occasional treats</li>
+</ul>
+`,
+  },
+  {
+    slug: "calorie-density-explained-weight-loss",
+    title: "Calorie Density Explained: The Key to Weight Loss",
+    description:
+      "Calorie density is the secret weapon of people who lose weight without feeling hungry. Here is how it works and how to use it every day.",
+    publishedAt: "2024-12-28",
+    category: "Weight Loss",
+    readingTime: 7,
+    content: `
+<h2>What Is Calorie Density?</h2>
+<p>Calorie density is the number of calories per gram (or per unit of weight) of a food. Foods with low calorie density provide few calories for their weight, meaning you can eat large portions without consuming excessive calories. Foods with high calorie density pack many calories into small portions, making it easy to overconsume.</p>
+
+<h2>The Calorie Density Spectrum</h2>
+<table>
+  <thead><tr><th>Category</th><th>Cal/Gram</th><th>Examples</th><th>Strategy</th></tr></thead>
+  <tbody>
+    <tr><td>Very low</td><td>0.1–0.6</td><td>Non-starchy vegetables, broth soups</td><td>Eat freely</td></tr>
+    <tr><td>Low</td><td>0.6–1.5</td><td>Fruits, starchy vegetables, beans, yogurt</td><td>Eat generously</td></tr>
+    <tr><td>Medium</td><td>1.5–3.0</td><td>Meat, bread, rice, pasta</td><td>Moderate portions</td></tr>
+    <tr><td>High</td><td>3.0–5.0</td><td>Cheese, crackers, dried fruit</td><td>Small portions</td></tr>
+    <tr><td>Very high</td><td>5.0–9.0</td><td>Nuts, butter, oils, chocolate</td><td>Careful measurement</td></tr>
+  </tbody>
+</table>
+
+<h2>Why Calorie Density Works for Weight Loss</h2>
+<p>Your stomach has stretch receptors that signal fullness based on volume, not calories. Whether you fill your stomach with 400 calories of vegetables or 400 calories of nuts, you feel similarly full — but the vegetable plate is literally 10x larger. By filling your plate with lower-density foods, you eat fewer calories while feeling completely satisfied.</p>
+
+<h2>The Volume Eating Method</h2>
+<p>Volume eating applies calorie density to practical meal building:</p>
+<ul>
+  <li><strong>Base your meals on low-density foods</strong> — start with vegetables, lean protein, and fruits</li>
+  <li><strong>Add moderate-density foods in normal portions</strong> — rice, pasta, bread</li>
+  <li><strong>Use high-density foods as accents, not main components</strong> — a tablespoon of olive oil on a salad, not a bowl of nuts as a snack</li>
+</ul>
+
+<h2>Practical Comparisons</h2>
+<p>For 200 calories, you can eat:</p>
+<ul>
+  <li>580g of strawberries (about 4 cups)</li>
+  <li>380g of boiled potatoes (2 medium)</li>
+  <li>125g of cooked chicken breast (about 4 oz)</li>
+  <li>50g of cheddar cheese (less than 2 oz)</li>
+  <li>23g of almonds (about 14 almonds)</li>
+  <li>22g of olive oil (less than 2 tablespoons)</li>
+</ul>
+<p>The visual difference is dramatic. Four cups of strawberries fills a large bowl; 14 almonds disappears in your palm. Yet both provide exactly 200 calories.</p>
+
+<h2>Water Content Is the Key Driver</h2>
+<p>Water has zero calories but adds weight and volume. Foods with high water content (vegetables at 85–95% water, fruits at 80–90% water) are inherently low in calorie density. This is why cooking methods matter: raw spinach has 0.23 cal/g, but fried spinach dip has 3.0+ cal/g — the oil replaced the water.</p>
+
+<h2>Applying This to Every Meal</h2>
+<ul>
+  <li><strong>Add a side salad or vegetable soup before every meal</strong> — this pre-loads your stomach with low-density food, reducing how much high-density food you eat</li>
+  <li><strong>Mix low-density foods into high-density ones</strong> — add mushrooms and peppers to pasta; add cauliflower to mashed potatoes; add spinach to omelets</li>
+  <li><strong>Choose whole fruits over dried fruits and juice</strong> — an apple (0.52 cal/g) vs. dried apple chips (3.5 cal/g) vs. apple juice (0.46 cal/g but zero fiber)</li>
+</ul>
+`,
+  },
+  {
+    slug: "sodium-in-restaurant-meals",
+    title: "Sodium Content in Restaurant Meals: Shocking Data",
+    description:
+      "The average restaurant meal contains 1,200mg of sodium — more than half the daily limit. See the worst offenders and how to order lower-sodium.",
+    publishedAt: "2025-03-15",
+    category: "Dining Out",
+    readingTime: 6,
+    content: `
+<h2>Why Restaurant Sodium Is a Problem</h2>
+<p>The USDA recommends no more than 2,300mg of sodium per day (about 1 teaspoon of salt). The average American consumes 3,400mg. Restaurant meals are the primary culprit — they contain roughly 2–3x more sodium than home-cooked equivalents. A single restaurant entree can deliver your entire daily sodium allowance.</p>
+
+<h2>Sodium in Popular Restaurant Items</h2>
+<table>
+  <thead><tr><th>Restaurant / Item</th><th>Sodium (mg)</th><th>% Daily Limit</th></tr></thead>
+  <tbody>
+    <tr><td>Applebee's Oriental Chicken Salad</td><td>2,840</td><td>123%</td></tr>
+    <tr><td>Olive Garden Tour of Italy</td><td>3,250</td><td>141%</td></tr>
+    <tr><td>Panera Bread Bowl Mac & Cheese</td><td>2,510</td><td>109%</td></tr>
+    <tr><td>Chili's Cajun Chicken Pasta</td><td>2,780</td><td>121%</td></tr>
+    <tr><td>Cheesecake Factory Chicken Madeira</td><td>2,370</td><td>103%</td></tr>
+    <tr><td>Subway 12" Italian BMT</td><td>2,480</td><td>108%</td></tr>
+    <tr><td>Panda Express Plate (2 entrees + side)</td><td>2,100</td><td>91%</td></tr>
+    <tr><td>McDonald's Big Mac + Medium Fries</td><td>1,350</td><td>59%</td></tr>
+  </tbody>
+</table>
+
+<h2>Why Restaurants Use So Much Salt</h2>
+<p>Salt is cheap, effective, and addictive. Restaurants use it heavily because:</p>
+<ul>
+  <li>Salt enhances flavor at virtually zero cost</li>
+  <li>Salt masks the taste of lower-quality ingredients</li>
+  <li>Salt extends shelf life of pre-prepared components</li>
+  <li>Salty food makes you thirsty, increasing beverage sales</li>
+  <li>Customers return for "craveable" (sodium-laden) food</li>
+</ul>
+
+<h2>Health Effects of Excess Sodium</h2>
+<p>Consistently high sodium intake is linked to:</p>
+<ul>
+  <li><strong>High blood pressure</strong> — the most well-established risk; excess sodium causes fluid retention, increasing blood pressure</li>
+  <li><strong>Heart disease and stroke</strong> — downstream effects of chronic high blood pressure</li>
+  <li><strong>Kidney damage</strong> — excess sodium strains kidney filtration</li>
+  <li><strong>Bloating and water retention</strong> — even short-term high sodium causes visible puffiness</li>
+</ul>
+
+<h2>How to Order Lower-Sodium at Restaurants</h2>
+<ul>
+  <li><strong>Ask for sauces on the side</strong> — sauces and dressings are the biggest sodium carriers; using half cuts 300–500mg</li>
+  <li><strong>Choose grilled over fried</strong> — breading and frying add significant sodium through seasoning and batter</li>
+  <li><strong>Skip the soup</strong> — restaurant soups average 800–1,200mg per bowl</li>
+  <li><strong>Request no added salt</strong> — many restaurants will accommodate this request for grilled items</li>
+  <li><strong>Choose simpler dishes</strong> — the more ingredients and preparation steps, the more sodium</li>
+  <li><strong>Check nutrition info online before ordering</strong> — most chains publish sodium data in their apps</li>
+</ul>
+`,
+  },
+  {
+    slug: "plant-based-protein-sources",
+    title: "Plant-Based Protein Sources: Complete Comparison",
+    description:
+      "Whether you are vegan, flexitarian, or just curious, these plant proteins deliver serious nutrition. See how they compare to meat gram for gram.",
+    publishedAt: "2025-02-16",
+    category: "Protein",
+    readingTime: 7,
+    content: `
+<h2>Plant Protein vs. Animal Protein: The Real Differences</h2>
+<p>The main nutritional difference between plant and animal protein is amino acid completeness. Animal proteins contain all 9 essential amino acids in sufficient quantities (they are "complete"). Most plant proteins are low in one or more essential amino acids ("incomplete"). However, eating a variety of plant proteins throughout the day easily provides all essential amino acids — you do not need to combine them in a single meal.</p>
+
+<h2>Plant Protein Sources Ranked</h2>
+<table>
+  <thead><tr><th>Food</th><th>Protein (per cup cooked)</th><th>Calories</th><th>Complete?</th></tr></thead>
+  <tbody>
+    <tr><td>Seitan</td><td>75g</td><td>370</td><td>No (low in lysine)</td></tr>
+    <tr><td>Tempeh</td><td>31g</td><td>320</td><td>Yes</td></tr>
+    <tr><td>Lentils</td><td>18g</td><td>230</td><td>No (low in methionine)</td></tr>
+    <tr><td>Edamame</td><td>17g</td><td>188</td><td>Yes</td></tr>
+    <tr><td>Black beans</td><td>15g</td><td>227</td><td>No (low in methionine)</td></tr>
+    <tr><td>Chickpeas</td><td>14.5g</td><td>269</td><td>No (low in methionine)</td></tr>
+    <tr><td>Tofu (firm)</td><td>20g (per 1/2 block)</td><td>183</td><td>Yes</td></tr>
+    <tr><td>Quinoa</td><td>8g</td><td>222</td><td>Yes</td></tr>
+    <tr><td>Green peas</td><td>9g</td><td>134</td><td>No (low in methionine)</td></tr>
+    <tr><td>Peanut butter (2 tbsp)</td><td>8g</td><td>188</td><td>No (low in lysine)</td></tr>
+    <tr><td>Hemp seeds (3 tbsp)</td><td>10g</td><td>166</td><td>Yes</td></tr>
+    <tr><td>Oats (dry, 1/2 cup)</td><td>5g</td><td>150</td><td>No (low in lysine)</td></tr>
+  </tbody>
+</table>
+
+<h2>The "Complete Protein" Myth</h2>
+<p>The concern about combining plant proteins at every meal is outdated. As long as you eat a variety of protein sources throughout the day, your body pools amino acids and uses them as needed. A meal of rice (low in lysine) does not need to include beans (high in lysine) — you can eat beans at a different meal and your body handles the rest.</p>
+
+<h2>How Much Plant Protein Do You Need?</h2>
+<p>Plant-based eaters may benefit from slightly higher total protein intake (10–15% more) to account for the lower digestibility of some plant proteins. A reasonable target:</p>
+<ul>
+  <li><strong>Sedentary adults</strong>: 0.5–0.6g per pound of body weight</li>
+  <li><strong>Active adults / muscle building</strong>: 0.8–1.0g per pound of body weight</li>
+  <li><strong>Athletes</strong>: 0.9–1.2g per pound of body weight</li>
+</ul>
+
+<h2>Sample High-Protein Plant-Based Day (100g protein)</h2>
+<ul>
+  <li><strong>Breakfast</strong>: Oatmeal with hemp seeds and peanut butter (21g protein)</li>
+  <li><strong>Lunch</strong>: Lentil soup with whole grain bread (24g protein)</li>
+  <li><strong>Dinner</strong>: Tofu stir-fry with edamame and brown rice (32g protein)</li>
+  <li><strong>Snacks</strong>: Hummus with veggies + protein shake (25g protein)</li>
+</ul>
+
+<h2>Plant Protein Powders Compared</h2>
+<ul>
+  <li><strong>Pea protein</strong> — 24g protein per scoop, complete amino profile, smooth texture. Best all-around option.</li>
+  <li><strong>Soy protein</strong> — 25g per scoop, complete, well-studied. Avoid if you have soy sensitivity.</li>
+  <li><strong>Rice protein</strong> — 22g per scoop, low in lysine. Best when blended with pea protein.</li>
+  <li><strong>Hemp protein</strong> — 15g per scoop, complete but lower protein concentration. Rich in omega-3s.</li>
+</ul>
+`,
+  },
+  {
+    slug: "superfoods-actually-worth-eating",
+    title: "Superfoods That Are Actually Worth Eating",
+    description:
+      "The term 'superfood' is marketing hype. But some foods genuinely deliver outsized nutritional value. Here are the ones backed by real science.",
+    publishedAt: "2024-11-25",
+    category: "Nutrition Basics",
+    readingTime: 7,
+    content: `
+<h2>The Superfood Marketing Machine</h2>
+<p>"Superfood" is not a scientific term. It is a marketing label used to sell expensive products, from acai bowls to spirulina supplements. No single food prevents disease, reverses aging, or provides magical health benefits. However, some foods are genuinely more nutrient-dense than others — delivering more vitamins, minerals, and beneficial compounds per calorie.</p>
+
+<h2>Nutrient-Dense Foods Worth Prioritizing</h2>
+<table>
+  <thead><tr><th>Food</th><th>Why It Stands Out</th><th>Key Nutrients</th><th>Hype Level vs. Reality</th></tr></thead>
+  <tbody>
+    <tr><td>Blueberries</td><td>Highest antioxidant capacity of common fruits</td><td>Anthocyanins, vitamin C, fiber</td><td>Matches the hype</td></tr>
+    <tr><td>Salmon (wild)</td><td>Best dietary source of EPA/DHA omega-3s</td><td>Omega-3s, protein, vitamin D, B12</td><td>Matches the hype</td></tr>
+    <tr><td>Spinach</td><td>Most nutrient-dense leafy green per calorie</td><td>Iron, vitamin K, folate, vitamin A</td><td>Matches the hype</td></tr>
+    <tr><td>Sweet potatoes</td><td>Excellent complex carb with fiber and vitamins</td><td>Beta-carotene, fiber, vitamin C, potassium</td><td>Matches the hype</td></tr>
+    <tr><td>Eggs</td><td>Complete protein with nearly every essential nutrient</td><td>Protein, choline, B12, vitamin D, selenium</td><td>Underrated</td></tr>
+    <tr><td>Lentils</td><td>Cheapest high-protein, high-fiber food available</td><td>Protein, fiber, iron, folate</td><td>Underrated</td></tr>
+    <tr><td>Broccoli</td><td>Sulforaphane with anti-cancer research backing</td><td>Vitamin C, vitamin K, sulforaphane, fiber</td><td>Matches the hype</td></tr>
+    <tr><td>Greek yogurt</td><td>Probiotic + high protein in one food</td><td>Protein, calcium, probiotics</td><td>Matches the hype</td></tr>
+  </tbody>
+</table>
+
+<h2>Overhyped "Superfoods" (Not Worth the Premium)</h2>
+<ul>
+  <li><strong>Acai berries</strong> — similar antioxidant content to regular blueberries at 4x the price. Acai bowls with granola and honey add 500–800 calories of sugar.</li>
+  <li><strong>Goji berries</strong> — nutritionally comparable to raisins and cranberries. No unique health benefit justifies the $15–$20/lb price.</li>
+  <li><strong>Spirulina</strong> — contains some nutrients in small doses, but the amounts are trivial compared to eating a serving of spinach. And it tastes like pond water.</li>
+  <li><strong>Coconut oil</strong> — marketed as a superfood but raises LDL cholesterol more than any other common cooking oil. Olive oil is superior by every health metric.</li>
+  <li><strong>Activated charcoal</strong> — zero evidence of "detoxification" benefits. Can actually interfere with medication absorption.</li>
+</ul>
+
+<h2>The Real "Superfood" Strategy</h2>
+<p>Instead of buying expensive exotic foods, focus on eating more of these affordable, widely available, genuinely nutrient-dense foods:</p>
+<ul>
+  <li>Any dark leafy green (spinach, kale, Swiss chard) — $2–$4/bunch</li>
+  <li>Any berries (frozen are just as nutritious) — $3–$5/bag</li>
+  <li>Eggs — $3–$5/dozen for one of the most complete foods in existence</li>
+  <li>Canned sardines or salmon — $2–$4/can, loaded with omega-3s and calcium</li>
+  <li>Lentils and beans — $1–$2/lb dried, the most cost-effective protein and fiber source</li>
+</ul>
+<p>A week of these "boring superfoods" costs $20–$30 and provides more micronutrients than any $50 superfood powder.</p>
+`,
+  },
+  {
+    slug: "omega-3-rich-foods-beyond-fish",
+    title: "Omega-3 Rich Foods Beyond Fish: Complete Guide",
+    description:
+      "Do not eat fish? You can still get omega-3 fatty acids. Here are the best non-fish sources of omega-3s and how they compare to salmon.",
+    publishedAt: "2025-03-05",
+    category: "Health",
+    readingTime: 6,
+    content: `
+<h2>The Three Types of Omega-3s</h2>
+<p>Not all omega-3 fatty acids are equal. There are three main types:</p>
+<ul>
+  <li><strong>EPA (eicosapentaenoic acid)</strong> — anti-inflammatory, supports heart and brain health. Found primarily in fish.</li>
+  <li><strong>DHA (docosahexaenoic acid)</strong> — critical for brain structure and function. Found primarily in fish.</li>
+  <li><strong>ALA (alpha-linolenic acid)</strong> — plant-based omega-3. Your body converts ALA to EPA and DHA, but at a very low rate (5–15%).</li>
+</ul>
+<p>This conversion rate is why fish sources are considered superior — they provide EPA and DHA directly. But plant sources still offer health benefits, and some non-fish sources provide DHA directly.</p>
+
+<h2>Non-Fish Omega-3 Sources</h2>
+<table>
+  <thead><tr><th>Food</th><th>Serving</th><th>Omega-3 (mg)</th><th>Type</th></tr></thead>
+  <tbody>
+    <tr><td>Flaxseed (ground)</td><td>2 tbsp</td><td>3,195 ALA</td><td>ALA</td></tr>
+    <tr><td>Chia seeds</td><td>2 tbsp</td><td>2,530 ALA</td><td>ALA</td></tr>
+    <tr><td>Walnuts</td><td>1 oz (14 halves)</td><td>2,570 ALA</td><td>ALA</td></tr>
+    <tr><td>Hemp seeds</td><td>3 tbsp</td><td>2,605 ALA</td><td>ALA</td></tr>
+    <tr><td>Canola oil</td><td>1 tbsp</td><td>1,280 ALA</td><td>ALA</td></tr>
+    <tr><td>Edamame</td><td>1 cup</td><td>560 ALA</td><td>ALA</td></tr>
+    <tr><td>Brussels sprouts</td><td>1 cup</td><td>270 ALA</td><td>ALA</td></tr>
+    <tr><td>Algal oil supplement</td><td>1 capsule</td><td>250–500 DHA+EPA</td><td>DHA/EPA</td></tr>
+    <tr><td>Seaweed/nori</td><td>1 sheet</td><td>50–100 EPA</td><td>EPA/DHA</td></tr>
+    <tr><td>Fortified eggs</td><td>1 egg</td><td>100–250 DHA</td><td>DHA</td></tr>
+  </tbody>
+</table>
+
+<h2>Algal Oil: The Vegan DHA Solution</h2>
+<p>Algal oil supplements are derived from microalgae — the original source of DHA in the marine food chain (fish get their DHA by eating algae). Algal oil provides 250–500mg of DHA per capsule, comparable to fish oil supplements, without the fish. It is the most effective way for vegans and non-fish-eaters to get pre-formed DHA.</p>
+
+<h2>How Much Omega-3 Do You Need?</h2>
+<ul>
+  <li><strong>General health</strong>: 250–500mg combined EPA + DHA per day (or 1.6g ALA for men / 1.1g ALA for women)</li>
+  <li><strong>Heart health</strong>: 1,000mg EPA + DHA per day (American Heart Association recommendation for people with heart disease)</li>
+  <li><strong>Pregnancy</strong>: 200–300mg DHA per day for fetal brain development</li>
+</ul>
+
+<h2>Practical Daily Omega-3 Plan (No Fish)</h2>
+<ul>
+  <li><strong>Morning</strong>: add 2 tbsp ground flaxseed to oatmeal or smoothie (3,195mg ALA)</li>
+  <li><strong>Snack</strong>: 1 oz walnuts (2,570mg ALA)</li>
+  <li><strong>Supplement</strong>: 1 algal oil capsule (250–500mg DHA/EPA)</li>
+</ul>
+<p>This combination provides abundant ALA plus direct DHA, covering all bases without any fish.</p>
+
+<h2>Cooking Tip: Protect Your Omega-3s</h2>
+<p>Omega-3 fats are sensitive to heat and oxidation. Store flaxseed oil and walnut oil in the refrigerator and use them for dressings or drizzling — not high-heat cooking. Use canola oil for cooking (it has a higher smoke point). Ground flaxseed should be stored in the freezer to prevent rancidity.</p>
+`,
+  },
+  {
+    slug: "hidden-sugar-in-healthy-foods",
+    title: "Hidden Sugar in 'Healthy' Foods: What to Watch",
+    description:
+      "Granola, yogurt, smoothies — foods marketed as healthy often contain as much sugar as candy. Here is where hidden sugar lurks and how to spot it.",
+    publishedAt: "2025-01-05",
+    category: "Sugar & Carbs",
+    readingTime: 7,
+    content: `
+<h2>The Hidden Sugar Problem</h2>
+<p>Americans consume an average of 77g of added sugar per day — more than triple the AHA recommendation of 25g for women and 36g for men. Much of this excess comes not from obvious sources like candy and soda, but from foods marketed as "healthy," "natural," or "nutritious." Food manufacturers know that health-conscious consumers avoid candy bars but will happily eat a granola bar with the same sugar content.</p>
+
+<h2>Sugar Content in "Healthy" Foods vs. Junk Food</h2>
+<table>
+  <thead><tr><th>"Healthy" Food</th><th>Sugar (g)</th><th>vs. Junk Food Equivalent</th><th>Sugar (g)</th></tr></thead>
+  <tbody>
+    <tr><td>Yoplait Original Yogurt (6oz)</td><td>19g</td><td>vs. 3 Oreo cookies</td><td>14g</td></tr>
+    <tr><td>Nature Valley Granola Bar</td><td>12g</td><td>vs. Chips Ahoy cookie</td><td>11g</td></tr>
+    <tr><td>Naked Green Machine Smoothie (15oz)</td><td>53g</td><td>vs. Coca-Cola (12oz)</td><td>39g</td></tr>
+    <tr><td>Dried cranberries (1/3 cup)</td><td>26g</td><td>vs. Snickers bar</td><td>27g</td></tr>
+    <tr><td>Vitamin Water (20oz)</td><td>27g</td><td>vs. Glazed donut</td><td>12g</td></tr>
+    <tr><td>Honey (2 tbsp)</td><td>34g</td><td>vs. Kit Kat bar</td><td>22g</td></tr>
+    <tr><td>Acai bowl (medium, typical)</td><td>50–70g</td><td>vs. McDonald's McFlurry</td><td>64g</td></tr>
+  </tbody>
+</table>
+
+<h2>The Worst Offenders</h2>
+
+<h3>Flavored Yogurt</h3>
+<p>Most flavored yogurts contain 15–25g of added sugar per serving — comparable to a candy bar. Plain Greek yogurt contains 4–7g of natural lactose sugar with zero added sugar. Buy plain and add your own fresh berries for natural sweetness.</p>
+
+<h3>Granola and Granola Bars</h3>
+<p>Granola is essentially oats baked with sugar, oil, and honey. A typical 1/2 cup serving contains 12–16g of sugar. Most granola bars are no better than candy bars nutritionally — they just have better marketing. Check the label: if sugar is in the first 3 ingredients, it is a dessert.</p>
+
+<h3>Smoothies and Juice</h3>
+<p>A large smoothie from a chain like Jamba Juice or Smoothie King can contain 50–80g of sugar. Even "no sugar added" versions rely on fruit juice concentrates (which are functionally sugar) as a base. A better approach: make smoothies at home with whole fruit, protein, and no added sweeteners.</p>
+
+<h2>56 Names for Sugar</h2>
+<p>Food manufacturers use dozens of names for sugar on ingredient labels. The most common aliases include: high fructose corn syrup, cane sugar, dextrose, maltose, sucrose, agave nectar, brown rice syrup, barley malt, coconut sugar, date sugar, evaporated cane juice, fruit juice concentrate, glucose, maple syrup, molasses, and turbinado. If you see multiple sugar aliases in one ingredient list, sugar is a primary component.</p>
+
+<h2>The Swap Strategy</h2>
+<ul>
+  <li><strong>Flavored yogurt to plain Greek yogurt</strong>: saves 15–20g sugar, adds 10g protein</li>
+  <li><strong>Granola to raw oats with nuts</strong>: saves 10–15g sugar per serving</li>
+  <li><strong>Fruit juice to whole fruit</strong>: saves 20–30g sugar, adds 3–5g fiber</li>
+  <li><strong>Store-bought smoothie to homemade</strong>: saves 30–50g sugar</li>
+  <li><strong>Dried fruit to fresh fruit</strong>: saves 15–20g sugar per equivalent serving</li>
+</ul>
+`,
+  },
+  {
+    slug: "pre-workout-post-workout-foods",
+    title: "Best Pre-Workout and Post-Workout Foods",
+    description:
+      "What you eat before and after exercise affects performance, recovery, and results. Here is exactly what to eat and when, based on exercise science.",
+    publishedAt: "2024-12-15",
+    category: "Fitness Nutrition",
+    readingTime: 7,
+    content: `
+<h2>Does Nutrient Timing Actually Matter?</h2>
+<p>For most people exercising 3–5 times per week for general health, total daily intake matters far more than precise timing. However, for people training intensely, doing endurance work, or trying to maximize performance, strategic pre- and post-workout nutrition provides a measurable edge. The difference is 5–15% — not transformative, but meaningful for dedicated athletes.</p>
+
+<h2>Pre-Workout Nutrition (1–3 Hours Before)</h2>
+<p>The goal before exercise is to fuel performance without causing digestive distress. The closer to your workout, the simpler and smaller your food should be:</p>
+
+<h3>3 Hours Before (Full Meal)</h3>
+<ul>
+  <li>Chicken breast with rice and vegetables (500–600 cal)</li>
+  <li>Oatmeal with banana and peanut butter (450 cal)</li>
+  <li>Turkey sandwich on whole wheat with fruit (500 cal)</li>
+</ul>
+
+<h3>1–2 Hours Before (Light Snack)</h3>
+<ul>
+  <li>Banana with 1 tbsp peanut butter (200 cal)</li>
+  <li>Greek yogurt with berries (180 cal)</li>
+  <li>Rice cake with honey (120 cal)</li>
+</ul>
+
+<h3>30 Minutes Before (Quick Energy)</h3>
+<ul>
+  <li>A piece of fruit (apple, banana, orange) — 80–100 cal</li>
+  <li>A handful of dried fruit — 100–130 cal</li>
+  <li>Toast with jam — 150 cal</li>
+</ul>
+
+<h2>Post-Workout Nutrition (Within 2 Hours)</h2>
+<p>After exercise, the priorities are: replenish glycogen (carbs), repair muscle (protein), and rehydrate (water + electrolytes). The "anabolic window" — the idea that you must eat within 30 minutes or lose gains — is overstated. You have a roughly 2-hour window where nutrient absorption is enhanced, but eating within 1 hour is ideal.</p>
+
+<h3>Post-Workout Meal Ideas</h3>
+<table>
+  <thead><tr><th>Meal</th><th>Calories</th><th>Protein</th><th>Carbs</th></tr></thead>
+  <tbody>
+    <tr><td>Protein shake + banana</td><td>350</td><td>30g</td><td>45g</td></tr>
+    <tr><td>Chicken with sweet potato</td><td>450</td><td>35g</td><td>40g</td></tr>
+    <tr><td>Greek yogurt with granola and berries</td><td>380</td><td>25g</td><td>50g</td></tr>
+    <tr><td>Eggs on toast with avocado</td><td>420</td><td>22g</td><td>35g</td></tr>
+    <tr><td>Tuna wrap with vegetables</td><td>350</td><td>30g</td><td>30g</td></tr>
+  </tbody>
+</table>
+
+<h2>Post-Workout Protein: How Much?</h2>
+<p>Research consistently shows that 20–40g of protein after resistance training maximally stimulates muscle protein synthesis. More than 40g in a single meal does not provide additional muscle-building benefit — the excess is simply used for energy or other bodily functions. For most people, 25–30g is the sweet spot.</p>
+
+<h2>Hydration: The Forgotten Factor</h2>
+<p>Dehydration reduces performance more than poor nutrient timing. General guidelines:</p>
+<ul>
+  <li><strong>Before</strong>: drink 16–20 oz of water 2 hours before exercise</li>
+  <li><strong>During</strong>: drink 7–10 oz every 10–20 minutes of intense exercise</li>
+  <li><strong>After</strong>: drink 16–24 oz for every pound lost during exercise</li>
+  <li><strong>Electrolytes</strong>: needed for exercise lasting 60+ minutes or in hot conditions (sodium, potassium, magnesium)</li>
+</ul>
+
+<h2>The Simplest Approach</h2>
+<p>If you exercise at a moderate level for general health, the most practical strategy is: eat a balanced meal 2–3 hours before, bring water, and eat a normal protein-containing meal within 2 hours after. Do not overthink it — consistency in training and total daily nutrition matters far more than precise timing.</p>
+`,
+  },
+  {
+    slug: "calcium-rich-foods-for-bone-health",
+    title: "Calcium-Rich Foods for Strong Bones",
+    description:
+      "Beyond milk: these foods deliver serious calcium. Especially important if you are lactose intolerant, vegan, or just do not like dairy.",
+    publishedAt: "2025-02-10",
+    category: "Vitamins & Minerals",
+    readingTime: 6,
+    content: `
+<h2>Calcium Needs By Age</h2>
+<p>Calcium is the most abundant mineral in your body, with 99% stored in bones and teeth. The recommended daily intake varies by age:</p>
+<ul>
+  <li><strong>Ages 19–50</strong>: 1,000mg/day</li>
+  <li><strong>Women 51+</strong>: 1,200mg/day</li>
+  <li><strong>Men 51–70</strong>: 1,000mg/day</li>
+  <li><strong>Men 71+</strong>: 1,200mg/day</li>
+</ul>
+<p>The average American adult consumes only 700–900mg/day — below the recommended amount, especially for women over 50 who face the highest osteoporosis risk.</p>
+
+<h2>Best Calcium Sources (Dairy and Non-Dairy)</h2>
+<table>
+  <thead><tr><th>Food</th><th>Serving</th><th>Calcium (mg)</th><th>% Daily Value</th></tr></thead>
+  <tbody>
+    <tr><td>Fortified plant milk</td><td>1 cup</td><td>300–450</td><td>30–45%</td></tr>
+    <tr><td>Yogurt (plain)</td><td>1 cup</td><td>415</td><td>42%</td></tr>
+    <tr><td>Milk (cow's)</td><td>1 cup</td><td>305</td><td>31%</td></tr>
+    <tr><td>Sardines (canned with bones)</td><td>3 oz</td><td>325</td><td>33%</td></tr>
+    <tr><td>Cheddar cheese</td><td>1.5 oz</td><td>305</td><td>31%</td></tr>
+    <tr><td>Tofu (calcium-set)</td><td>1/2 cup</td><td>253</td><td>25%</td></tr>
+    <tr><td>Fortified orange juice</td><td>1 cup</td><td>350</td><td>35%</td></tr>
+    <tr><td>Kale (cooked)</td><td>1 cup</td><td>177</td><td>18%</td></tr>
+    <tr><td>Bok choy (cooked)</td><td>1 cup</td><td>158</td><td>16%</td></tr>
+    <tr><td>Broccoli (cooked)</td><td>1 cup</td><td>62</td><td>6%</td></tr>
+    <tr><td>White beans</td><td>1 cup</td><td>161</td><td>16%</td></tr>
+    <tr><td>Almonds</td><td>1 oz</td><td>76</td><td>8%</td></tr>
+    <tr><td>Figs (dried)</td><td>4 figs</td><td>54</td><td>5%</td></tr>
+  </tbody>
+</table>
+
+<h2>Non-Dairy Calcium Strategy</h2>
+<p>If you avoid dairy, reaching 1,000mg/day requires intentional planning. A practical daily plan:</p>
+<ul>
+  <li>Fortified plant milk in morning coffee/cereal: 300mg</li>
+  <li>Calcium-set tofu at lunch: 250mg</li>
+  <li>Kale or bok choy at dinner: 160mg</li>
+  <li>Handful of almonds as a snack: 76mg</li>
+  <li>Fortified orange juice: 350mg</li>
+  <li><strong>Total: 1,136mg</strong></li>
+</ul>
+
+<h2>Calcium Absorption Factors</h2>
+<p>Not all calcium is absorbed equally:</p>
+<ul>
+  <li><strong>Vitamin D is essential</strong> — without adequate vitamin D, your body absorbs only 10–15% of dietary calcium vs. 30–40% with sufficient D</li>
+  <li><strong>Oxalates reduce absorption</strong> — spinach has high calcium on paper but oxalates block most of it. Kale and bok choy have low oxalates and much better absorption.</li>
+  <li><strong>Spread intake throughout the day</strong> — your body absorbs calcium best in doses under 500mg. Two 500mg servings beat one 1,000mg dose.</li>
+  <li><strong>Excess sodium increases calcium loss</strong> — high-sodium diets cause more calcium excretion through urine</li>
+</ul>
+
+<h2>Do You Need a Supplement?</h2>
+<p>If you consistently eat calcium-rich foods, a supplement may be unnecessary. However, supplements are worth considering if you are a postmenopausal woman, avoid dairy entirely, or have been diagnosed with low bone density. Calcium carbonate (take with food) and calcium citrate (can take anytime) are the two most common forms. Do not exceed 500mg per supplement dose for best absorption.</p>
+`,
+  },
+  {
+    slug: "how-cooking-methods-affect-nutrition",
+    title: "How Cooking Methods Affect Food Nutrition",
+    description:
+      "Boiling vegetables destroys vitamins. Grilling creates carcinogens. Microwaving preserves nutrients best. Here is what the science says about cooking and nutrition.",
+    publishedAt: "2024-11-30",
+    category: "Nutrition Basics",
+    readingTime: 7,
+    content: `
+<h2>Cooking Changes Nutrient Content</h2>
+<p>The way you cook food affects its nutritional value — sometimes dramatically. Some cooking methods destroy heat-sensitive vitamins. Others increase the bioavailability of certain nutrients. Understanding these effects helps you maximize the nutritional value of the foods you already eat, without spending a dollar more.</p>
+
+<h2>Cooking Methods Ranked by Nutrient Preservation</h2>
+<table>
+  <thead><tr><th>Method</th><th>Nutrient Preservation</th><th>Best For</th><th>Watch Out For</th></tr></thead>
+  <tbody>
+    <tr><td>Microwaving</td><td>Excellent</td><td>Vegetables, reheating</td><td>Uneven heating</td></tr>
+    <tr><td>Steaming</td><td>Excellent</td><td>Vegetables, fish</td><td>Overcooking (mushy texture)</td></tr>
+    <tr><td>Stir-frying</td><td>Good</td><td>Vegetables, thin-cut meats</td><td>High oil = high calories</td></tr>
+    <tr><td>Roasting/baking</td><td>Good</td><td>Root vegetables, meats</td><td>Long cook times reduce some vitamins</td></tr>
+    <tr><td>Grilling</td><td>Good</td><td>Meats, sturdy vegetables</td><td>HCA/PAH formation at high heat</td></tr>
+    <tr><td>Boiling</td><td>Poor</td><td>Pasta, grains, soups</td><td>Water-soluble vitamins leach out</td></tr>
+    <tr><td>Deep frying</td><td>Poor</td><td>Avoid for nutrition goals</td><td>Adds 200+ calories from oil absorption</td></tr>
+  </tbody>
+</table>
+
+<h2>Microwaving: The Surprising Winner</h2>
+<p>Despite fears about microwaves "destroying nutrients," the science says the opposite. Microwaving preserves nutrients better than most other methods because it uses short cooking times, minimal water, and lower temperatures. A study in the Journal of Food Science found that microwaved broccoli retained 97% of its vitamin C, while boiled broccoli retained only 66%.</p>
+
+<h2>Boiling: The Nutrient Thief</h2>
+<p>Boiling vegetables in large amounts of water causes water-soluble vitamins (C, B vitamins, folate) to leach into the cooking water. If you discard the water, you discard the vitamins. Vitamin C losses from boiling can reach 50–60%. Solutions: use minimal water, keep cooking times short, or use the cooking water in soups and sauces.</p>
+
+<h2>When Cooking Increases Nutritional Value</h2>
+<p>Not all cooking reduces nutrition. Some foods are more nutritious cooked:</p>
+<ul>
+  <li><strong>Tomatoes</strong> — cooking increases lycopene bioavailability by 2–3x. Tomato sauce provides more lycopene than raw tomatoes.</li>
+  <li><strong>Carrots</strong> — cooking breaks down cell walls, increasing beta-carotene absorption by 25–30%.</li>
+  <li><strong>Spinach</strong> — cooking reduces oxalates, making iron and calcium more absorbable.</li>
+  <li><strong>Eggs</strong> — cooking denatures avidin (which blocks biotin absorption) and increases protein digestibility from 51% (raw) to 91% (cooked).</li>
+  <li><strong>Mushrooms</strong> — cooking breaks down chitin cell walls, releasing more nutrients.</li>
+</ul>
+
+<h2>The Grilling Cancer Risk (In Context)</h2>
+<p>Grilling meat at high temperatures creates heterocyclic amines (HCAs) and polycyclic aromatic hydrocarbons (PAHs), which are classified as probable carcinogens. To minimize risk:</p>
+<ul>
+  <li>Marinate meat before grilling (reduces HCA formation by up to 90%)</li>
+  <li>Avoid charring — cut off blackened portions</li>
+  <li>Use lower heat and flip frequently</li>
+  <li>Grill vegetables and fruit (no HCA risk from plant foods)</li>
+</ul>
+<p>The risk from occasional grilling is small compared to major cancer risk factors. But if you grill daily, these precautions are worth taking.</p>
+`,
+  },
+  {
+    slug: "low-glycemic-foods-for-blood-sugar",
+    title: "Low Glycemic Foods for Blood Sugar Control",
+    description:
+      "The glycemic index predicts how foods affect blood sugar. These low-GI foods keep energy stable and reduce diabetes risk — here is the complete list.",
+    publishedAt: "2025-03-18",
+    category: "Health",
+    readingTime: 7,
+    content: `
+<h2>What Is the Glycemic Index?</h2>
+<p>The Glycemic Index (GI) ranks carbohydrate-containing foods by how quickly they raise blood glucose levels on a scale of 0–100. Pure glucose is 100. Foods are classified as:</p>
+<ul>
+  <li><strong>Low GI (55 or less)</strong> — slow, gradual blood sugar rise. Best for sustained energy and blood sugar management.</li>
+  <li><strong>Medium GI (56–69)</strong> — moderate blood sugar impact.</li>
+  <li><strong>High GI (70+)</strong> — rapid blood sugar spike followed by crash. Worst for energy stability and insulin resistance.</li>
+</ul>
+
+<h2>Low-GI Foods List</h2>
+<table>
+  <thead><tr><th>Food</th><th>GI Score</th><th>Category</th></tr></thead>
+  <tbody>
+    <tr><td>Lentils</td><td>29</td><td>Legumes</td></tr>
+    <tr><td>Chickpeas</td><td>33</td><td>Legumes</td></tr>
+    <tr><td>Kidney beans</td><td>24</td><td>Legumes</td></tr>
+    <tr><td>Steel-cut oats</td><td>42</td><td>Grains</td></tr>
+    <tr><td>Sweet potato</td><td>44</td><td>Starchy vegetable</td></tr>
+    <tr><td>Quinoa</td><td>53</td><td>Grains</td></tr>
+    <tr><td>Whole wheat pasta</td><td>42</td><td>Grains</td></tr>
+    <tr><td>Apples</td><td>36</td><td>Fruits</td></tr>
+    <tr><td>Oranges</td><td>43</td><td>Fruits</td></tr>
+    <tr><td>Berries</td><td>25–40</td><td>Fruits</td></tr>
+    <tr><td>Cherries</td><td>22</td><td>Fruits</td></tr>
+    <tr><td>Plain yogurt</td><td>14</td><td>Dairy</td></tr>
+    <tr><td>Milk</td><td>31</td><td>Dairy</td></tr>
+    <tr><td>Nuts (all types)</td><td>15–25</td><td>Nuts/Seeds</td></tr>
+    <tr><td>Most non-starchy vegetables</td><td>10–20</td><td>Vegetables</td></tr>
+  </tbody>
+</table>
+
+<h2>High-GI Foods to Limit</h2>
+<table>
+  <thead><tr><th>Food</th><th>GI Score</th></tr></thead>
+  <tbody>
+    <tr><td>White bread</td><td>75</td></tr>
+    <tr><td>White rice</td><td>73</td></tr>
+    <tr><td>Russet potato (baked)</td><td>78</td></tr>
+    <tr><td>Cornflakes cereal</td><td>81</td></tr>
+    <tr><td>Instant oatmeal</td><td>79</td></tr>
+    <tr><td>Watermelon</td><td>76</td></tr>
+    <tr><td>Pretzels</td><td>83</td></tr>
+    <tr><td>Rice cakes</td><td>82</td></tr>
+  </tbody>
+</table>
+
+<h2>Glycemic Load: The Better Metric</h2>
+<p>The GI has a flaw: it measures blood sugar impact per 50g of carbohydrates, regardless of typical serving size. Watermelon has a high GI (76) but you would need to eat 5 cups to get 50g of carbs. The Glycemic Load (GL) accounts for serving size: GL = GI x grams of carbs per serving / 100. A GL under 10 is considered low. Watermelon has a GL of only 8 per typical serving, making it fine for blood sugar.</p>
+
+<h2>Practical Strategies for Blood Sugar Control</h2>
+<ul>
+  <li><strong>Pair carbs with protein or fat</strong> — eating carbs alone spikes blood sugar. Adding protein or fat slows absorption (e.g., apple + peanut butter vs. apple alone).</li>
+  <li><strong>Eat vegetables first</strong> — research shows eating vegetables before carbs reduces post-meal blood sugar by 20–30%.</li>
+  <li><strong>Choose whole grains over refined</strong> — steel-cut oats (GI 42) vs. instant oats (GI 79); whole wheat bread (GI 51) vs. white bread (GI 75).</li>
+  <li><strong>Walking after meals</strong> — a 10–15 minute walk after eating reduces blood sugar spikes by up to 30%.</li>
+  <li><strong>Add vinegar</strong> — 1–2 tablespoons of vinegar (in dressing or diluted in water) before a meal reduces post-meal blood sugar by 20–35% in studies.</li>
+</ul>
+`,
+  },
+  {
+    slug: "best-foods-for-brain-health",
+    title: "Best Foods for Brain Health and Better Memory",
+    description:
+      "Your diet affects cognitive function, memory, and long-term brain health. These brain-boosting foods are backed by neuroscience research.",
+    publishedAt: "2025-01-22",
+    category: "Health",
+    readingTime: 7,
+    content: `
+<h2>The Brain-Diet Connection</h2>
+<p>Your brain consumes 20% of your daily calories despite being only 2% of your body weight. What you eat directly affects brain function — both acutely (energy, focus, mood) and long-term (cognitive decline, dementia risk). The MIND diet, a hybrid of Mediterranean and DASH diets, has been shown to reduce Alzheimer's risk by up to 53% in people who follow it closely.</p>
+
+<h2>Top Brain-Boosting Foods</h2>
+<table>
+  <thead><tr><th>Food</th><th>Key Brain Nutrients</th><th>Research Finding</th></tr></thead>
+  <tbody>
+    <tr><td>Fatty fish (salmon, sardines)</td><td>DHA omega-3</td><td>DHA makes up 40% of brain cell membrane fatty acids</td></tr>
+    <tr><td>Blueberries</td><td>Anthocyanins</td><td>Improved memory and delayed brain aging in clinical trials</td></tr>
+    <tr><td>Walnuts</td><td>ALA omega-3, polyphenols</td><td>Improved cognitive test scores in adults</td></tr>
+    <tr><td>Dark leafy greens</td><td>Folate, vitamin K, lutein</td><td>1 serving/day slowed cognitive decline by 11 years equivalent</td></tr>
+    <tr><td>Eggs</td><td>Choline</td><td>Choline is essential for acetylcholine (memory neurotransmitter)</td></tr>
+    <tr><td>Dark chocolate (70%+)</td><td>Flavanols</td><td>Improved blood flow to brain, enhanced working memory</td></tr>
+    <tr><td>Turmeric</td><td>Curcumin</td><td>Crosses blood-brain barrier, anti-inflammatory in brain tissue</td></tr>
+    <tr><td>Green tea</td><td>L-theanine, EGCG</td><td>L-theanine promotes calm focus; EGCG protects neurons</td></tr>
+    <tr><td>Berries (all types)</td><td>Various flavonoids</td><td>Regular berry consumption delays cognitive aging by 2.5 years</td></tr>
+    <tr><td>Extra virgin olive oil</td><td>Oleocanthal, polyphenols</td><td>Reduces beta-amyloid plaques (Alzheimer's marker) in animal studies</td></tr>
+  </tbody>
+</table>
+
+<h2>The MIND Diet Framework</h2>
+<p>The MIND diet identifies 10 brain-healthy food groups to eat regularly and 5 unhealthy groups to limit:</p>
+<h3>Eat More</h3>
+<ul>
+  <li>Leafy greens (6+ servings/week)</li>
+  <li>Other vegetables (1+ serving/day)</li>
+  <li>Berries (2+ servings/week)</li>
+  <li>Nuts (5+ servings/week)</li>
+  <li>Fish (1+ serving/week)</li>
+  <li>Beans (3+ servings/week)</li>
+  <li>Whole grains (3+ servings/day)</li>
+  <li>Olive oil (primary cooking oil)</li>
+  <li>Poultry (2+ servings/week)</li>
+  <li>Wine (1 glass/day, optional)</li>
+</ul>
+<h3>Eat Less</h3>
+<ul>
+  <li>Red meat (fewer than 4 servings/week)</li>
+  <li>Butter and margarine (less than 1 tbsp/day)</li>
+  <li>Cheese (less than 1 serving/week)</li>
+  <li>Pastries and sweets (fewer than 5/week)</li>
+  <li>Fried or fast food (less than 1 serving/week)</li>
+</ul>
+
+<h2>The Choline Gap</h2>
+<p>Choline is essential for producing acetylcholine, the neurotransmitter critical for memory and learning. Yet 90% of Americans do not meet the adequate intake of 550mg/day (men) or 425mg/day (women). The best source is eggs — one large egg provides 147mg of choline, about 27% of the daily target. Other sources include liver, soybeans, and wheat germ.</p>
+
+<h2>Foods That Harm Brain Health</h2>
+<ul>
+  <li><strong>Ultra-processed foods</strong> — a 2022 study found that diets high in ultra-processed foods accelerated cognitive decline by 28%</li>
+  <li><strong>Excessive sugar</strong> — chronically high blood sugar damages blood vessels in the brain, reducing blood flow</li>
+  <li><strong>Excessive alcohol</strong> — shrinks brain volume and impairs memory formation</li>
+  <li><strong>Trans fats</strong> — linked to increased Alzheimer's risk and impaired cognitive function</li>
+</ul>
+`,
+  },
+  {
+    slug: "portion-size-guide-common-foods",
+    title: "Visual Portion Size Guide for Common Foods",
+    description:
+      "Most people have no idea what a 'serving' actually looks like. Use these everyday objects as portion references to stop overeating without a food scale.",
+    publishedAt: "2024-12-05",
+    category: "Nutrition Basics",
+    readingTime: 6,
+    content: `
+<h2>Why Portion Sizes Matter</h2>
+<p>Portion distortion is one of the primary drivers of overeating in America. Restaurant portions have doubled or tripled since the 1980s, and home portions have followed. A "normal" serving of pasta in 1980 was 1 cup (200 calories). Today, a typical restaurant pasta serving is 3 cups (600 calories). Learning to estimate correct portions — without obsessively weighing everything — is one of the most practical nutrition skills you can develop.</p>
+
+<h2>The Hand Method: Your Built-In Portion Guide</h2>
+<p>Your hand provides surprisingly accurate portion estimates that scale with your body size:</p>
+<ul>
+  <li><strong>Palm = 1 serving of protein</strong> (3–4 oz meat, fish, or poultry). About 25–30g protein.</li>
+  <li><strong>Fist = 1 serving of carbs</strong> (1 cup of rice, pasta, or cereal). About 30–45g carbs.</li>
+  <li><strong>Cupped hand = 1 serving of starchy vegetables or fruit</strong> (1/2 cup). About 15–20g carbs.</li>
+  <li><strong>Thumb = 1 serving of fat</strong> (1 tablespoon of oil, butter, or nut butter). About 14g fat.</li>
+  <li><strong>Thumb tip = 1 serving of calorie-dense toppings</strong> (1 teaspoon of mayo, dressing).</li>
+</ul>
+
+<h2>Visual Portion References</h2>
+<table>
+  <thead><tr><th>Food</th><th>1 Serving</th><th>Looks Like</th><th>Calories</th></tr></thead>
+  <tbody>
+    <tr><td>Meat/poultry</td><td>3 oz</td><td>Deck of cards</td><td>120–200</td></tr>
+    <tr><td>Fish fillet</td><td>3 oz</td><td>Checkbook</td><td>100–150</td></tr>
+    <tr><td>Cheese</td><td>1 oz</td><td>4 dice</td><td>100–115</td></tr>
+    <tr><td>Peanut butter</td><td>2 tbsp</td><td>Golf ball</td><td>190</td></tr>
+    <tr><td>Cooked pasta/rice</td><td>1/2 cup</td><td>Tennis ball half</td><td>100–120</td></tr>
+    <tr><td>Bread</td><td>1 slice</td><td>CD case</td><td>70–110</td></tr>
+    <tr><td>Butter/oil</td><td>1 tsp</td><td>Fingertip</td><td>35–40</td></tr>
+    <tr><td>Nuts</td><td>1 oz</td><td>Small handful</td><td>160–185</td></tr>
+    <tr><td>Vegetables</td><td>1 cup raw</td><td>Baseball</td><td>10–50</td></tr>
+    <tr><td>Fruit</td><td>1 medium</td><td>Baseball</td><td>60–100</td></tr>
+    <tr><td>Ice cream</td><td>1/2 cup</td><td>Tennis ball half</td><td>130–180</td></tr>
+  </tbody>
+</table>
+
+<h2>Where Portion Distortion Hits Hardest</h2>
+<p>The foods where portions most commonly balloon beyond single servings:</p>
+<ul>
+  <li><strong>Pasta</strong> — a standard serving is 2 oz dry / 1 cup cooked. Most people eat 3–4 cups (3–4x the calories).</li>
+  <li><strong>Cereal</strong> — a serving is 3/4 to 1 cup. Most people pour 2–3 cups into a large bowl.</li>
+  <li><strong>Nuts</strong> — a serving is 1 oz (about 23 almonds). Eating from the bag often results in 3–4x servings.</li>
+  <li><strong>Cooking oil</strong> — a serving is 1 tablespoon. "A drizzle" often equals 2–3 tablespoons (240–360 extra calories).</li>
+  <li><strong>Juice</strong> — a serving is 4 oz (half a cup). Most glasses hold 12–16 oz (3–4 servings).</li>
+</ul>
+
+<h2>The Plate Method (Easiest Approach)</h2>
+<p>The simplest portion control strategy uses a standard 9-inch plate:</p>
+<ul>
+  <li><strong>1/2 the plate</strong>: non-starchy vegetables (unlimited)</li>
+  <li><strong>1/4 of the plate</strong>: lean protein (palm-sized portion)</li>
+  <li><strong>1/4 of the plate</strong>: complex carbs (fist-sized portion)</li>
+  <li><strong>Small amount</strong>: healthy fat (thumb-sized — olive oil, avocado, nuts)</li>
+</ul>
+<p>This method automatically creates a calorie-appropriate meal without counting anything. It works because the vegetables fill volume with minimal calories, while protein and complex carbs provide satiety and nutrients in controlled portions.</p>
+`,
+  },
 ];
 
 export function getAllPosts(): BlogPost[] {
