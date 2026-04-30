@@ -13,6 +13,19 @@ const nextConfig: NextConfig = {
         destination: "https://caloriewize.com/:path*",
         permanent: true,
       },
+      // 2026-04-24 — /es/food/* removed (thin translation, same trap as nameblooms /es/name).
+      // Prior 6K+ Spanish food URLs were indexed. 301 to English canonical consolidates signal
+      // and lets Google drop the es/ variants from its index via redirect chain.
+      {
+        source: "/es/food/:slug/",
+        destination: "/food/:slug/",
+        permanent: true,
+      },
+      {
+        source: "/es/food/:slug",
+        destination: "/food/:slug/",
+        permanent: true,
+      },
     ];
   },
   async headers() {

@@ -27,10 +27,37 @@ import { RelatedEntities } from '@/components/upgrades/RelatedEntities';
 import { TableOfContents } from '@/components/upgrades/TableOfContents';
 import { generateInsights } from "@/lib/insights";
 import { generateAutoFaqs } from "@/lib/auto-faqs";
+import { getFoodFacts } from "@/lib/food-facts";
+import { getFoodCommentary } from "@/lib/food-commentary";
+import { fmtCount, percentileBand, titleCase } from "@/lib/content-helpers";
 
 interface Props { params: Promise<{ slug: string }> }
 
 function fmt(v: number | null, unit = 'g'): string { return v !== null ? `${v.toFixed(1)}${unit}` : 'N/A'; }
+
+/**
+ * Title builder — 2026-04-28 HCU 5-chunk patch.
+ *
+ * Previous (4/24) was 96 chars and brand-front-loaded:
+ *   "George Weston Bakeries, Thomas English Muffins: 232 Calories per 100g (Protein 8.0g, Carbs 46.0g)"
+ * GSC truncated before the calorie number, killing snippet eligibility.
+ *
+ * New rule:
+ *   - Short names (≤35 c): "[Name] Calories: X kcal per 100g" — query-match prefix
+ *   - Long names: front-load number — "X kcal/100g · [Name truncated]…" so the
+ *     number survives SERP truncation and the brand stays out of the way.
+ */
+function buildTitle(name: string, calories: number | null): string {
+  const cal = calories != null ? calories.toFixed(0) : '?';
+  const ideal = `${name} Calories: ${cal} kcal per 100g`;
+  if (ideal.length <= 60) return ideal;
+  const prefix = `${cal} kcal/100g · `;
+  const room = Math.max(20, 60 - prefix.length - 1); // 1 for ellipsis
+  let trimmed = name.slice(0, room);
+  // strip a trailing partial word so we don't cut mid-word
+  trimmed = trimmed.replace(/[\s,]+\S*$/, '');
+  return `${prefix}${trimmed}…`;
+}
 
 const dvBarColor: Record<string, string> = {
   low: "bg-green-400",
@@ -50,8 +77,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const f = getFoodBySlug(slug);
   if (!f) return {};
   const cal = f.calories?.toFixed(0) || '?';
-  const title = `${f.name}: ${cal} cal, ${fmt(f.protein)} protein, ${fmt(f.carbs)} carbs, ${fmt(f.fat)} fat`;
-  const description = `${f.name} per 100g — ${cal} kcal. Protein: ${fmt(f.protein)}. Carbs: ${fmt(f.carbs)}. Fat: ${fmt(f.fat)}. Fiber: ${fmt(f.fiber)}. USDA nutrition data, daily value %, diet fit.`;
+  // 2026-04-28 — Title rewritten ≤60 chars, query-match front-loaded.
+  // The 4/24 attempt (96 chars, brand-prefixed) was truncated before the
+  // calorie number on SERP, losing featured-snippet eligibility.
+  const title = buildTitle(f.name, f.calories);
+  // Description front-loads the calorie number too — answer-engines (Google AI
+  // Overview, ChatGPT browse) parse the first sentence as the canonical answer.
+  const description = `${f.name} has ${cal} calories per 100 g — protein ${fmt(f.protein)}, carbs ${fmt(f.carbs)}, fat ${fmt(f.fat)}, fibre ${fmt(f.fiber)}. USDA FoodData Central source. Daily-value %, diet compatibility, peer comparison, and per-100-g context for everyday meal planning.`;
   return {
     title,
     description,
@@ -70,6 +102,15 @@ export default async function FoodPage({ params }: Props) {
     .filter(rf => rf.slug !== slug && rf.calories !== null)
     .map(rf => ({ name: rf.name, slug: rf.slug, calories: rf.calories!, category: rf.category || '' }));
   const analysis = analyzeFood(f);
+
+  // 2026-04-28 — Layer 1 facts + Layer 2 commentary (HCU 5-chunk patch).
+  // facts = SQL-derived percentile + peer + status classification.
+  // commentary = FACT → INTERPRETATION → IMPLICATION text picked deterministically
+  // from a 12-status × 4-slot × 3-4-variant pool keyed on the slug. Same slug
+  // always renders the same text across rebuilds; corpus-wide >100 unique
+  // narratives appear → defeats template detection.
+  const facts = getFoodFacts(f);
+  const commentary = getFoodCommentary(f, facts);
 
   const faqs = generateAutoFaqs(f);
 
@@ -90,7 +131,12 @@ export default async function FoodPage({ params }: Props) {
       <AnswerHero
         title={f.name}
         subtitle={f.category ? f.category.replace(/-/g, ' ') : "Food"}
-        tagline={`${f.calories?.toFixed(0) || "?"} kcal per 100 g, ${fmt(f.protein)} protein, ${fmt(f.carbs)} carbs, ${fmt(f.fat)} fat. ${analysis.summary}`}
+        // 2026-04-24 — Tagline rewritten as a direct-answer sentence. Featured-snippet
+        // extractors favor "X has Y [unit] per 100 grams" as the opening clause —
+        // Google's answer box pulls the first sentence and displays it verbatim.
+        // Previous format ("30 kcal per 100 g, 0.6g protein, ...") was a fragment
+        // that couldn't be quoted as a featured answer.
+        tagline={`${f.name} has ${f.calories?.toFixed(0) || "?"} calories per 100 grams, with ${fmt(f.protein)} of protein, ${fmt(f.carbs)} of carbohydrates, and ${fmt(f.fat)} of fat. ${analysis.summary}`}
         badges={[
           ...(f.calories != null
             ? [{
@@ -299,56 +345,93 @@ export default async function FoodPage({ params }: Props) {
 
       <DidYouKnow fact={`${f.name} provides ${f.calories?.toFixed(0) || '?'} kcal per 100g. ${(f.protein || 0) >= 15 ? `With ${f.protein?.toFixed(1)}g of protein, it is considered a high-protein food that supports muscle maintenance and repair.` : (f.fiber || 0) >= 5 ? `With ${f.fiber?.toFixed(1)}g of fiber per serving, it can support digestive health and help you feel full longer.` : `Balancing ${f.name} with a variety of other nutrient-dense foods is the best way to meet your daily nutritional needs.`}`} />
 
-      {/* Why this food matters — US eater / fitness / goal context */}
-      <section className="mb-8" data-upgrade="why-it-matters">
-        <h2 className="text-xl font-bold mb-3">
-          Why &ldquo;{f.name}&rdquo; matters to your diet
-        </h2>
-        <div className="rounded-lg border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed space-y-3">
-          {(() => {
-            const cal = f.calories || 0;
-            const prot = f.protein || 0;
-            const fib = f.fiber || 0;
-            const sugar = f.sugar || 0;
-            const sat = f.saturated_fat || 0;
-            const sod = f.sodium || 0;
-
-            const lowCal = cal < 100;
-            const highCal = cal >= 300;
-            const highProt = prot >= 15;
-            const highFib = fib >= 5;
-            const highSugar = sugar >= 15;
-            const highSat = sat >= 5;
-            const highSod = sod >= 600;
-
-            const primary = highProt
-              ? `${f.name} is a practical protein source for US adults aiming to hit the widely-cited 0.7\u20131.0 g of protein per pound of body weight. A 100 g serving delivers ${prot.toFixed(1)} g of protein \u2014 that\u2019s ${Math.round((prot / 65) * 100)}% of the Daily Value used on US Nutrition Facts labels. For muscle maintenance, recovery after resistance training, or weight management, protein-forward foods like this earn their spot on the plate.`
-              : lowCal && highFib
-              ? `${f.name} is a low-calorie, high-fiber food \u2014 a combination that punches above its weight for satiety. At ${cal.toFixed(0)} kcal and ${fib.toFixed(1)} g of fiber per 100 g, it helps you feel full on fewer calories, which is the simplest arithmetic behind sustainable US weight management advice from the Dietary Guidelines.`
-              : lowCal
-              ? `${f.name} is relatively low in calories at ${cal.toFixed(0)} kcal per 100 g. For US adults tracking an energy deficit for weight loss, foods in this range let you eat more volume for the same calorie budget \u2014 important for adherence over weeks and months, not just days.`
-              : highCal
-              ? `${f.name} is calorie-dense at ${cal.toFixed(0)} kcal per 100 g. That is not automatically bad \u2014 athletes, people recovering from illness, or anyone struggling to hit a calorie target will want calorie-dense foods. But if your goal is weight loss, treat serving size as the lever, not the food itself.`
-              : `${f.name} sits in the middle of the US calorie spectrum at ${cal.toFixed(0)} kcal per 100 g. How it fits your diet depends more on the rest of your day than on this one item.`;
-
-            const concerns: string[] = [];
-            if (highSugar) concerns.push(`It carries ${sugar.toFixed(1)} g of sugar per 100 g, which is material in the context of the US Dietary Guidelines ceiling of roughly 50 g added sugar per day for a 2,000-calorie intake.`);
-            if (highSat) concerns.push(`Saturated fat is ${sat.toFixed(1)} g per 100 g \u2014 the Dietary Guidelines recommend keeping saturated fat under 10% of total calories, which is around 22 g on a 2,000-calorie day.`);
-            if (highSod) concerns.push(`Sodium is elevated at ${sod.toFixed(0)} mg per 100 g. The FDA Daily Value is 2,300 mg/day, and the CDC recommends 1,500 mg/day for adults with hypertension.`);
-            const concernNote = concerns.length > 0 ? concerns.join(" ") : null;
-
-            const tdeeNote = `Every US adult has a different Total Daily Energy Expenditure (TDEE). Rather than memorizing calorie ceilings for individual foods, the more useful question is "what percentage of my daily budget is this?" Use the calculator on this page to get a personal number.`;
-
-            return (
-              <>
-                <p>{primary}</p>
-                {concernNote && <p>{concernNote}</p>}
-                <p className="text-sm text-slate-500">{tdeeNote}</p>
-              </>
-            );
-          })()}
+      {/* Layer 2 v2 commentary - slug-hash variant rotation x 12 status x 4 slot.
+          Replaces the 4/24 5-branch "Why this matters" block (which produced only
+          5 distinct texts across 2,589 foods, triggering template-detection risk). */}
+      <section className="mb-8" data-upgrade="commentary-v2">
+        <h2 className="text-xl font-bold mb-3">{commentary.headline}</h2>
+        <div className="rounded-lg border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed space-y-4">
+          <p className="text-base">{commentary.fact}</p>
+          <p className="text-base">{commentary.context}</p>
+          <p className="text-base">{commentary.implication}</p>
         </div>
       </section>
+
+      {/* Layer 1 - peer percentile within category */}
+      {facts.catStats && (() => {
+        const cells: Array<{ label: string; pct: number | null; median: number; unit: string; foodVal: number | null }> = [
+          { label: 'Calories',  pct: facts.pct.caloriesPct,  median: facts.catStats.calMedian,    unit: 'kcal', foodVal: f.calories },
+          { label: 'Protein',   pct: facts.pct.proteinPct,   median: facts.catStats.proteinMedian, unit: 'g',    foodVal: f.protein  },
+          { label: 'Fibre',     pct: facts.pct.fiberPct,     median: facts.catStats.fiberMedian,   unit: 'g',    foodVal: f.fiber    },
+          { label: 'Sugar',     pct: facts.pct.sugarPct,     median: facts.catStats.sugarMedian,   unit: 'g',    foodVal: f.sugar    },
+          { label: 'Sodium',    pct: facts.pct.sodiumPct,    median: facts.catStats.sodiumMedian,  unit: 'mg',   foodVal: f.sodium   },
+        ].filter((c) => c.pct != null);
+        if (cells.length === 0) return null;
+        const catName = titleCase(facts.category ?? '');
+        return (
+          <section className="mb-8" data-upgrade="peer-percentile">
+            <h2 className="text-xl font-bold mb-3">
+              How {f.name} compares within {catName.toLowerCase()}
+            </h2>
+            <p className="text-sm text-slate-500 mb-3">
+              Across {fmtCount(facts.catStats.count)} {catName.toLowerCase()} items in the database. Bands show where this food sits relative to its peers, not absolute health ratings.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {cells.map((c) => (
+                <div key={c.label} className="p-3 bg-slate-50 rounded-lg">
+                  <div className="text-xs text-slate-500">{c.label} (per 100 g)</div>
+                  <div className="text-lg font-semibold text-slate-800">
+                    {c.foodVal != null ? `${c.foodVal.toFixed(c.unit === 'kcal' || c.unit === 'mg' ? 0 : 1)} ${c.unit}` : '-'}
+                  </div>
+                  <div className="text-sm text-slate-700">{percentileBand(c.pct)}</div>
+                  <div className="text-xs text-slate-400 mt-1">
+                    Category median: {c.median.toFixed(c.unit === 'kcal' || c.unit === 'mg' ? 0 : 1)} {c.unit}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* Layer 1 - peer contrast: closest higher / closest lower in category, plus cross-cat. */}
+      {(facts.catPeerHigher || facts.catPeerLower || facts.crossPeer) && (
+        <section className="mb-8" data-upgrade="peer-contrast">
+          <h2 className="text-xl font-bold mb-3">Calorie context</h2>
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            {facts.catPeerLower ? (
+              <a href={`/food/${facts.catPeerLower.slug}/`} className="block p-3 border border-slate-100 rounded-lg text-center hover:bg-slate-50">
+                <div className="text-xs text-slate-500 mb-1">Lower in category</div>
+                <div className="text-sm text-orange-600 line-clamp-2">{facts.catPeerLower.name}</div>
+                <div className="text-xs text-slate-500 mt-1">{facts.catPeerLower.calories.toFixed(0)} kcal</div>
+              </a>
+            ) : <div className="p-3" />}
+            <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg text-center">
+              <div className="text-xs text-orange-700 mb-1">This food</div>
+              <div className="text-sm font-medium text-slate-800 line-clamp-2">{f.name}</div>
+              <div className="text-base font-bold text-orange-700 mt-1">{f.calories?.toFixed(0) ?? '-'} kcal</div>
+            </div>
+            {facts.catPeerHigher ? (
+              <a href={`/food/${facts.catPeerHigher.slug}/`} className="block p-3 border border-slate-100 rounded-lg text-center hover:bg-slate-50">
+                <div className="text-xs text-slate-500 mb-1">Higher in category</div>
+                <div className="text-sm text-orange-600 line-clamp-2">{facts.catPeerHigher.name}</div>
+                <div className="text-xs text-slate-500 mt-1">{facts.catPeerHigher.calories.toFixed(0)} kcal</div>
+              </a>
+            ) : <div className="p-3" />}
+          </div>
+          {facts.crossPeer && (
+            <p className="text-sm text-slate-600">
+              Across categories: <a href={`/food/${facts.crossPeer.slug}/`} className="text-orange-600 hover:underline">{facts.crossPeer.name}</a>
+              {' '}({facts.crossPeer.calories.toFixed(0)} kcal/100 g) lands at a similar calorie load from {titleCase(facts.crossPeer.category).toLowerCase()}.
+            </p>
+          )}
+          {facts.servingsToDay != null && (
+            <p className="text-sm text-slate-500 mt-2">
+              At this density, roughly {facts.servingsToDay} 100 g servings would total a 2,000 kcal day.
+            </p>
+          )}
+        </section>
+      )}
 
       <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 my-6 text-sm">
         <p className="text-slate-600">

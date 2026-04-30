@@ -11,7 +11,9 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamicParams = true;
+// 2026-04-24 — MUST stay `false`. See app/state/[slug]/page.tsx for the
+// Next.js 16 soft-404 bug this flag works around.
+export const dynamicParams = false;
 export const revalidate = 86400;
 
 export function generateStaticParams() {

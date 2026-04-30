@@ -4,6 +4,7 @@ import { getFoodBySlug, getSimilarFoods, getFoodsBySimilarCalories, type Food } 
 import { AdSlot } from "@/components/AdSlot";
 import { faqSchema } from "@/lib/schema";
 import { STATIC_COMPARISON_SLUGS, STATIC_COMPARISON_SET, toCanonicalComparisonSlug } from "@/lib/compare-whitelist";
+import { pickVariant } from "@/lib/content-helpers";
 
 interface Props { params: Promise<{ slugs: string }> }
 
@@ -113,8 +114,35 @@ export default async function ComparePage({ params }: Props) {
   const calA = a.calories ?? 0, calB = b.calories ?? 0;
   const protA = a.protein ?? 0, protB = b.protein ?? 0;
   const winner = calA < calB ? a : b;
+  const loser = winner === a ? b : a;
   const proteinWinner = protA > protB ? a : b;
+  const proteinLoser = proteinWinner === a ? b : a;
+  const fiberWinner = (a.fiber ?? 0) > (b.fiber ?? 0) ? a : b;
   const dietA = dietCheck(a), dietB = dietCheck(b);
+
+  // Slug-hashed commentary variants — defeat template detection across the corpus.
+  const calDelta = Math.abs(calA - calB);
+  const protDelta = Math.abs(protA - protB);
+  const pairKey = `${a.slug}-vs-${b.slug}`;
+  const verdictPara1 = pickVariant(pairKey, [
+    `When ${a.name} and ${b.name} land on the same plate, the calorie story comes first. ${winner.name} runs ${calDelta.toFixed(0)} kcal lighter per 100 g (${winner.calories?.toFixed(0)} vs ${loser.calories?.toFixed(0)}). For anyone tracking a daily budget, that gap compounds across regular use.`,
+    `The first axis to compare ${a.name} and ${b.name} on is energy density. ${winner.name} sits at ${winner.calories?.toFixed(0)} kcal/100 g — ${calDelta.toFixed(0)} fewer than ${loser.name}. Whether that gap matters depends on serving size and how often the food appears in your week.`,
+    `Calorie-wise, ${winner.name} comes in ${calDelta.toFixed(0)} kcal lighter (${winner.calories?.toFixed(0)} vs ${loser.calories?.toFixed(0)} per 100 g). The ratio matters more than the absolute number — at this gap, swapping one for the other ${calDelta >= 100 ? 'shifts the math meaningfully' : 'nudges intake slightly'}.`,
+    `Comparing ${a.name} and ${b.name} on calories alone: ${winner.name} wins by ${calDelta.toFixed(0)} kcal/100 g. That's ${calDelta >= 150 ? 'a substantial gap that shows up in calorie-controlled patterns' : calDelta >= 50 ? 'a moderate gap, useful but not dramatic' : 'a small gap that mostly fades into noise across a varied diet'}.`,
+  ], 1);
+
+  const verdictPara2 = pickVariant(pairKey, [
+    `On protein, ${proteinWinner.name} delivers ${proteinWinner.protein?.toFixed(1)} g vs ${proteinLoser.protein?.toFixed(1)} g — a ${protDelta.toFixed(1)} g advantage per 100 g. ${a.fiber !== null && b.fiber !== null ? `Fibre tilts toward ${fiberWinner.name} (${fiberWinner.fiber?.toFixed(1)} g), useful for satiety.` : ''}`,
+    `For protein-focused eaters, ${proteinWinner.name} pulls ahead by ${protDelta.toFixed(1)} g/100 g (${proteinWinner.protein?.toFixed(1)} vs ${proteinLoser.protein?.toFixed(1)}). ${a.fiber !== null && b.fiber !== null ? `Fibre context: ${fiberWinner.name} carries the heavier load at ${fiberWinner.fiber?.toFixed(1)} g.` : ''}`,
+    `${proteinWinner.name}'s ${proteinWinner.protein?.toFixed(1)} g protein/100 g beats ${proteinLoser.name}'s ${proteinLoser.protein?.toFixed(1)} g — relevant if the meal needs to anchor on protein. ${a.fiber !== null && b.fiber !== null ? `Fibre splits in favour of ${fiberWinner.name} (${fiberWinner.fiber?.toFixed(1)} g).` : ''}`,
+  ], 2);
+
+  const verdictPara3 = pickVariant(pairKey, [
+    `Neither food is universally "healthier" — both fit balanced patterns when used in context. The right pick depends on what the rest of your day looks like: lower-calorie ${winner.name} for energy control, higher-protein ${proteinWinner.name} for satiety and lean-mass support.`,
+    `Health framing is the wrong lens here. Both ${a.name} and ${b.name} can earn a spot in a sensible eating pattern; the choice between them rides on the role you need filled — calorie ceiling, protein anchor, or fibre contribution.`,
+    `The "which is healthier" question doesn't have a clean answer at this level — both foods bring usable nutrition. Pick by the constraint that's tightest right now: calorie budget pushes you to ${winner.name}, protein target pushes you to ${proteinWinner.name}.`,
+    `Don't treat one of these as the "good" choice and the other as the "bad" choice — both ${a.name} and ${b.name} have legitimate roles. The decision is contextual: which gap (calorie, protein, fibre) is most worth closing in your current pattern?`,
+  ], 3);
 
   const rows: [string, number | null, number | null, string][] = [
     ['Calories', a.calories, b.calories, 'kcal'],
@@ -256,24 +284,13 @@ export default async function ComparePage({ params }: Props) {
         </div>
       </section>
 
-      {/* Which is healthier analysis */}
+      {/* Which is healthier analysis — slug-hashed variants */}
       <section className="mb-8">
         <h2 className="text-xl font-bold mb-4">Which Is Healthier: {a.name} or {b.name}?</h2>
         <div className="prose prose-sm max-w-none text-slate-700 space-y-3">
-          <p>
-            When comparing {a.name} and {b.name}, the healthier choice depends on your nutritional goals.
-            {winner.name} is the better option if you are watching your calorie intake, providing {winner.calories?.toFixed(0)} kcal per 100g.
-          </p>
-          <p>
-            For muscle building and satiety, {proteinWinner.name} wins with {proteinWinner.protein?.toFixed(1)}g of protein per 100g.
-            {a.fiber !== null && b.fiber !== null && (
-              ` In terms of fiber, ${(a.fiber ?? 0) > (b.fiber ?? 0) ? a.name : b.name} provides more at ${Math.max(a.fiber ?? 0, b.fiber ?? 0).toFixed(1)}g per 100g.`
-            )}
-          </p>
-          <p>
-            Both foods can be part of a balanced diet. Consider your specific dietary needs, whether that is
-            weight loss, muscle gain, or managing a specific health condition, when making your choice.
-          </p>
+          <p>{verdictPara1}</p>
+          <p>{verdictPara2}</p>
+          <p>{verdictPara3}</p>
         </div>
       </section>
 

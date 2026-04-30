@@ -3,6 +3,13 @@ Allow: /
 Disallow: /api/
 Disallow: /_next/
 Disallow: /embed/
+# ── Crawl waste (2026-04-24): OG image URLs with query strings were being
+# fetched by Googlebot and accumulating in 'crawled-not-indexed' (86K+ count)
+Disallow: /*/opengraph-image
+Disallow: /*/twitter-image
+# ── /es/ mirror removed 2026-04-24 (thin translation, same as nameblooms /es/name)
+# All /es/food/* now 301 to /food/* via next.config.ts redirect
+Disallow: /es/food/
 
 # ── SEO scraper tools (zero user-facing traffic) ──
 User-Agent: AhrefsBot

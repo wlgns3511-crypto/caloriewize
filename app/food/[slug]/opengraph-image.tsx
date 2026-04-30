@@ -1,6 +1,12 @@
 import { ImageResponse } from 'next/og';
 import { getFoodBySlug, getAllFoods } from '@/lib/db';
 
+// HCU Phase C+ (2026-04-26): page.tsx 가 dynamicParams=false + getAllFoods()
+// (전체 ~2,589 prebuild) 인데 OG 는 slice(0, 2000) → 589개 슬러그가 NoFallbackError.
+// degreewize 4/26 동일 패턴 fix.
+export const runtime = 'nodejs';
+export const dynamicParams = true;
+
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -13,12 +19,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const f = getFoodBySlug(slug);
 
   if (!f) {
-    return new ImageResponse(
-      <div style={{ display: 'flex', width: '100%', height: '100%', backgroundColor: '#16a34a', color: 'white', alignItems: 'center', justifyContent: 'center', fontFamily: 'sans-serif' }}>
-        <div style={{ fontSize: 48, fontWeight: 800 }}>CALORIEWIZE</div>
-      </div>,
-      { ...size }
-    );
+    return new Response(null, { status: 404 });
   }
 
   const cal = f.calories !== null ? f.calories.toFixed(0) : '—';

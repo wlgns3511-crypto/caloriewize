@@ -71,8 +71,13 @@ export function getTopComparisons(limit = 5000): { slugA: string; slugB: string 
   ).get();
 
   if (tableExists) {
+    // 2026-04-24 — Added ORDER BY popularity_score DESC. The column existed from
+    // scripts/expand-comparisons.py but was unused — cap was pulling the first N
+    // alphabetical pairs (abiyuch-raw-vs-...), not the actually-searched pairs.
+    // GSC 2026-04 showed "90/10 vs 93/7 ground beef nutrition" as top compare
+    // intent — that page needs to be in the prerender set, not buried at id=5000.
     return db.prepare(
-      'SELECT slugA, slugB FROM comparisons LIMIT ?'
+      'SELECT slugA, slugB FROM comparisons ORDER BY popularity_score DESC LIMIT ?'
     ).all(limit) as { slugA: string; slugB: string }[];
   }
 

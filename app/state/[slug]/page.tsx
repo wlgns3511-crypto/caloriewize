@@ -6,12 +6,18 @@ import { breadcrumbSchema, faqSchema } from '@/lib/schema';
 import { AuthorBox } from '@/components/AuthorBox';
 import { CrossSiteLinks } from '@/components/CrossSiteLinks';
 import { StateRich } from '@/components/state/StateRich';
+import { getStateInsight } from '@/lib/food-cluster-insights';
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const dynamicParams = true;
+// 2026-04-24 — MUST stay `false`. Next.js 16 soft-404 bug:
+// `dynamicParams = true` + `notFound()` + SSG caches the not-found response
+// as an HTTP 200 prerender (x-nextjs-cache: HIT, x-nextjs-prerender: 1),
+// producing soft-404s that HCU penalizes. Confirmed on the nameblooms
+// codebase 2026-04-24. Do NOT flip back without a middleware pre-filter.
+export const dynamicParams = false;
 export const revalidate = 86400;
 
 export function generateStaticParams() {
@@ -54,6 +60,7 @@ export default async function StatePage({ params }: Props) {
   const faqs = buildFaqs(state);
   const nationalAvg = allStates.reduce((a, s) => a + s.obesityRate, 0) / allStates.length;
   const rank = [...allStates].sort((a, b) => a.obesityRate - b.obesityRate).findIndex((s) => s.slug === slug) + 1;
+  const stateInsight = getStateInsight(slug, state.name, state.obesityRate, nationalAvg, state.popularCuisines, state.farmersMarkets);
 
   const crumbs = [
     { name: 'Home', url: '/' },
@@ -143,6 +150,15 @@ export default async function StatePage({ params }: Props) {
             />
           </div>
           <p className="text-xs text-slate-500 mt-2">{state.name}: {state.obesityRate}% adult obesity (CDC BRFSS 2023)</p>
+        </div>
+      </section>
+
+      {/* Layer 2 narrative — slug-hashed, unique per state */}
+      <section className="mb-8">
+        <div className="rounded-lg border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed space-y-3">
+          <p>{stateInsight.obesityNarrative}</p>
+          <p>{stateInsight.cuisineNarrative}</p>
+          <p>{stateInsight.practicalSwap}</p>
         </div>
       </section>
 

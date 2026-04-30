@@ -1,10 +1,13 @@
-import { getTopComparisons } from "./db";
+import compareKeepList from "./generated/compare-keep.json";
 
-const CAP = 100;
-
-export const STATIC_COMPARISON_SLUGS: string[] = getTopComparisons(CAP).map((p) =>
-  [p.slugA, p.slugB].sort().join("-vs-")
-);
+// HCU 2026-04-24: single source of truth = scripts/build-keep-sets.ts output.
+// That script emits top-250 DB slice (popularity_score DESC) + GSC evidence
+// union (20 URLs earning ≥1 click in 2026-03-24 ~ 2026-04-21 window).
+//
+// Importing the generated JSON keeps middleware (edge-safe, can't touch
+// better-sqlite3) and page.tsx (SSG generateStaticParams) perfectly in sync.
+// Rebuild via `npx tsx scripts/build-keep-sets.ts` before any deploy.
+export const STATIC_COMPARISON_SLUGS: string[] = compareKeepList as string[];
 
 export const STATIC_COMPARISON_SET: Set<string> = new Set(STATIC_COMPARISON_SLUGS);
 

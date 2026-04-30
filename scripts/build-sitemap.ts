@@ -30,9 +30,16 @@ add({ url: `${SITE_URL}/`, priority: '1.0', changefreq: 'monthly' });
 add({ url: `${SITE_URL}/food/`, priority: '0.9', changefreq: 'monthly' });
 add({ url: `${SITE_URL}/compare/`, priority: '0.9', changefreq: 'monthly' });
 add({ url: `${SITE_URL}/state/`, priority: '0.9', changefreq: 'monthly' });
+add({ url: `${SITE_URL}/list/`, priority: '0.9', changefreq: 'monthly' });
 
-// List pages
-for (const t of ['low-calorie', 'high-protein']) {
+// List pages — 2026-04-28 expanded from 2 to 15 list types as part of HCU 5-chunk patch
+const LIST_TYPES = [
+  'low-calorie', 'high-protein', 'high-fiber', 'low-sodium', 'low-sugar',
+  'low-fat', 'low-carb', 'high-vitamin-c', 'high-calcium', 'high-iron',
+  'high-potassium', 'low-cholesterol', 'low-saturated-fat',
+  'ultra-low-calorie', 'high-protein-low-calorie',
+];
+for (const t of LIST_TYPES) {
   add({ url: `${SITE_URL}/list/${t}/`, priority: '0.8', changefreq: 'monthly' });
 }
 
