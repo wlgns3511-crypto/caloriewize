@@ -145,15 +145,16 @@ console.log(
 
 // 2026-05-05 — Phase 6.1: short-slug whitelist for middleware redirect.
 // USDA full-slug naming uses internal dashes ("apples-fuji-with-skin-raw").
-// Single-word short queries like "apple"/"banana"/"chicken" returned 100%
-// 404 because dynamicParams=false and no fallback. Middleware now redirects
-// short, dashless slugs to /search/?q=<slug> — but only if the slug isn't
-// itself a valid food (e.g. "honey", "tempeh", "catsup" are real USDA slugs).
-// This whitelist captures the exceptions so they keep serving as static pages.
-const SHORT_LEN = 14;
+// Short queries (single-word like "apple" OR short dashed like "apple-pie",
+// "gluten-free", "ice-cream") returned 100% 404 because dynamicParams=false
+// and no fallback. Middleware now redirects ≤20-char slugs to /search/?q=<slug>
+// unless the slug is itself a valid food. USDA has 352 real dashed-short
+// slugs (oil-oat/figs-raw/kale-raw/bread-egg/...) — this whitelist captures
+// every food ≤20 chars so the page keeps serving statically.
+const SHORT_LEN = 20;
 const validShorts = getAllFoods()
   .map((f) => f.slug)
-  .filter((s) => !s.includes('-') && s.length <= SHORT_LEN)
+  .filter((s) => s.length <= SHORT_LEN)
   .sort();
 fs.writeFileSync(path.join(OUT_DIR, 'food-shorts.json'), JSON.stringify(validShorts));
 console.log(`✓ food-shorts.json: ${validShorts.length} valid short slugs`);

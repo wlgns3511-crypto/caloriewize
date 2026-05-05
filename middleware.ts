@@ -8,11 +8,13 @@ import foodShortsList from './lib/generated/food-shorts.json';
 // (halves sorted a < b, single-dash `-vs-` join).
 const COMPARE_KEEP_SET: Set<string> = new Set(compareKeepList as string[]);
 
-// Short-slug whitelist — the few USDA slugs that are dashless ≤14 chars
-// (catsup, honey, tempeh). All other dashless ≤14 char `/food/<slug>/` paths
-// are short search queries (apple, banana, chicken, etc.) and 100% 404 today.
-// Middleware redirects them to /search/?q=<slug> for recovery.
-const SHORT_SLUG_LEN = 14;
+// Short-slug whitelist — every USDA slug ≤20 chars (~355 entries: catsup/
+// honey/tempeh + 352 dashed like oil-oat/figs-raw/bread-egg/kale-raw). All
+// other ≤20-char `/food/<slug>/` paths are short search queries (apple,
+// apple-pie, gluten-free, low-carb, ice-cream, etc.) that 100% 404 today.
+// Middleware redirects them to /search/?q=<slug> for recovery — long USDA
+// canonical slugs (>20 chars like apples-fuji-with-skin-raw) are unaffected.
+const SHORT_SLUG_LEN = 20;
 const VALID_SHORT_SLUGS: Set<string> = new Set(foodShortsList as string[]);
 
 /**
@@ -56,14 +58,16 @@ export function middleware(request: NextRequest) {
   }
 
   // Phase 6.1 — short slug recovery for /food/<slug>/.
-  // USDA slugs are verbose ("apples-fuji-with-skin-raw"). Short queries like
-  // /food/apple/ used to 404 with no recovery. Redirect to search instead.
+  // USDA canonical slugs are verbose ("apples-fuji-with-skin-raw"). Short
+  // queries — both dashless ("apple") and dashed ("apple-pie", "gluten-free",
+  // "low-carb", "ice-cream") — used to 404 with no recovery. Redirect to
+  // /search/?q=<slug> instead. VALID_SHORT_SLUGS protects the 355 real USDA
+  // ≤20-char foods so their static pages keep serving.
   if (pathname.startsWith('/food/')) {
     const slug = pathname.slice(6).replace(/\/$/, '');
     if (
       slug &&
       !slug.includes('/') &&
-      !slug.includes('-') &&
       slug.length <= SHORT_SLUG_LEN &&
       !VALID_SHORT_SLUGS.has(slug)
     ) {
