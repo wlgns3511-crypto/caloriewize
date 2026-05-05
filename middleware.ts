@@ -1,11 +1,19 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import compareKeepList from './lib/generated/compare-keep.json';
+import foodShortsList from './lib/generated/food-shorts.json';
 
 // Prebuilt O(1) lookup set — dumped at build time by scripts/build-keep-sets.ts
 // so Edge Runtime middleware never touches SQLite. Stores CANONICAL slugs
 // (halves sorted a < b, single-dash `-vs-` join).
 const COMPARE_KEEP_SET: Set<string> = new Set(compareKeepList as string[]);
+
+// Short-slug whitelist — the few USDA slugs that are dashless ≤14 chars
+// (catsup, honey, tempeh). All other dashless ≤14 char `/food/<slug>/` paths
+// are short search queries (apple, banana, chicken, etc.) and 100% 404 today.
+// Middleware redirects them to /search/?q=<slug> for recovery.
+const SHORT_SLUG_LEN = 14;
+const VALID_SHORT_SLUGS: Set<string> = new Set(foodShortsList as string[]);
 
 /**
  * HCU 2026-04-24 cleanup — 410 Gone for pruned /compare/ URLs.
@@ -44,6 +52,25 @@ export function middleware(request: NextRequest) {
       if (!isComparePathKept(raw)) {
         return new NextResponse('Gone', { status: 410 });
       }
+    }
+  }
+
+  // Phase 6.1 — short slug recovery for /food/<slug>/.
+  // USDA slugs are verbose ("apples-fuji-with-skin-raw"). Short queries like
+  // /food/apple/ used to 404 with no recovery. Redirect to search instead.
+  if (pathname.startsWith('/food/')) {
+    const slug = pathname.slice(6).replace(/\/$/, '');
+    if (
+      slug &&
+      !slug.includes('/') &&
+      !slug.includes('-') &&
+      slug.length <= SHORT_SLUG_LEN &&
+      !VALID_SHORT_SLUGS.has(slug)
+    ) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/search/';
+      url.search = `?q=${encodeURIComponent(slug)}`;
+      return NextResponse.redirect(url, 301);
     }
   }
 

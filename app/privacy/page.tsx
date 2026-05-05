@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LEGAL_VINTAGES } from "@/lib/authorship";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -7,11 +8,15 @@ export const metadata: Metadata = {
   openGraph: { url: "/privacy/" },
 };
 
+function formatVintage(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
 export default function PrivacyPage() {
   return (
     <article className="prose prose-slate max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold text-orange-600 mb-6">Privacy Policy</h1>
-      <p className="text-sm text-slate-500 mb-8">Last updated: March 25, 2026</p>
+      <p className="text-sm text-slate-500 mb-8">Last updated: <time dateTime={LEGAL_VINTAGES.privacy}>{formatVintage(LEGAL_VINTAGES.privacy)}</time></p>
 
       <p>
         CalorieWize (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) operates the website caloriewize.com. This

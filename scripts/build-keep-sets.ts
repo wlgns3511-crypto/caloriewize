@@ -22,7 +22,7 @@
  */
 import * as fs from 'fs';
 import * as path from 'path';
-import { getTopComparisons, getFoodBySlug } from '../lib/db';
+import { getTopComparisons, getFoodBySlug, getAllFoods } from '../lib/db';
 
 const COMPARE_CAP = 250;
 
@@ -72,6 +72,37 @@ function canonicaliseGscSlug(raw: string): string | null {
 const OUT_DIR = path.resolve(__dirname, '..', 'lib', 'generated');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
+// HCU 2026-05-04 — Bing impressions auto-union (separate index from Google).
+const BING_JSON_DIR = path.resolve(__dirname, '..', '..', '_shared', 'data', 'bing_analyze');
+const BING_DOMAIN = 'caloriewize.com';
+const BING_MIN_IMP = 1;
+
+function loadBingSlugs(routeRe: RegExp): string[] {
+  if (!fs.existsSync(BING_JSON_DIR)) return [];
+  const files = fs.readdirSync(BING_JSON_DIR)
+    .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
+    .sort();
+  if (!files.length) return [];
+  try {
+    const json = JSON.parse(fs.readFileSync(path.join(BING_JSON_DIR, files[files.length - 1]), 'utf8'));
+    const site = json[BING_DOMAIN];
+    if (!site || !Array.isArray(site.pages)) return [];
+    const out = new Map<string, number>();
+    for (const pg of site.pages) {
+      const url = String(pg.url || '');
+      const pathOnly = url.replace(/^https?:\/\/[^/]+/, '');
+      const m = routeRe.exec(pathOnly);
+      if (!m) continue;
+      const slug = decodeURIComponent(m[1]);
+      const imp = Number(pg.impressions) || 0;
+      out.set(slug, (out.get(slug) || 0) + imp);
+    }
+    return [...out.entries()].filter(([, i]) => i >= BING_MIN_IMP).map(([s]) => s);
+  } catch {
+    return [];
+  }
+}
+
 const base = getTopComparisons(COMPARE_CAP).map((p) =>
   [p.slugA, p.slugB].sort().join('-vs-'),
 );
@@ -89,9 +120,40 @@ for (const raw of GSC_EVIDENCE_COMPARES) {
   }
 }
 
+// Bing-union — same canonicaliseGscSlug pipeline (food slugs have internal dashes)
+const bingRaw = loadBingSlugs(/^\/compare\/([^/]+)\/?$/);
+let bingAdded = 0;
+let bingSkipped = 0;
+for (const raw of bingRaw) {
+  const canonical = canonicaliseGscSlug(raw);
+  if (canonical) {
+    if (!slugSet.has(canonical)) {
+      slugSet.add(canonical);
+      bingAdded++;
+    }
+  } else {
+    bingSkipped++;
+  }
+}
+
 const compareKeep = Array.from(slugSet).sort();
 fs.writeFileSync(path.join(OUT_DIR, 'compare-keep.json'), JSON.stringify(compareKeep));
 
 console.log(
-  `✓ compare-keep.json: ${compareKeep.length} compares (${base.length} base + ${gscAdded} GSC new, ${gscSkipped} skipped as missing from DB)`,
+  `✓ compare-keep.json: ${compareKeep.length} compares (${base.length} base + ${gscAdded} GSC + ${bingAdded} Bing, ${gscSkipped + bingSkipped} skipped)`,
 );
+
+// 2026-05-05 — Phase 6.1: short-slug whitelist for middleware redirect.
+// USDA full-slug naming uses internal dashes ("apples-fuji-with-skin-raw").
+// Single-word short queries like "apple"/"banana"/"chicken" returned 100%
+// 404 because dynamicParams=false and no fallback. Middleware now redirects
+// short, dashless slugs to /search/?q=<slug> — but only if the slug isn't
+// itself a valid food (e.g. "honey", "tempeh", "catsup" are real USDA slugs).
+// This whitelist captures the exceptions so they keep serving as static pages.
+const SHORT_LEN = 14;
+const validShorts = getAllFoods()
+  .map((f) => f.slug)
+  .filter((s) => !s.includes('-') && s.length <= SHORT_LEN)
+  .sort();
+fs.writeFileSync(path.join(OUT_DIR, 'food-shorts.json'), JSON.stringify(validShorts));
+console.log(`✓ food-shorts.json: ${validShorts.length} valid short slugs`);

@@ -6,6 +6,15 @@ import { getAllPosts } from '../lib/blog';
 import { getAllStates } from '../lib/states-data';
 import { getAllInsightArticles } from '../lib/insight-articles';
 import { getAllGuides } from '../lib/guides';
+import {
+  FOOD_VINTAGE,
+  CATEGORY_VINTAGE,
+  STATE_VINTAGE,
+  SITE_VINTAGE,
+  ABOUT_VINTAGE,
+  METHODOLOGY_VINTAGE,
+  LEGAL_VINTAGES,
+} from '../lib/authorship';
 
 const SITE_URL = 'https://caloriewize.com';
 const NOW = new Date().toISOString().split('T')[0];
@@ -26,11 +35,16 @@ const entries: Entry[] = [];
 function add(e: Entry) { if (!seen.has(e.url)) { seen.add(e.url); entries.push(e); } }
 
 // Static pages
-add({ url: `${SITE_URL}/`, priority: '1.0', changefreq: 'monthly' });
-add({ url: `${SITE_URL}/food/`, priority: '0.9', changefreq: 'monthly' });
-add({ url: `${SITE_URL}/compare/`, priority: '0.9', changefreq: 'monthly' });
-add({ url: `${SITE_URL}/state/`, priority: '0.9', changefreq: 'monthly' });
-add({ url: `${SITE_URL}/list/`, priority: '0.9', changefreq: 'monthly' });
+add({ url: `${SITE_URL}/`, lastmod: SITE_VINTAGE, priority: '1.0', changefreq: 'monthly' });
+add({ url: `${SITE_URL}/food/`, lastmod: FOOD_VINTAGE, priority: '0.9', changefreq: 'monthly' });
+add({ url: `${SITE_URL}/compare/`, lastmod: FOOD_VINTAGE, priority: '0.9', changefreq: 'monthly' });
+add({ url: `${SITE_URL}/state/`, lastmod: STATE_VINTAGE, priority: '0.9', changefreq: 'monthly' });
+add({ url: `${SITE_URL}/list/`, lastmod: FOOD_VINTAGE, priority: '0.9', changefreq: 'monthly' });
+add({ url: `${SITE_URL}/about/`, lastmod: ABOUT_VINTAGE, priority: '0.6', changefreq: 'yearly' });
+add({ url: `${SITE_URL}/methodology/`, lastmod: METHODOLOGY_VINTAGE, priority: '0.6', changefreq: 'yearly' });
+add({ url: `${SITE_URL}/privacy/`, lastmod: LEGAL_VINTAGES.privacy, priority: '0.4', changefreq: 'yearly' });
+add({ url: `${SITE_URL}/terms/`, lastmod: LEGAL_VINTAGES.terms, priority: '0.4', changefreq: 'yearly' });
+add({ url: `${SITE_URL}/disclaimer/`, lastmod: LEGAL_VINTAGES.disclaimer, priority: '0.4', changefreq: 'yearly' });
 
 // List pages — 2026-04-28 expanded from 2 to 15 list types as part of HCU 5-chunk patch
 const LIST_TYPES = [
@@ -40,22 +54,22 @@ const LIST_TYPES = [
   'ultra-low-calorie', 'high-protein-low-calorie',
 ];
 for (const t of LIST_TYPES) {
-  add({ url: `${SITE_URL}/list/${t}/`, priority: '0.8', changefreq: 'monthly' });
+  add({ url: `${SITE_URL}/list/${t}/`, lastmod: FOOD_VINTAGE, priority: '0.8', changefreq: 'monthly' });
 }
 
 // Category pages
 for (const c of getAllCategories()) {
-  add({ url: `${SITE_URL}/category/${c.slug}/`, priority: '0.8', changefreq: 'monthly' });
+  add({ url: `${SITE_URL}/category/${c.slug}/`, lastmod: CATEGORY_VINTAGE, priority: '0.8', changefreq: 'monthly' });
 }
 
 // State pages
 for (const s of getAllStates()) {
-  add({ url: `${SITE_URL}/state/${s.slug}/`, priority: '0.8', changefreq: 'monthly' });
+  add({ url: `${SITE_URL}/state/${s.slug}/`, lastmod: STATE_VINTAGE, priority: '0.8', changefreq: 'monthly' });
 }
 
 // Food pages
 for (const f of getAllFoods()) {
-  add({ url: `${SITE_URL}/food/${f.slug}/`, priority: '0.7', changefreq: 'monthly' });
+  add({ url: `${SITE_URL}/food/${f.slug}/`, lastmod: FOOD_VINTAGE, priority: '0.7', changefreq: 'monthly' });
 }
 
 // Guide pages

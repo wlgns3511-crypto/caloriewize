@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods, getFoodsBySimilarCalories, getRandomFoods } from "@/lib/db";
 import { STATIC_COMPARISON_SET, isValidComparePair, toCanonicalComparisonSlug } from "@/lib/compare-whitelist";
 import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
+import { FOOD_VINTAGE, SOURCE_AUTHORITIES, PUBLISHER } from "@/lib/authorship";
 import { analyzeFood } from "@/lib/nutrition-analysis";
 import { AdSlot } from "@/components/AdSlot";
 import { DataFeedback } from "@/components/DataFeedback";
@@ -672,8 +673,10 @@ export default async function FoodPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(breadcrumbs)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         ...nutritionSchema(f.name, f),
-        dateModified: new Date().toISOString().split('T')[0],
-        author: { "@type": "Organization", name: "DataPeek" },
+        dateModified: FOOD_VINTAGE,
+        author: { "@type": "Organization", name: PUBLISHER.name, url: PUBLISHER.url },
+        publisher: { "@type": "Organization", name: PUBLISHER.name, url: PUBLISHER.url },
+        reviewedBy: SOURCE_AUTHORITIES,
       }) }} />
       {faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />}
     </div>

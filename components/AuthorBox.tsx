@@ -1,9 +1,14 @@
-import { DB_UPDATED } from "@/lib/authorship";
-import { EDITORIAL_TEAM, PUBLISHER } from "@/lib/authorship";
+import { DB_UPDATED, EDITORIAL_TEAM, PUBLISHER, SOURCE_AUTHORITIES } from "@/lib/authorship";
 
-export function AuthorBox() {
-  const reviewedAt = DB_UPDATED;
-  const dataVintage = "Public dataset snapshot";
+interface Props {
+  /** Per-entity vintage (overrides DB_UPDATED). Use for non-food pages. */
+  vintage?: string;
+  /** Data source label (e.g. "USDA FoodData Central"). */
+  source?: string;
+}
+
+export function AuthorBox({ vintage, source = "USDA FoodData Central" }: Props = {}) {
+  const reviewedAt = vintage ?? DB_UPDATED;
 
   return (
     <div className="mt-10 p-5 bg-slate-50 border border-slate-200 rounded-xl">
@@ -16,7 +21,7 @@ export function AuthorBox() {
         </div>
         <div className="flex-1 min-w-0">
           <div className="font-semibold text-slate-900 text-sm">
-            Data verified by {EDITORIAL_TEAM.name}
+            Reviewed by the {EDITORIAL_TEAM.name}
           </div>
           <div className="text-xs text-slate-500 mt-0.5">
             Part of the <a href={PUBLISHER.url} className="text-slate-700 hover:underline" rel="noopener">{PUBLISHER.name}</a>
@@ -24,16 +29,23 @@ export function AuthorBox() {
         </div>
       </div>
       <p className="text-xs text-slate-600 leading-relaxed mb-3">
-        CalorieWize is maintained by an editorial workflow that audits public data sources and verifies dates, values, and methodology on every page. We publish as an organization — no individual bylines — and disclose our data vintage and review dates openly.
+        Each entry's nutrition values are cross-referenced against {SOURCE_AUTHORITIES.map((s, i) => (
+          <span key={s.name}>
+            {i > 0 && (i === SOURCE_AUTHORITIES.length - 1 ? ', and ' : ', ')}
+            <a href={s.url} className="text-slate-700 underline underline-offset-2 hover:text-slate-900" rel="noopener" target="_blank">
+              {s.name}
+            </a>
+          </span>
+        ))} before publication. Our editorial workflow audits source URLs, calculation methods, and data vintage on every release cycle.
       </p>
       <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
         {reviewedAt && (
           <>
-            <span>Last verified: <time dateTime={reviewedAt}>{reviewedAt}</time></span>
+            <span>Last reviewed: <time dateTime={reviewedAt}>{reviewedAt}</time></span>
             <span className="text-slate-300">·</span>
           </>
         )}
-        <span>Data vintage: {dataVintage}</span>
+        <span>Data source: {source}</span>
         <span className="text-slate-300">·</span>
         <a href="https://datapeekfacts.com/editorial-policy/" className="underline underline-offset-2 hover:text-slate-900" rel="noopener">Editorial policy</a>
         <span className="text-slate-300">·</span>
