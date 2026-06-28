@@ -1,21 +1,10 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import compareKeepList from './lib/generated/compare-keep.json';
-import foodShortsList from './lib/generated/food-shorts.json';
 
-// Prebuilt O(1) lookup set — dumped at build time by scripts/build-keep-sets.ts
-// so Edge Runtime middleware never touches SQLite. Stores CANONICAL slugs
-// (halves sorted a < b, single-dash `-vs-` join).
+const EDGE_VERSION = '2026-05-28-v6.5';
+
 const COMPARE_KEEP_SET: Set<string> = new Set(compareKeepList as string[]);
-
-// Short-slug whitelist — every USDA slug ≤20 chars (~355 entries: catsup/
-// honey/tempeh + 352 dashed like oil-oat/figs-raw/bread-egg/kale-raw). All
-// other ≤20-char `/food/<slug>/` paths are short search queries (apple,
-// apple-pie, gluten-free, low-carb, ice-cream, etc.) that 100% 404 today.
-// Middleware redirects them to /search/?q=<slug> for recovery — long USDA
-// canonical slugs (>20 chars like apples-fuji-with-skin-raw) are unaffected.
-const SHORT_SLUG_LEN = 20;
-const VALID_SHORT_SLUGS: Set<string> = new Set(foodShortsList as string[]);
 
 /**
  * HCU 2026-04-24 cleanup — 410 Gone for pruned /compare/ URLs.
@@ -52,38 +41,21 @@ export function middleware(request: NextRequest) {
     const raw = pathname.slice(9).replace(/\/$/, '');
     if (raw && !raw.includes('/') && raw.includes('-vs-')) {
       if (!isComparePathKept(raw)) {
-        return new NextResponse('Gone', { status: 410 });
+        const gone = new NextResponse('Gone', { status: 410 });
+        gone.headers.set('x-edge-version', EDGE_VERSION);
+        return gone;
       }
-    }
-  }
-
-  // Phase 6.1 — short slug recovery for /food/<slug>/.
-  // USDA canonical slugs are verbose ("apples-fuji-with-skin-raw"). Short
-  // queries — both dashless ("apple") and dashed ("apple-pie", "gluten-free",
-  // "low-carb", "ice-cream") — used to 404 with no recovery. Redirect to
-  // /search/?q=<slug> instead. VALID_SHORT_SLUGS protects the 355 real USDA
-  // ≤20-char foods so their static pages keep serving.
-  if (pathname.startsWith('/food/')) {
-    const slug = pathname.slice(6).replace(/\/$/, '');
-    if (
-      slug &&
-      !slug.includes('/') &&
-      slug.length <= SHORT_SLUG_LEN &&
-      !VALID_SHORT_SLUGS.has(slug)
-    ) {
-      const url = request.nextUrl.clone();
-      url.pathname = '/search/';
-      url.search = `?q=${encodeURIComponent(slug)}`;
-      return NextResponse.redirect(url, 301);
     }
   }
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
 
-  return NextResponse.next({
+  const response = NextResponse.next({
     request: { headers: requestHeaders },
   });
+  response.headers.set('x-edge-version', EDGE_VERSION);
+  return response;
 }
 
 export const config = {

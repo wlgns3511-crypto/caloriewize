@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getFoodBySlug, getAllFoods, getSimilarFoods, getPopularFoods, getFoodsBySimilarCalories, getRandomFoods } from "@/lib/db";
 import { STATIC_COMPARISON_SET, isValidComparePair, toCanonicalComparisonSlug } from "@/lib/compare-whitelist";
-import { breadcrumbSchema, faqSchema, nutritionSchema } from "@/lib/schema";
-import { FOOD_VINTAGE, SOURCE_AUTHORITIES, PUBLISHER } from "@/lib/authorship";
+import { breadcrumbSchema, faqSchema, nutritionSchema, datasetSchema } from "@/lib/schema";
+import { FOOD_VINTAGE, SOURCE_AUTHORITIES, PUBLISHER, EDITORIAL_TEAM } from "@/lib/authorship";
 import { analyzeFood } from "@/lib/nutrition-analysis";
 import { AdSlot } from "@/components/AdSlot";
 import { DataFeedback } from "@/components/DataFeedback";
@@ -21,41 +21,58 @@ import { CalorieFitCheck } from "@/components/tools/CalorieFitCheck";
 import { MacroBar } from "@/components/MacroBar";
 import { CalorieGuessGame } from "@/components/CalorieGuessGame";
 import { AnswerHero } from "@/components/upgrades/AnswerHero";
+import { FoodHeroImage } from "@/components/FoodHeroImage";
+import { getFoodImage } from "@/lib/food-images";
 import { TrustBlock } from "@/components/upgrades/TrustBlock";
 import { InsightBlock } from "@/components/upgrades/InsightBlock";
 import { DecisionNext } from "@/components/upgrades/DecisionNext";
 import { RelatedEntities } from '@/components/upgrades/RelatedEntities';
 import { TableOfContents } from '@/components/upgrades/TableOfContents';
+import { InterpretationStrip } from '@/components/upgrades/InterpretationStrip';
+import { ProteinQualityEnergyBlock } from '@/components/upgrades/ProteinQualityEnergyBlock';
+import { ElectrolyteBalanceBlock } from '@/components/upgrades/ElectrolyteBalanceBlock';
+import { CrosswalkBridge } from '@/components/upgrades/CrosswalkBridge';
+import { decodeProteinQualityEnergy } from '@/lib/crosswalk-protein-quality-energy';
+import { decodeElectrolyteBalance, electrolyteVariableMeasured } from '@/lib/electrolyte-balance';
 import { generateInsights } from "@/lib/insights";
 import { generateAutoFaqs } from "@/lib/auto-faqs";
 import { getFoodFacts } from "@/lib/food-facts";
 import { getFoodCommentary } from "@/lib/food-commentary";
+import { classifyDietaryFits, getCarryingPatternsNarrative } from "@/lib/dietary-fit";
+import { interpretFood } from "@/lib/food-classifier";
 import { fmtCount, percentileBand, titleCase } from "@/lib/content-helpers";
+import { getProprietaryMetrics } from "@/lib/proprietary-metrics";
+import { ProprietaryMetricsBlock } from "@/components/upgrades/ProprietaryMetricsBlock";
+import { CalorieBurnCalculator } from "@/components/tools/CalorieBurnCalculator";
 
 interface Props { params: Promise<{ slug: string }> }
 
 function fmt(v: number | null, unit = 'g'): string { return v !== null ? `${v.toFixed(1)}${unit}` : 'N/A'; }
 
 /**
- * Title builder — 2026-04-28 HCU 5-chunk patch.
+ * Title builder — 2026-04-28 HCU 5-chunk patch, extended 2026-05-19 with the
+ * Phase 7 P1 PQE band suffix.
  *
- * Previous (4/24) was 96 chars and brand-front-loaded:
- *   "George Weston Bakeries, Thomas English Muffins: 232 Calories per 100g (Protein 8.0g, Carbs 46.0g)"
- * GSC truncated before the calorie number, killing snippet eligibility.
- *
- * New rule:
- *   - Short names (≤35 c): "[Name] Calories: X kcal per 100g" — query-match prefix
- *   - Long names: front-load number — "X kcal/100g · [Name truncated]…" so the
- *     number survives SERP truncation and the brand stays out of the way.
+ * Rules:
+ *   - Short names: "[Name] Calories: X kcal per 100g · [PQE]" (≤60 c)
+ *   - Long names: "X kcal/100g · [PQE] · [Name truncated]…" — number+verdict
+ *     front-loaded so both survive SERP truncation.
+ *   - PQE band suffix is optional; omitted if it would push the title past 60
+ *     chars even after name trimming.
  */
-function buildTitle(name: string, calories: number | null): string {
+function buildTitle(name: string, calories: number | null, pqeBand?: string): string {
   const cal = calories != null ? calories.toFixed(0) : '?';
-  const ideal = `${name} Calories: ${cal} kcal per 100g`;
+  const bandTail = pqeBand && pqeBand !== '—' ? ` · ${pqeBand}` : '';
+  const ideal = `${name} Calories: ${cal} kcal per 100g${bandTail}`;
   if (ideal.length <= 60) return ideal;
-  const prefix = `${cal} kcal/100g · `;
+  // Try without band — pure-name form might still fit ≤60.
+  const noBand = `${name} Calories: ${cal} kcal per 100g`;
+  if (noBand.length <= 60) return noBand;
+  const prefix = bandTail
+    ? `${cal} kcal/100g${bandTail} · `
+    : `${cal} kcal/100g · `;
   const room = Math.max(20, 60 - prefix.length - 1); // 1 for ellipsis
   let trimmed = name.slice(0, room);
-  // strip a trailing partial word so we don't cut mid-word
   trimmed = trimmed.replace(/[\s,]+\S*$/, '');
   return `${prefix}${trimmed}…`;
 }
@@ -79,17 +96,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!f) return {};
   const cal = f.calories?.toFixed(0) || '?';
   // 2026-04-28 — Title rewritten ≤60 chars, query-match front-loaded.
-  // The 4/24 attempt (96 chars, brand-prefixed) was truncated before the
-  // calorie number on SERP, losing featured-snippet eligibility.
-  const title = buildTitle(f.name, f.calories);
+  // 2026-05-19 (Phase 7 P1) — Title appends PQE band so the composed verdict
+  // ships in SERP. PQE composes USDA macros × FAO/WHO DIAAS × Atwater 4-4-9 ×
+  // FDA DV — see lib/crosswalk-protein-quality-energy.ts.
+  const pqe = decodeProteinQualityEnergy({
+    category: f.category,
+    calories: f.calories,
+    protein: f.protein,
+    carbs: f.carbs,
+    fat: f.fat,
+    foodName: f.name,
+  });
+  const title = buildTitle(f.name, f.calories, pqe.titleLabel);
+  const { satietyScore, dietGrade } = getProprietaryMetrics(f);
   // Description front-loads the calorie number too — answer-engines (Google AI
   // Overview, ChatGPT browse) parse the first sentence as the canonical answer.
-  const description = `${f.name} has ${cal} calories per 100 g — protein ${fmt(f.protein)}, carbs ${fmt(f.carbs)}, fat ${fmt(f.fat)}, fibre ${fmt(f.fiber)}. USDA FoodData Central source. Daily-value %, diet compatibility, peer comparison, and per-100-g context for everyday meal planning.`;
+  const description = `${f.name} has ${cal} calories per 100 g (Satiety Score: ${satietyScore}/100, Diet Grade: ${dietGrade}) — protein ${fmt(f.protein)}, carbs ${fmt(f.carbs)}, fat ${fmt(f.fat)}, fibre ${fmt(f.fiber)}. USDA FoodData Central source. Daily-value %, diet compatibility, peer comparison, and calorie-burning estimates for everyday meal planning.`;
+  // 2026-05-24 — title.absolute bypasses layout " | CalorieWize" 14c suffix
+  // that pushed Phase 7 PQE-band titles 60c → 73c at SERP. buildTitle already
+  // caps at 60c (per its docstring); absolute keeps that budget intact.
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: { canonical: `/food/${slug}/` },
-    openGraph: { url: `/food/${slug}/` },
+    openGraph: { url: `/food/${slug}/`, title, description },
   };
 }
 
@@ -97,6 +127,8 @@ export default async function FoodPage({ params }: Props) {
   const { slug } = await params;
   const f = getFoodBySlug(slug);
   if (!f) notFound();
+
+  const { satietyScore, dietGrade, commentary: proprietaryCommentary } = getProprietaryMetrics(f);
 
   const similar = getSimilarFoods(slug, f.category, 8);
   const quizFoods = getRandomFoods(20)
@@ -112,6 +144,29 @@ export default async function FoodPage({ params }: Props) {
   // narratives appear → defeats template detection.
   const facts = getFoodFacts(f);
   const commentary = getFoodCommentary(f, facts);
+
+  // PSU per-100-g pattern fits + 4-paragraph interpretation strip.
+  // Sources: USDA-HHS DGA / NIH NCBI / USDA FDC + NOVA / FDA 21 CFR / NIH NHLBI.
+  const dietaryFits = classifyDietaryFits(f);
+  const interpretation = interpretFood(f, dietaryFits);
+  const carryingNarrative = getCarryingPatternsNarrative(f.name, dietaryFits);
+
+  // Phase 7 P0 — Protein-Quality Energy cross-walk reading.
+  // Same composition the title verdict was built from; rendered as the body
+  // tier card below the interpretation strip.
+  const pqeReading = decodeProteinQualityEnergy({
+    category: f.category,
+    calories: f.calories,
+    protein: f.protein,
+    carbs: f.carbs,
+    fat: f.fat,
+    foodName: f.name,
+  });
+
+  // Vertical-Depth — sodium-to-potassium balance + micronutrient %DV source.
+  // Composes the two electrolytes the Facts table showed only as raw mg into
+  // the WHO-anchored Na:K ratio, and promotes K/vitC/Ca/Fe to FDA source levels.
+  const electrolyteReading = decodeElectrolyteBalance(f);
 
   const faqs = generateAutoFaqs(f);
 
@@ -163,6 +218,12 @@ export default async function FoodPage({ params }: Props) {
         alternativesLabel={f.category ? `Similar ${f.category.replace(/-/g, ' ')}` : "Similar foods"}
       />
 
+      {/* Above-the-fold Wikimedia photo (graceful null when manifest lacks an entry). */}
+      {(() => {
+        const img = getFoodImage(slug);
+        return img ? <FoodHeroImage img={img} /> : null;
+      })()}
+
       <TrustBlock
         sources={[
           {
@@ -190,6 +251,12 @@ export default async function FoodPage({ params }: Props) {
       />
 
       <InsightBlock entityName={f.name} insights={generateInsights(f)} />
+
+      <ProprietaryMetricsBlock
+        satietyScore={satietyScore}
+        dietGrade={dietGrade}
+        commentary={proprietaryCommentary}
+      />
 
       <TableOfContents />
 
@@ -250,6 +317,11 @@ export default async function FoodPage({ params }: Props) {
         fat={f.fat}
         carbs={f.carbs}
         serving_size={f.serving_size}
+      />
+
+      <CalorieBurnCalculator
+        foodName={f.name}
+        caloriesPer100g={f.calories}
       />
 
       {/* Highlights & Concerns */}
@@ -346,6 +418,33 @@ export default async function FoodPage({ params }: Props) {
 
       <DidYouKnow fact={`${f.name} provides ${f.calories?.toFixed(0) || '?'} kcal per 100g. ${(f.protein || 0) >= 15 ? `With ${f.protein?.toFixed(1)}g of protein, it is considered a high-protein food that supports muscle maintenance and repair.` : (f.fiber || 0) >= 5 ? `With ${f.fiber?.toFixed(1)}g of fiber per serving, it can support digestive health and help you feel full longer.` : `Balancing ${f.name} with a variety of other nutrient-dense foods is the best way to meet your daily nutritional needs.`}`} />
 
+      {/* PSU 2026-05-10 — 4-paragraph interpretation strip + 5-bucket dietary-fit lens.
+          Per-100-g pattern fits cite USDA-HHS DGA, NIH NCBI StatPearls, USDA FDC + NOVA,
+          FDA 21 CFR §101.61/§101.62, NIH NHLBI DASH. Branches by tier × category ×
+          standout × macro-shape so per-food prose is genuinely distinct. */}
+      <InterpretationStrip
+        foodName={f.name}
+        interpretation={interpretation}
+        fits={dietaryFits}
+        carryingNarrative={carryingNarrative}
+      />
+
+      {/* Phase 7 P0 — Protein-Quality Energy tier composed across USDA FDC
+          per-100g macros × FAO/WHO DIAAS class (by food category) × Atwater
+          4-4-9 coherence × FDA Daily Value energy share. Distinct from the
+          single-publisher Phase 6 strip above which is USDA-only. */}
+      <ProteinQualityEnergyBlock reading={pqeReading} />
+
+      {/* Vertical-Depth — sodium-to-potassium (Na:K) balance + the four
+          micronutrients (K/vitC/Ca/Fe) promoted from raw-mg to FDA source levels.
+          Composes the WHO dietary Na:K ratio that the Facts table never related. */}
+      <ElectrolyteBalanceBlock reading={electrolyteReading} />
+
+      {/* Phase 7 P5 — body fold-1 contextual cross-walk to sibling sites with
+          food-name interpolation; replaces the static "Related Data Resources"
+          link block that had bare template anchors. */}
+      <CrosswalkBridge foodName={f.name} />
+
       {/* Layer 2 v2 commentary - slug-hash variant rotation x 12 status x 4 slot.
           Replaces the 4/24 5-branch "Why this matters" block (which produced only
           5 distinct texts across 2,589 foods, triggering template-detection risk). */}
@@ -433,12 +532,6 @@ export default async function FoodPage({ params }: Props) {
           )}
         </section>
       )}
-
-      <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 my-6 text-sm">
-        <p className="text-slate-600">
-          <strong>Related:</strong> Check if this food is safe for your diet at <a href="https://ingredipeek.com" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">IngrediPeek</a> — allergen and ingredient checker for 20,000+ products.
-        </p>
-      </div>
 
       <AdSlot id="food-before-similar" />
 
@@ -558,7 +651,7 @@ export default async function FoodPage({ params }: Props) {
         ].slice(0, 3)}
       />
 
-      <AuthorBox />
+      <AuthorBox layer="food" />
 
       <FreshnessTag source="USDA FoodData Central (CC0 public domain, nutrient data)" />
 
@@ -639,15 +732,6 @@ export default async function FoodPage({ params }: Props) {
         );
       })()}
 
-      {/* Related Data Resources */}
-      <section className="mt-8 p-4 bg-slate-50 rounded-lg">
-        <h3 className="text-sm font-semibold text-slate-500 mb-2">Related Data Resources</h3>
-        <div className="flex flex-wrap gap-3 text-sm">
-          <a href="https://ingredipeek.com" className="text-orange-600 hover:underline">IngrediPeek - Food allergen checker &rarr;</a>
-          <a href="https://calcpeek.com" className="text-orange-600 hover:underline">CalcPeek - TDEE calculator &rarr;</a>
-        </div>
-      </section>
-
           <DataFeedback />
 
           <section className="mt-8 p-6 bg-green-50 rounded-xl border border-green-100">
@@ -676,8 +760,15 @@ export default async function FoodPage({ params }: Props) {
         dateModified: FOOD_VINTAGE,
         author: { "@type": "Organization", name: PUBLISHER.name, url: PUBLISHER.url },
         publisher: { "@type": "Organization", name: PUBLISHER.name, url: PUBLISHER.url },
-        reviewedBy: SOURCE_AUTHORITIES,
+        reviewedBy: { "@type": "Organization", name: EDITORIAL_TEAM.name, url: EDITORIAL_TEAM.url },
+        sourceOrganization: SOURCE_AUTHORITIES,
       }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema(
+        `${f.name} nutrition data (per 100 g)`,
+        `Calorie, macro, and micronutrient values for ${f.name.toLowerCase()} per 100 g serving, sourced from USDA FoodData Central, with a Protein-Quality Energy tier composed against FDA Daily Values and FAO/WHO DIAAS protein-quality class.`,
+        `/food/${f.slug}/`,
+        { pqeBand: pqeReading.band, extraVariableMeasured: electrolyteVariableMeasured(electrolyteReading) },
+      )) }} />
       {faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }} />}
     </div>
   );

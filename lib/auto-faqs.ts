@@ -1,4 +1,5 @@
 import type { Food } from './db';
+import { getProprietaryMetrics } from './proprietary-metrics';
 
 export interface FaqItem {
   question: string;
@@ -126,6 +127,27 @@ export function generateAutoFaqs(f: Food): FaqItem[] {
     faqs.push({
       question: `What's the serving size for ${name}?`,
       answer: `The USDA reference serving for ${name} is ${f.serving_size}. All values on this page are normalized to 100 grams so you can compare foods directly.`,
+    });
+  }
+
+  // Q8 — Satiety & Weight Loss (helps long-tail satiety searches)
+  if (f.calories !== null) {
+    const { satietyScore, dietGrade } = getProprietaryMetrics(f);
+    const satietyVerdict = satietyScore >= 75 ? 'excellent' : satietyScore >= 50 ? 'moderate' : 'low';
+    faqs.push({
+      question: `Is ${name} good for weight loss and satiety?`,
+      answer: `${name} has a satiety score of ${satietyScore}/100 and a diet friendliness grade of ${dietGrade} on our proprietary index. This indicates it has ${satietyVerdict} fullness efficiency per calorie. Foods with higher scores help you feel full longer due to their ratio of protein (${fmt(f.protein)}) and fiber (${fmt(f.fiber)}) relative to absolute energy density.`,
+    });
+  }
+
+  // Q9 — Calorie Burn Time (helps "how long to walk to burn X" searches)
+  if (f.calories !== null && f.calories > 0) {
+    const calories = f.calories;
+    const walkTime = Math.round(calories / (3.0 * 3.5 * 70 / 200));
+    const runTime = Math.round(calories / (8.0 * 3.5 * 70 / 200));
+    faqs.push({
+      question: `How long does it take to burn off ${name} calories?`,
+      answer: `It takes approximately ${walkTime} minutes of walking (at 3 mph) or ${runTime} minutes of running (at 5 mph) for a standard 70kg (154 lbs) adult to burn off the ${calories.toFixed(0)} calories in a 100g serving of ${name}.`,
     });
   }
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPopularFoods, getAllCategories } from "@/lib/db";
+import { CategoryTile } from "@/components/CategoryTile";
 
 export default function NotFound() {
   const popular = getPopularFoods(8);
@@ -47,15 +48,14 @@ export default function NotFound() {
       {categories.length > 0 && (
         <section className="mb-8">
           <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">Browse categories</h2>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {categories.map((c) => (
-              <Link
+              <CategoryTile
                 key={c.slug}
-                href={`/category/${c.slug}/`}
-                className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-full text-sm hover:bg-slate-200"
-              >
-                {c.name}
-              </Link>
+                slug={c.slug}
+                name={c.name}
+                size="sm"
+              />
             ))}
           </div>
         </section>

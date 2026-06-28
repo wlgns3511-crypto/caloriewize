@@ -1,0 +1,29 @@
+# CalorieWize
+
+> Calories & Nutrition Facts
+
+Find calories and nutrition facts for thousands of foods. Compare foods side by side. Data from USDA FoodData Central.
+
+## Core pages
+- [Methodology and data sources](https://caloriewize.com/methodology/): how every figure is derived, with primary-source citations
+- [Food directory](https://caloriewize.com/food/): browse every food we cover
+- [Compare](https://caloriewize.com/compare/): side-by-side comparison
+- [About and editorial standards](https://caloriewize.com/about/): authorship and review policy
+
+## Key food
+- [Low Calorie](https://caloriewize.com/list/low-calorie/)
+- [High Protein](https://caloriewize.com/list/high-protein/)
+- [High Fiber](https://caloriewize.com/list/high-fiber/)
+- [Low Sodium](https://caloriewize.com/list/low-sodium/)
+- [Low Sugar](https://caloriewize.com/list/low-sugar/)
+- [Low Fat](https://caloriewize.com/list/low-fat/)
+- [Low Carb](https://caloriewize.com/list/low-carb/)
+- [High Vitamin C](https://caloriewize.com/list/high-vitamin-c/)
+- [High Calcium](https://caloriewize.com/list/high-calcium/)
+- [High Iron](https://caloriewize.com/list/high-iron/)
+- [High Potassium](https://caloriewize.com/list/high-potassium/)
+- [Low Cholesterol](https://caloriewize.com/list/low-cholesterol/)
+
+## Data
+- Primary sources: USDA FoodData Central, U.S. Food and Drug Administration — Daily Value reference, FAO/WHO Expert Consultation on Protein Quality (DIAAS, Report 92), NIH Office of Dietary Supplements
+- All figures are derived from these primary sources; see /methodology/ for derivation and vintage.

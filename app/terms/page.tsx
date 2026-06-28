@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { AuthorBox } from "@/components/AuthorBox";
 import { LEGAL_VINTAGES } from "@/lib/authorship";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -13,8 +15,15 @@ function formatVintage(iso: string): string {
 }
 
 export default function TermsPage() {
+  const crumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Terms', url: '/terms/' },
+  ];
+
   return (
     <article className="prose prose-slate max-w-3xl mx-auto">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }} />
+
       <h1 className="text-3xl font-bold text-orange-700 mb-6">Terms of Service</h1>
       <p className="text-sm text-slate-500 mb-8">Last updated: <time dateTime={LEGAL_VINTAGES.terms}>{formatVintage(LEGAL_VINTAGES.terms)}</time></p>
 
@@ -73,6 +82,8 @@ export default function TermsPage() {
         If you have any questions about these Terms of Service, please visit our{" "}
         <a href="/contact" className="text-orange-600 hover:underline">contact page</a>.
       </p>
+
+      <AuthorBox layer="legal" slug="terms" />
     </article>
   );
 }

@@ -7,6 +7,21 @@ import { AuthorBox } from '@/components/AuthorBox';
 import { CrossSiteLinks } from '@/components/CrossSiteLinks';
 import { StateRich } from '@/components/state/StateRich';
 import { getStateInsight } from '@/lib/food-cluster-insights';
+import { HubReaderHelp } from '@/components/upgrades/HubReaderHelp';
+import { getStateReaderHelp } from '@/lib/hub-reader-help';
+import { StateHeroImage } from '@/components/StateHeroImage';
+import { getStateImageByName } from '@/lib/state-images';
+
+// Upgrades Components
+import { TrustBlock } from '@/components/upgrades/TrustBlock';
+import { TableOfContents } from '@/components/upgrades/TableOfContents';
+import { InsightBlock } from '@/components/upgrades/InsightBlock';
+import { LivePoll } from '@/components/upgrades/LivePoll';
+import { FeedbackButton } from '@/components/upgrades/FeedbackButton';
+import { CalorieGuessGame } from '@/components/CalorieGuessGame';
+import { FAQ } from '@/components/FAQ';
+import { getRandomFoods } from '@/lib/db';
+
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -39,7 +54,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const state = getStateBySlug(slug);
   if (!state) return {};
   return {
-    title: `Food & Nutrition Trends in ${state.name} — Obesity Rate, Local Cuisines, Dietary Data`,
+    title: {
+      absolute: `${state.name} Food Trends — ${state.obesityRate}% Obesity Rate`,
+    },
     description: `${state.name} food and nutrition profile: ${state.obesityRate}% obesity rate, ${state.farmersMarkets} farmers markets, popular local foods like ${state.popularCuisines.slice(0, 3).join(', ')}. USDA and CDC data.`,
     alternates: { canonical: `/state/${slug}/` },
     openGraph: {
@@ -73,6 +90,19 @@ export default async function StatePage({ params }: Props) {
   const prev = idx > 0 ? allStates[idx - 1] : null;
   const next = idx < allStates.length - 1 ? allStates[idx + 1] : null;
 
+  // Retrieve 30 random foods for the calorie guessing game
+  const gameFoods = getRandomFoods(30).map(f => ({
+    name: f.name,
+    slug: f.slug,
+    calories: f.calories ?? 0,
+    category: f.category ?? 'Food',
+  }));
+
+  const trustSources = [
+    { name: "CDC BRFSS", url: "https://www.cdc.gov/brfss/" },
+    { name: "USDA Farmers Market Directory", url: "https://www.ams.usda.gov/local-food-directories/farmersmarkets" }
+  ];
+
   return (
     <article className="max-w-3xl mx-auto">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }} />
@@ -87,7 +117,14 @@ export default async function StatePage({ params }: Props) {
         <span className="text-slate-700">{state.name}</span>
       </nav>
 
+      {(() => { const stateImage = getStateImageByName(state.name); return stateImage ? <StateHeroImage img={stateImage} /> : null; })()}
+
       <h1 className="text-3xl font-bold text-slate-900 mb-2">Food &amp; Nutrition Trends in {state.name}</h1>
+
+      <TrustBlock sources={trustSources} updated="March 2026" />
+      <TableOfContents />
+      <LivePoll entityName={state.name} />
+
       <p className="text-sm text-slate-500 mb-6">
         <span className="inline-flex items-center gap-1">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
@@ -153,14 +190,28 @@ export default async function StatePage({ params }: Props) {
         </div>
       </section>
 
-      {/* Layer 2 narrative — slug-hashed, unique per state */}
-      <section className="mb-8">
-        <div className="rounded-lg border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed space-y-3">
-          <p>{stateInsight.obesityNarrative}</p>
-          <p>{stateInsight.cuisineNarrative}</p>
-          <p>{stateInsight.practicalSwap}</p>
-        </div>
-      </section>
+      <InsightBlock
+        entityName={state.name}
+        insights={[
+          { text: stateInsight.obesityNarrative, sentiment: state.obesityRate >= 35 ? "negative" : state.obesityRate < 28 ? "positive" : "neutral" },
+          { text: stateInsight.cuisineNarrative, sentiment: "neutral" },
+          { text: stateInsight.practicalSwap, sentiment: "positive" }
+        ]}
+      />
+
+      {/* PSU — hub reader-help (4 paragraphs) */}
+      <HubReaderHelp
+        heading={`How to read this state page`}
+        subjectLabel={state.name}
+        paragraphs={getStateReaderHelp({
+          stateName: state.name,
+          obesityRate: state.obesityRate,
+          nationalAvg,
+          farmersMarkets: state.farmersMarkets,
+          rank,
+          totalStates: allStates.length,
+        })}
+      />
 
       {/* Popular local cuisines */}
       <section className="mb-8">
@@ -204,21 +255,13 @@ export default async function StatePage({ params }: Props) {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="mb-8" id="faq">
-        <h2 className="text-xl font-bold text-slate-900 mb-3">Frequently Asked Questions</h2>
-        <div className="space-y-3">
-          {faqs.map((f, i) => (
-            <details key={i} className="rounded-lg border border-slate-200 bg-white p-4 [&_summary::-webkit-details-marker]:hidden">
-              <summary className="cursor-pointer font-semibold text-slate-900 flex items-center justify-between gap-2 text-sm">
-                <span>{f.question}</span>
-                <span className="text-orange-600 text-sm">+</span>
-              </summary>
-              <p className="mt-2 text-sm text-slate-700 leading-relaxed">{f.answer}</p>
-            </details>
-          ))}
-        </div>
+      {/* Interactive Tool */}
+      <section className="mb-8">
+        <CalorieGuessGame foods={gameFoods} />
       </section>
+
+      {/* FAQ */}
+      <FAQ items={faqs} />
 
       {/* Explore other states */}
       <section className="mb-8 rounded-xl bg-orange-50 border border-orange-200 p-6">
@@ -252,7 +295,8 @@ export default async function StatePage({ params }: Props) {
 
       <StateRich slug={slug} state={state} />
 
-      <AuthorBox />
+            <FeedbackButton />
+      <AuthorBox layer="state" />
       <CrossSiteLinks current="CalorieWize" />
     </article>
   );

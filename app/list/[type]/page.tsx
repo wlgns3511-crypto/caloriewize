@@ -20,6 +20,8 @@ import { getListInsight, getAllListTypes, type ListType } from "@/lib/food-clust
 import { fmtCount, fmtNutrient } from "@/lib/content-helpers";
 import { FreshnessTag } from "@/components/FreshnessTag";
 import { AuthorBox } from "@/components/AuthorBox";
+import { HubReaderHelp } from "@/components/upgrades/HubReaderHelp";
+import { getListReaderHelp } from "@/lib/hub-reader-help";
 
 const DB_PATH = path.join(process.cwd(), 'data', 'food.db');
 let _db: Database.Database | null = null;
@@ -42,7 +44,7 @@ export function generateStaticParams() {
 
 interface ListQuery {
   /** Sort column for the SQL query. */
-  sortColumn: keyof Food | 'protein_to_cal';
+  sortColumn: keyof Food | 'protein_to_cal' | 'nak_ratio';
   direction: 'ASC' | 'DESC';
   /** Optional WHERE additions beyond NOT NULL on the sort column. */
   whereClauses: string[];
@@ -72,20 +74,26 @@ const LIST_QUERIES: Record<ListType, ListQuery> = {
   'ultra-low-calorie':        { sortColumn: 'calories',      direction: 'ASC',  whereClauses: ['calories > 0', 'calories < 30'], displayColumn: 'calories', displayUnit: 'kcal', limit: 60 },
   // protein-to-calorie ratio: filter ≥15g protein and ≤150 kcal, then order by ratio.
   'high-protein-low-calorie': { sortColumn: 'protein_to_cal', direction: 'DESC', whereClauses: ['protein >= 15', 'calories <= 150', 'calories > 0'], displayColumn: 'protein', displayUnit: 'g', limit: 60 },
+  // sodium-to-potassium molar ratio: lowest first (most potassium-favourable). Displays potassium.
+  'sodium-potassium-balance': { sortColumn: 'nak_ratio', direction: 'ASC', whereClauses: ['potassium > 0', 'sodium IS NOT NULL'], displayColumn: 'potassium', displayUnit: 'mg', limit: 60 },
 };
 
 function fetchListFoods(type: ListType): Food[] {
   const q = LIST_QUERIES[type];
   const db = getDb();
-  const where = [
+  const baseNotNull =
     q.sortColumn === 'protein_to_cal'
       ? 'protein IS NOT NULL AND calories IS NOT NULL'
-      : `${q.sortColumn} IS NOT NULL`,
-    ...q.whereClauses,
-  ].join(' AND ');
-  const orderBy = q.sortColumn === 'protein_to_cal'
-    ? `(protein * 1.0 / calories) ${q.direction}`
-    : `${q.sortColumn} ${q.direction}`;
+      : q.sortColumn === 'nak_ratio'
+        ? 'sodium IS NOT NULL AND potassium IS NOT NULL'
+        : `${q.sortColumn} IS NOT NULL`;
+  const where = [baseNotNull, ...q.whereClauses].join(' AND ');
+  const orderBy =
+    q.sortColumn === 'protein_to_cal'
+      ? `(protein * 1.0 / calories) ${q.direction}`
+      : q.sortColumn === 'nak_ratio'
+        ? `(sodium * 1.0 / potassium) ${q.direction}`
+        : `${q.sortColumn} ${q.direction}`;
   return db.prepare(
     `SELECT * FROM foods WHERE ${where} ORDER BY ${orderBy}, fdc_id ASC LIMIT ?`
   ).all(q.limit) as Food[];
@@ -136,6 +144,7 @@ export default async function ListPage({ params }: Props) {
   const q = LIST_QUERIES[listType];
   const foods = fetchListFoods(listType);
   const stats = statsFor(listType, foods);
+  const readerHelp = getListReaderHelp(listType, meta.title);
 
   const breadcrumbs = [
     { name: "Home", url: "/" },
@@ -177,6 +186,13 @@ export default async function ListPage({ params }: Props) {
         </div>
       </section>
 
+      {/* PSU — hub reader-help (4 paragraphs) */}
+      <HubReaderHelp
+        heading={`How to read this list`}
+        subjectLabel={meta.title}
+        paragraphs={readerHelp}
+      />
+
       {/* Layer 1 — list stats */}
       {stats.count > 0 && (
         <section className="mb-8" data-upgrade="list-stats">
@@ -205,7 +221,7 @@ export default async function ListPage({ params }: Props) {
       <section className="mb-8" data-upgrade="ranked-list">
         <h2 className="text-xl font-bold mb-3">Top {fmtCount(foods.length)} {meta.title.toLowerCase()}</h2>
         <p className="text-sm text-slate-500 mb-3">
-          Ranked by {q.sortColumn === 'protein_to_cal' ? 'protein-to-calorie ratio' : (q.sortColumn as string).replace('_', ' ')}, {q.direction === 'ASC' ? 'lowest first' : 'highest first'}. Tap any item for full nutrition profile.
+          Ranked by {q.sortColumn === 'protein_to_cal' ? 'protein-to-calorie ratio' : q.sortColumn === 'nak_ratio' ? 'sodium-to-potassium molar ratio' : (q.sortColumn as string).replace('_', ' ')}, {q.direction === 'ASC' ? 'lowest first' : 'highest first'}. Tap any item for full nutrition profile.
         </p>
         <div className="border border-slate-200 rounded-lg overflow-hidden">
           {foods.map((f, i) => {
@@ -258,7 +274,7 @@ export default async function ListPage({ params }: Props) {
         </div>
       </section>
 
-      <AuthorBox />
+      <AuthorBox layer="list" />
       <FreshnessTag source="USDA FoodData Central (CC0 public domain, nutrient data)" />
 
       {/* Schema */}

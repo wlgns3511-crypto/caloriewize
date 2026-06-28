@@ -4,10 +4,13 @@ import { getAllCategories, getFoodsByCategory } from "@/lib/db";
 import { getCategoryStats } from "@/lib/food-facts";
 import { getCategoryInsight } from "@/lib/food-cluster-insights";
 import { fmtCount, fmtNutrient, titleCase } from "@/lib/content-helpers";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, datasetSchema } from "@/lib/schema";
 import { FreshnessTag } from "@/components/FreshnessTag";
 import { AuthorBox } from "@/components/AuthorBox";
 import { DataSourceBadge } from "@/components/DataSourceBadge";
+import { HubReaderHelp } from "@/components/upgrades/HubReaderHelp";
+import { CategoryHero } from "@/components/CategoryHero";
+import { getCategoryReaderHelp } from "@/lib/hub-reader-help";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -114,13 +117,16 @@ export default async function CategoryPage({ params }: Props) {
         ))}
       </nav>
 
-      {/* Hero */}
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{cat.name}</h1>
-        <p className="text-slate-600">
-          {fmtCount(foods.length)} foods with full nutrition data per 100 g, sourced from USDA FoodData Central.
-        </p>
-      </header>
+      {/* Visual hero — category banner with emoji glyph + gradient + stats.
+          Map/image visualization track, 2026-05-17. Emoji is universal
+          Unicode (not fabricated photograph) — see lib/category-visuals.ts */}
+      <CategoryHero
+        slug={slug}
+        name={cat.name}
+        count={foods.length}
+        meanCal={stats?.calMean ?? null}
+        meanProtein={stats?.proteinMean ?? null}
+      />
 
       {/* Layer 2 — narrative intro */}
       <section className="mb-8" data-upgrade="cluster-intro">
@@ -130,6 +136,24 @@ export default async function CategoryPage({ params }: Props) {
           <p>{insight.practicalUse}</p>
         </div>
       </section>
+
+      {/* PSU — hub reader-help (4 paragraphs) */}
+      {stats && (
+        <HubReaderHelp
+          heading={`How to read this category`}
+          subjectLabel={cat.name}
+          paragraphs={getCategoryReaderHelp({
+            categoryName: cat.name,
+            count: stats.count,
+            calMean: stats.calMean,
+            calMedian: stats.calMedian,
+            calP90: stats.calP90,
+            proteinMedian: stats.proteinMedian,
+            fiberMean: stats.fiberMean,
+            sodiumP90: stats.sodiumP90,
+          })}
+        />
+      )}
 
       {/* Layer 1 — aggregate stats panel */}
       {stats && (
@@ -269,7 +293,7 @@ export default async function CategoryPage({ params }: Props) {
         </section>
       )}
 
-      <AuthorBox />
+      <AuthorBox layer="category" />
       <FreshnessTag source="USDA FoodData Central (CC0 public domain, nutrient data)" />
       <DataSourceBadge
         sources={[
@@ -283,6 +307,14 @@ export default async function CategoryPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(breadcrumbs)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema(
+          `${cat.name} foods nutrition data`,
+          `Per-100g calorie and macro/micronutrient data for ${foods.length} ${cat.name.toLowerCase()} items, sourced from the USDA FoodData Central API.`,
+          `/category/${slug}/`,
+        )) }}
       />
       <script
         type="application/ld+json"

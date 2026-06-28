@@ -2,10 +2,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getAllFoods, getAllCategories, countComparisons, getComparisonSlugsPage } from '../lib/db';
-import { getAllPosts } from '../lib/blog';
 import { getAllStates } from '../lib/states-data';
 import { getAllInsightArticles } from '../lib/insight-articles';
-import { getAllGuides } from '../lib/guides';
 import {
   FOOD_VINTAGE,
   CATEGORY_VINTAGE,
@@ -14,9 +12,20 @@ import {
   ABOUT_VINTAGE,
   METHODOLOGY_VINTAGE,
   LEGAL_VINTAGES,
+  BLOG_REVIEWED,
+  GUIDE_REVIEWED,
 } from '../lib/authorship';
+import { entityLastmod } from '../lib/entity-lastmod';
 
 const SITE_URL = 'https://caloriewize.com';
+
+// Phase 6 v6.4 — identity guard. This sitemap builder is hard-pinned to
+// caloriewize.com; running it against the wrong site config (cross-imported
+// from a sibling project under the monorepo) produced cluster-stamped sitemaps
+// in the past. Fail loud if SITE_URL drifts.
+if (!SITE_URL.endsWith('caloriewize.com')) {
+  throw new Error(`build-sitemap identity guard: expected caloriewize.com, got ${SITE_URL}`);
+}
 const NOW = new Date().toISOString().split('T')[0];
 const SHARD_SIZE = 40000;
 const OUT_DIR = path.resolve(__dirname, '..', 'public');
@@ -51,38 +60,34 @@ const LIST_TYPES = [
   'low-calorie', 'high-protein', 'high-fiber', 'low-sodium', 'low-sugar',
   'low-fat', 'low-carb', 'high-vitamin-c', 'high-calcium', 'high-iron',
   'high-potassium', 'low-cholesterol', 'low-saturated-fat',
-  'ultra-low-calorie', 'high-protein-low-calorie',
+  'ultra-low-calorie', 'high-protein-low-calorie', 'sodium-potassium-balance',
 ];
 for (const t of LIST_TYPES) {
   add({ url: `${SITE_URL}/list/${t}/`, lastmod: FOOD_VINTAGE, priority: '0.8', changefreq: 'monthly' });
 }
 
-// Category pages
+// Add the new TRUST surfaces (Phase 6 v6.4 expansion)
+add({ url: `${SITE_URL}/contact/`, lastmod: LEGAL_VINTAGES.contact, priority: '0.4', changefreq: 'yearly' });
+add({ url: `${SITE_URL}/editorial-policy/`, lastmod: LEGAL_VINTAGES['editorial-policy'], priority: '0.4', changefreq: 'yearly' });
+add({ url: `${SITE_URL}/corrections-policy/`, lastmod: LEGAL_VINTAGES['corrections-policy'], priority: '0.4', changefreq: 'yearly' });
+
+// Category pages — 60-bucket FNV-1a spread of lastmod (Phase 6 v6.4)
 for (const c of getAllCategories()) {
-  add({ url: `${SITE_URL}/category/${c.slug}/`, lastmod: CATEGORY_VINTAGE, priority: '0.8', changefreq: 'monthly' });
+  add({ url: `${SITE_URL}/category/${c.slug}/`, lastmod: entityLastmod(c.slug, 'category'), priority: '0.8', changefreq: 'monthly' });
 }
 
-// State pages
+// State pages — 60-bucket FNV-1a spread of lastmod
 for (const s of getAllStates()) {
-  add({ url: `${SITE_URL}/state/${s.slug}/`, lastmod: STATE_VINTAGE, priority: '0.8', changefreq: 'monthly' });
+  add({ url: `${SITE_URL}/state/${s.slug}/`, lastmod: entityLastmod(s.slug, 'state'), priority: '0.8', changefreq: 'monthly' });
 }
 
-// Food pages
+// Food pages — 60-bucket FNV-1a spread of lastmod
 for (const f of getAllFoods()) {
-  add({ url: `${SITE_URL}/food/${f.slug}/`, lastmod: FOOD_VINTAGE, priority: '0.7', changefreq: 'monthly' });
+  add({ url: `${SITE_URL}/food/${f.slug}/`, lastmod: entityLastmod(f.slug, 'food'), priority: '0.7', changefreq: 'monthly' });
 }
 
-// Guide pages
-add({ url: `${SITE_URL}/guide/`, priority: '0.8', changefreq: 'weekly' });
-for (const g of getAllGuides()) {
-  add({ url: `${SITE_URL}/guide/${g.slug}/`, lastmod: g.updatedAt || NOW, priority: '0.7', changefreq: 'monthly' });
-}
 
 // Blog pages
-add({ url: `${SITE_URL}/blog/`, priority: '0.8', changefreq: 'weekly' });
-for (const p of getAllPosts()) {
-  add({ url: `${SITE_URL}/blog/${p.slug}/`, lastmod: p.updatedAt ?? p.publishedAt, priority: '0.7', changefreq: 'monthly' });
-}
 
 // Insights
 add({ url: `${SITE_URL}/insights/`, priority: '0.8', changefreq: 'weekly' });

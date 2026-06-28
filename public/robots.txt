@@ -9,7 +9,6 @@ Disallow: /*/opengraph-image
 Disallow: /*/twitter-image
 # ── /es/ mirror removed 2026-04-24 (thin translation, same as nameblooms /es/name)
 # All /es/food/* now 301 to /food/* via next.config.ts redirect
-Disallow: /es/food/
 
 # ── SEO scraper tools (zero user-facing traffic) ──
 User-Agent: AhrefsBot

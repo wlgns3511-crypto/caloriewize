@@ -7,6 +7,10 @@
 import type { Metadata } from "next";
 import { getAllListTypes, getListInsight } from "@/lib/food-cluster-insights";
 import { FreshnessTag } from "@/components/FreshnessTag";
+import { datasetSchema } from "@/lib/schema";
+import { AuthorBox } from "@/components/AuthorBox";
+import { HubReaderHelp } from "@/components/upgrades/HubReaderHelp";
+import { getListHubReaderHelp } from "@/lib/hub-reader-help";
 
 export const metadata: Metadata = {
   title: "Food lists by nutrient: 15 ranked guides (USDA)",
@@ -48,6 +52,13 @@ export default function ListIndexPage() {
         </div>
       </section>
 
+      {/* PSU — hub reader-help (4 paragraphs) */}
+      <HubReaderHelp
+        heading={`How to read these lists`}
+        subjectLabel={`${types.length} ranked guides`}
+        paragraphs={getListHubReaderHelp(types.length)}
+      />
+
       <section className="mb-8">
         <h2 className="text-xl font-bold mb-3">All lists</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -67,6 +78,7 @@ export default function ListIndexPage() {
         </div>
       </section>
 
+      <AuthorBox layer="list-hub" />
       <FreshnessTag source="USDA FoodData Central (CC0 public domain, nutrient data)" />
 
       <script
@@ -83,6 +95,14 @@ export default function ListIndexPage() {
             })),
           }),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema(
+          `CalorieWize ranked food lists`,
+          `${types.length} ranked food lists by nutrient — calories, protein, fibre, vitamins, minerals — drawn from USDA FoodData Central with per-100-g values and median/top-decile context.`,
+          `/list/`,
+        )) }}
       />
     </div>
   );

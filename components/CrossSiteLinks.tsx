@@ -1,7 +1,17 @@
 const HUB_URL = "https://datapeekfacts.com/";
 const HUB_GUIDE_PATH = "/guide/";
 
+// Launch-period footprint guard.
+// HN/PH visitors who chase a network hub treat the result as a content-farm
+// signal before reading methodology. During launch windows set the build env
+// `CW_HUB_LINK` to anything other than "on" (default: unset) and the network
+// surface renders nothing. Flip back to "on" after launch to restore the
+// cross-site authorship signal that the HCU defense wants long-term.
+const HUB_ENABLED = process.env.CW_HUB_LINK === "on";
+
 export function CrossSiteLinks({ current }: { current: string }) {
+  if (!HUB_ENABLED) return null;
+
   const normalized = current.toLowerCase().replace(/\s+/g, '');
   const isHub = normalized.includes('datapeekfacts');
   const href = isHub ? HUB_GUIDE_PATH : HUB_URL;

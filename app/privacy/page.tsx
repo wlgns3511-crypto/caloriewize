@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { AuthorBox } from "@/components/AuthorBox";
 import { LEGAL_VINTAGES } from "@/lib/authorship";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -13,8 +15,15 @@ function formatVintage(iso: string): string {
 }
 
 export default function PrivacyPage() {
+  const crumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Privacy', url: '/privacy/' },
+  ];
+
   return (
     <article className="prose prose-slate max-w-3xl mx-auto">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }} />
+
       <h1 className="text-3xl font-bold text-orange-600 mb-6">Privacy Policy</h1>
       <p className="text-sm text-slate-500 mb-8">Last updated: <time dateTime={LEGAL_VINTAGES.privacy}>{formatVintage(LEGAL_VINTAGES.privacy)}</time></p>
 
@@ -104,6 +113,8 @@ export default function PrivacyPage() {
         </a>{" "}
         for network-wide privacy information.
       </p>
+
+      <AuthorBox layer="legal" slug="privacy" />
     </article>
   );
 }

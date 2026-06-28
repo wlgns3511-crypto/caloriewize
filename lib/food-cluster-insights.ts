@@ -90,7 +90,8 @@ export type ListType =
   | 'low-cholesterol'
   | 'low-saturated-fat'
   | 'ultra-low-calorie'
-  | 'high-protein-low-calorie';
+  | 'high-protein-low-calorie'
+  | 'sodium-potassium-balance';
 
 export interface ListMeta {
   type: ListType;
@@ -385,6 +386,25 @@ const LIST_PROFILES: Record<ListType, { title: string; subtitle: string; introVa
       'Many items here are prepared in ways that add sodium or sauces — check the source preparation. The core food usually qualifies; the prepared version often doesn\'t.',
       'Plant-based options at this density are rarer but exist (tempeh, seitan, certain legumes when fitted to the threshold). The list mixes both — note the source.',
       'Pair with fibre and vegetables to round out the meal. High-protein, low-cal foods alone leave fibre intake low; balance is the right move.',
+    ],
+  },
+  'sodium-potassium-balance': {
+    title: 'Best sodium-potassium ratio',
+    subtitle: 'Lowest Na:K molar ratio per 100 g (WHO dietary target ≤ 1)',
+    introVariants: [
+      'These foods carry the most potassium relative to their sodium — the sodium-to-potassium ratio public-health bodies treat as a better blood-pressure signal than sodium alone. Unprocessed vegetables, fruits, legumes, and unsalted starches lead, because potassium rides with the whole food while sodium is mostly added later.',
+      'Ranked by the dietary Na:K ratio (lowest first), this list surfaces the foods where potassium outweighs sodium. The WHO and US Dietary Guidelines frame the two minerals as counterweights: potassium relaxes vessel walls and promotes sodium excretion, so the ratio matters more than either number in isolation.',
+      'The foods at the top pair high potassium with naturally low sodium — the profile the DASH eating pattern is built around. Most are single-ingredient plant foods; the sodium climbs the moment brining, curing, or salting enters the picture.',
+    ],
+    contextVariants: [
+      'About 90% of US adults exceed recommended sodium and fall short on potassium, pushing the population ratio the wrong way. Building meals from the top of this list moves both levers at once without sodium-counting acrobatics.',
+      'The WHO dietary target is a molar Na:K ratio at or below 1; most processed foods sit well above it while whole plant foods sit far below. This ranking is the cross-food view the per-food sodium and potassium columns never combine into one number.',
+      'Potassium\'s Daily Value is 4,700 mg — one of the nutrients adults most consistently under-consume. Foods that are both high-potassium and low-sodium do double duty, which is why they cluster at the favourable end of this ratio.',
+    ],
+    caveatVariants: [
+      'The ratio is computed per 100 g of the food as reported by USDA; cooking with added salt, brines, or sauces raises sodium and worsens the ratio from what is shown. The raw or unsalted figure is the floor, not the ceiling.',
+      'A favourable Na:K ratio is descriptive nutrition context, not a blood-pressure prescription. Total daily intake and individual medical context (kidney function in particular) decide what is appropriate — follow DASH guidance or a clinician.',
+      'A few items rank well simply because their sodium is near zero even though potassium is modest; the ratio rewards low sodium as much as high potassium. Check the potassium column alongside the ranking for the foods that genuinely deliver the mineral.',
     ],
   },
 };

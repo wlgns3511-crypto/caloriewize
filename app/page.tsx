@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { getLowCalorieFoods, getHighProteinFoods, getAllCategories, countFoods, getPopularFoods } from "@/lib/db";
+import { getLowCalorieFoods, getHighProteinFoods, getAllCategories, countFoods, getPopularFoods, getFoodsByCategory } from "@/lib/db";
+import { getCategoryStats } from "@/lib/food-facts";
 import { PopularEntities } from "@/components/upgrades/PopularEntities";
+import { CategoryTile } from "@/components/CategoryTile";
 
 export const metadata: Metadata = {
   title: "CalorieWize — Calories & Nutrition Facts for 2,500+ Foods",
@@ -39,15 +41,29 @@ export default function Home() {
       />
 
       {categories.length > 0 && (
-        <section className="mb-8">
-          <h2 className="text-lg font-semibold mb-3 text-center">Browse by Category</h2>
-          <div className="flex flex-wrap justify-center gap-2">
-            {categories.map((cat) => (
-              <a key={cat.slug} href={`/category/${cat.slug}`}
-                className="px-3 py-1 rounded-full border border-slate-200 text-sm hover:bg-orange-50 hover:border-orange-300">
-                {cat.name}
-              </a>
-            ))}
+        <section className="mb-10">
+          <div className="flex items-baseline justify-between mb-4">
+            <h2 className="text-2xl font-bold">Browse by Category</h2>
+            <span className="text-xs text-slate-500">{categories.length} USDA categories · {total.toLocaleString()} foods</span>
+          </div>
+          <p className="text-sm text-slate-500 mb-4">
+            Each tile shows the food count and mean calories per 100 g for that USDA FoodData Central category.
+            Emoji icons are universal Unicode glyphs — symbolic shorthand for the food family, not photographs.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            {categories.map((cat) => {
+              const stats = getCategoryStats(cat.slug);
+              return (
+                <CategoryTile
+                  key={cat.slug}
+                  slug={cat.slug}
+                  name={cat.name}
+                  count={stats?.count ?? getFoodsByCategory(cat.slug).length}
+                  meanCal={stats?.calMean}
+                  size="md"
+                />
+              );
+            })}
           </div>
         </section>
       )}

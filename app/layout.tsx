@@ -26,7 +26,6 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://caloriewize.com";
 
 const ROOT_ALTERNATE_LANGUAGES = {
   en: `${SITE_URL}/`,
-  es: `${SITE_URL}/es/`,
   'x-default': `${SITE_URL}/`,
 } as const;
 
@@ -74,11 +73,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               "name": "CalorieWize",
               "url": "https://caloriewize.com",
               "description": "Find calories and nutrition facts for thousands of foods. Compare foods side by side. Data from USDA FoodData Central.",
-              "parentOrganization": {
-                "@type": "Organization",
-                "name": "DataPeek Research Network",
-                "url": "https://datapeekfacts.com"
-              }
+              // Launch-period footprint guard: parentOrganization is only emitted
+              // when CW_HUB_LINK="on". During HN/PH launch windows we keep the
+              // schema standalone (= CalorieWize as a first-class entity) so
+              // network discovery doesn't pre-empt methodology evaluation.
+              ...(process.env.CW_HUB_LINK === "on" ? {
+                parentOrganization: {
+                  "@type": "Organization",
+                  name: "DataPeek Research Network",
+                  url: "https://datapeekfacts.com",
+                },
+              } : {})
             }
           ]
         }) }} />
@@ -95,9 +100,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <a href="/calculator/" className="hover:text-orange-600">Calculator</a>
               <a href="/state/" className="hover:text-orange-600">By State</a>
               <a href="/insights/" className="hover:text-orange-600">Insights</a>
-              <a href="/guide/" className="hover:text-orange-600">Guides</a>
-              <a href="/blog/" className="hover:text-orange-600">Articles</a>
-              <a href="/es/" className="text-slate-400 hover:text-orange-600 text-xs">ES</a>
             </nav>
           </div>
         </header>
@@ -107,6 +109,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <p>Powered by data from USDA FoodData Central. Values per 100g serving.</p>
             <p className="mt-2">
               <a href="/about/" className="hover:text-orange-600">About</a>
+              {" | "}
+              <a href="/methodology/" className="hover:text-orange-600">Methodology</a>
+              {" | "}
+              <a href="/editorial-policy/" className="hover:text-orange-600">Editorial Policy</a>
+              {" | "}
+              <a href="/corrections-policy/" className="hover:text-orange-600">Corrections</a>
               {" | "}
               <a href="/privacy/" className="hover:text-orange-600">Privacy</a>
               {" | "}

@@ -1,14 +1,25 @@
-import { DB_UPDATED, EDITORIAL_TEAM, PUBLISHER, SOURCE_AUTHORITIES } from "@/lib/authorship";
+import {
+  EDITORIAL_TEAM,
+  PUBLISHER,
+  REFERENCE_AUTHORITIES,
+  SOURCE_AUTHORITIES,
+  reviewedAtForLayer,
+  type Layer,
+} from "@/lib/authorship";
 
 interface Props {
-  /** Per-entity vintage (overrides DB_UPDATED). Use for non-food pages. */
+  /** Required — surface category. Used to look up the reviewed date. */
+  layer: Layer;
+  /** Required when layer="legal" — picks the per-policy date. */
+  slug?: string;
+  /** Override the resolved reviewed date (rarely used). */
   vintage?: string;
-  /** Data source label (e.g. "USDA FoodData Central"). */
+  /** Per-page data source label override. */
   source?: string;
 }
 
-export function AuthorBox({ vintage, source = "USDA FoodData Central" }: Props = {}) {
-  const reviewedAt = vintage ?? DB_UPDATED;
+export function AuthorBox({ layer, slug, vintage, source = "USDA FoodData Central" }: Props) {
+  const reviewedAt = vintage ?? reviewedAtForLayer(layer, slug);
 
   return (
     <div className="mt-10 p-5 bg-slate-50 border border-slate-200 rounded-xl">
@@ -23,20 +34,36 @@ export function AuthorBox({ vintage, source = "USDA FoodData Central" }: Props =
           <div className="font-semibold text-slate-900 text-sm">
             Reviewed by the {EDITORIAL_TEAM.name}
           </div>
-          <div className="text-xs text-slate-500 mt-0.5">
-            Part of the <a href={PUBLISHER.url} className="text-slate-700 hover:underline" rel="noopener">{PUBLISHER.name}</a>
-          </div>
+          {/* Launch-period footprint guard: publisher line gated by CW_HUB_LINK.
+              Editorial Team review signal stays (HCU load-bearing); only the
+              cross-network publisher attribution hides during launch windows. */}
+          {process.env.CW_HUB_LINK === "on" && (
+            <div className="text-xs text-slate-500 mt-0.5">
+              Part of the <a href={PUBLISHER.url} className="text-slate-700 hover:underline" rel="noopener">{PUBLISHER.name}</a>
+            </div>
+          )}
         </div>
       </div>
       <p className="text-xs text-slate-600 leading-relaxed mb-3">
-        Each entry's nutrition values are cross-referenced against {SOURCE_AUTHORITIES.map((s, i) => (
+        Each food entry's nutrient values come from{' '}
+        {SOURCE_AUTHORITIES.map((s, i) => (
           <span key={s.name}>
             {i > 0 && (i === SOURCE_AUTHORITIES.length - 1 ? ', and ' : ', ')}
             <a href={s.url} className="text-slate-700 underline underline-offset-2 hover:text-slate-900" rel="noopener" target="_blank">
               {s.name}
             </a>
           </span>
-        ))} before publication. Our editorial workflow audits source URLs, calculation methods, and data vintage on every release cycle.
+        ))}
+        . Editorial commentary cross-references{' '}
+        {REFERENCE_AUTHORITIES.map((r, i) => (
+          <span key={r.name}>
+            {i > 0 && (i === REFERENCE_AUTHORITIES.length - 1 ? ', and ' : ', ')}
+            <a href={r.url} className="text-slate-700 underline underline-offset-2 hover:text-slate-900" rel="noopener" target="_blank">
+              {r.name}
+            </a>
+          </span>
+        ))}
+        . Calculations and source URLs are audited on every release cycle.
       </p>
       <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
         {reviewedAt && (
@@ -47,11 +74,11 @@ export function AuthorBox({ vintage, source = "USDA FoodData Central" }: Props =
         )}
         <span>Data source: {source}</span>
         <span className="text-slate-300">·</span>
-        <a href="https://datapeekfacts.com/editorial-policy/" className="underline underline-offset-2 hover:text-slate-900" rel="noopener">Editorial policy</a>
+        <a href="/editorial-policy/" className="underline underline-offset-2 hover:text-slate-900">Editorial policy</a>
         <span className="text-slate-300">·</span>
         <a href="/methodology/" className="underline underline-offset-2 hover:text-slate-900">Methodology</a>
         <span className="text-slate-300">·</span>
-        <a href="/contact/" className="underline underline-offset-2 hover:text-slate-900">Send a correction</a>
+        <a href="/corrections-policy/" className="underline underline-offset-2 hover:text-slate-900">Send a correction</a>
       </div>
     </div>
   );
